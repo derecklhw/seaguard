@@ -4,3 +4,8 @@
     <AppAlert> This is an auto-imported component </AppAlert>
   </div>
 </template>
+<style lang="scss" scoped>
+h1 {
+  color: $primary;
+}
+</style>

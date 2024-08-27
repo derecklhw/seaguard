@@ -12,4 +12,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/scss/_colors.scss" as *;',
+        },
+      },
+    },
+  },
 });
