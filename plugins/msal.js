@@ -1,13 +1,14 @@
 import { PublicClientApplication } from "@azure/msal-browser";
 export default defineNuxtPlugin(async () => {
-  const config = {
+  const config = useRuntimeConfig();
+  const msalConfig = {
     auth: {
-      clientId: import.meta.env.VITE_CLIENT_ID,
-      authority: import.meta.env.VITE_AUTHORITY,
-      redirectUri: import.meta.env.VITE_REDIRECT_URI,
+      clientId: config.public.clientId,
+      authority: config.public.authority,
+      redirectUri: config.public.redirectUri,
     },
   };
-  const msal = new PublicClientApplication(config);
+  const msal = new PublicClientApplication(msalConfig);
   await msal.initialize();
 
   const login = async () => {

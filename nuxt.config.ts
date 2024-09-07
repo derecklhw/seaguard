@@ -22,4 +22,11 @@ export default defineNuxtConfig({
     },
   },
   plugins: [{ src: "~/plugins/msal.js", mode: "client" }],
+  runtimeConfig: {
+    public: {
+      clientId: process.env.CLIENT_ID,
+      authority: process.env.AUTHORITY,
+      redirectUri: process.env.REDIRECT_URI,
+    },
+  },
 });
