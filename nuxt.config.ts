@@ -21,4 +21,5 @@ export default defineNuxtConfig({
       },
     },
   },
+  plugins: [{ src: "~/plugins/msal.js", mode: "client" }],
 });
