@@ -4,6 +4,7 @@
       <div class="text">
         <h1>MSAL Authentication in Nuxt3</h1>
       </div>
+      <p>{{ config.public.clientId ?? "kok" }}</p>
       <div class="button">
         <button class="btn" @click="loginUser">
           Click to login with Microsoft 365
@@ -14,6 +15,7 @@
 </template>
 <script setup>
 const { $login } = useNuxtApp();
+const config = useRuntimeConfig();
 const loginUser = async () => {
   clearSiteData();
   const loginResponse = await $login();
