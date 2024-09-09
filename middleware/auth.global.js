@@ -2,7 +2,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   if (process.server) return;
   const { $acquireTokenSilent } = useNuxtApp();
   const accessToken = (await $acquireTokenSilent())?.accessToken;
-  if (to.name !== "login" && !accessToken) {
+  if (to.name === "admin" && !accessToken) {
     return navigateTo("/login");
   } else if (to.name === "login" && accessToken) {
     return navigateTo("/");

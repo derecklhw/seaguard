@@ -3,26 +3,33 @@
     <div class="loader"></div>
   </div>
   <div class="home-container" v-else>
-    <div class="profile" v-if="profileImg">
-      <img :src="profileImg" width="250" class="profile-image" />
+    <p>Home</p>
+    <div v-if="!profile">
+      <p>User not logged in</p>
     </div>
-    <div class="initials-container" v-else>
-      <div class="initials">{{ initials }}</div>
-    </div>
-    <div class="name">
-      <h1>Welcome, {{ profile.displayName }}!</h1>
-    </div>
-    <div class="email">
-      <h4>{{ profile.mail }}</h4>
-    </div>
-    <div class="username">
-      <h2>{{ profile.jobTitle }}</h2>
-    </div>
-    <div class="phone" v-if="profile.mobilePhone">
-      <h4>Phone no. : {{ profile.mobilePhone }}</h4>
-    </div>
-    <div class="button" @click="logout">
-      <button class="logout-btn">Logout</button>
+    <div v-else>
+      <p>Profile Page</p>
+      <div class="profile" v-if="profileImg">
+        <img :src="profileImg" width="250" class="profile-image" />
+      </div>
+      <div class="initials-container" v-else>
+        <div class="initials">{{ initials }}</div>
+      </div>
+      <div class="name">
+        <h1>Welcome, {{ profile.displayName }}!</h1>
+      </div>
+      <div class="email">
+        <h4>{{ profile.mail }}</h4>
+      </div>
+      <div class="username">
+        <h2>{{ profile.jobTitle }}</h2>
+      </div>
+      <div class="phone" v-if="profile.mobilePhone">
+        <h4>Phone no. : {{ profile.mobilePhone }}</h4>
+      </div>
+      <div class="button" @click="logout">
+        <button class="logout-btn">Logout</button>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +50,7 @@ onMounted(async () => {
   if (data) {
     profileImg.value = data;
   }
-  if (error) {
+  if (error && profile.value) {
     getInitials();
   }
   loading.value = false;

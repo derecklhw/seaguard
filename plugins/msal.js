@@ -40,13 +40,17 @@ export default defineNuxtPlugin(async () => {
     return msal.getAllAccounts();
   };
   const profileInfo = async () => {
-    let payload = await fetch("https://graph.microsoft.com/v1.0/me", {
-      headers: {
-        Authorization: `Bearer ${tokenResponse.accessToken}`,
-      },
-    });
-    let json = await payload.json();
-    return json;
+    try {
+      let payload = await fetch("https://graph.microsoft.com/v1.0/me", {
+        headers: {
+          Authorization: `Bearer ${tokenResponse.accessToken}`,
+        },
+      });
+      let json = await payload.json();
+      return json;
+    } catch (error) {
+      return null;
+    }
   };
   const profileImg = async () => {
     try {
