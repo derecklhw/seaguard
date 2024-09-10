@@ -21,4 +21,5 @@ export default defineNuxtConfig({
       },
     },
   },
+  plugins: [{ src: "~/plugins/vue-camera-lib.client.js", ssr: false }],
 });
