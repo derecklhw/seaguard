@@ -3,7 +3,9 @@
     <!-- <h1>Camera Component Demo</h1>
     <AppCamera @photo-clicked="onPhotoClicked" />
     <img v-if="photoData" :src="photoData" alt="Captured Image" /> -->
-    <WebCamUI :fullscreenState="false" @photoTaken="photoTaken" />
+    <ClientOnly>
+      <WebCamUI :fullscreenState="false" @photoTaken="photoTaken" />
+    </ClientOnly>
   </div>
 </template>
 
