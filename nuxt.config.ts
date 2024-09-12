@@ -28,5 +28,10 @@ export default defineNuxtConfig({
       authority: process.env.AUTHORITY,
       redirectUri: process.env.REDIRECT_URI,
     },
+    azureMySqlUser: process.env.AZURE_MYSQL_USER,
+    azureMySqlPassword: process.env.AZURE_MYSQL_PASSWORD,
+    azureMySqlServer: process.env.AZURE_MYSQL_SERVER,
+    azureMySqlDatabase: process.env.AZURE_MYSQL_DATABASE,
+    geminiApiKey: process.env.GEMINI_API_KEY,
   },
 });

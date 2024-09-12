@@ -4,6 +4,7 @@
   </div>
   <div class="home-container" v-else>
     <p>Home</p>
+    <pre>{{ data }}</pre>
     <div v-if="!profile">
       <p>User not logged in</p>
     </div>
@@ -38,6 +39,7 @@ const { $profileInfo, $profileImg, $logout } = useNuxtApp();
 const profile = ref();
 const profileImg = ref();
 const loading = ref(true);
+const { data } = await useFetch("/api/hello");
 
 const logout = async () => {
   await $logout();
