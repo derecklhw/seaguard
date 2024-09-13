@@ -39,7 +39,10 @@ const { $profileInfo, $profileImg, $logout } = useNuxtApp();
 const profile = ref();
 const profileImg = ref();
 const loading = ref(true);
-const { data } = await useFetch("/api/hello");
+const { data } = await useFetch("/api/gemini", {
+  method: "post",
+  body: { message: "Hello" },
+});
 
 const logout = async () => {
   await $logout();
