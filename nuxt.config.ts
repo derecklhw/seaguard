@@ -44,4 +44,26 @@ export default defineNuxtConfig({
       endpoint: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_ENDPOINT,
     },
   },
+  modules: ["@nuxtjs/i18n"],
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        file: "en-US.json",
+      },
+      {
+        code: "fr",
+        file: "fr-FR.json",
+      },
+    ],
+    lazy: true,
+    langDir: "lang",
+    defaultLocale: "en",
+    strategy: "prefix_except_default",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root", // recommended
+    },
+  },
 });

@@ -4,7 +4,17 @@
   </div>
   <div class="home-container" v-else>
     <p>Home</p>
-    <pre>{{ data }}</pre>
+    <!-- <pre>{{ data }}</pre> -->
+    <div>
+      <NuxtLink :to="localePath('about')"
+        >Redirect to {{ $t("about") }} Page</NuxtLink
+      >
+      <br />
+      <button @click="setLocale('en')">Button English</button>
+      <br />
+      <button @click="setLocale('fr')">Button French</button>
+      <p>{{ $t("welcome") }}</p>
+    </div>
     <div v-if="!profile">
       <p>User not logged in</p>
     </div>
@@ -35,6 +45,8 @@
   </div>
 </template>
 <script setup>
+const { locale, setLocale } = useI18n();
+const localePath = useLocalePath();
 const { $profileInfo, $profileImg, $logout } = useNuxtApp();
 const profile = ref();
 const profileImg = ref();
