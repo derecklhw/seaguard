@@ -39,5 +39,9 @@ export default defineNuxtConfig({
       },
     },
     geminiApiKey: process.env.GEMINI_API_KEY,
+    azureAiDocumentIntelligence: {
+      apiKey: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_KEY,
+      endpoint: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_ENDPOINT,
+    },
   },
 });
