@@ -21,4 +21,49 @@ export default defineNuxtConfig({
       },
     },
   },
+  plugins: [{ src: "~/plugins/msal.js", mode: "client" }],
+  runtimeConfig: {
+    public: {
+      clientId: process.env.CLIENT_ID,
+      authority: process.env.AUTHORITY,
+      redirectUri: process.env.REDIRECT_URI,
+    },
+    azureMSSQLConfig: {
+      user: process.env.AZURE_MYSQL_USER,
+      password: process.env.AZURE_MYSQL_PASSWORD,
+      server: process.env.AZURE_MYSQL_SERVER,
+      database: process.env.AZURE_MYSQL_DATABASE,
+      options: {
+        encrypt: true,
+        trustServerCertificate: false,
+      },
+    },
+    geminiApiKey: process.env.GEMINI_API_KEY,
+    azureAiDocumentIntelligence: {
+      apiKey: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_KEY,
+      endpoint: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_ENDPOINT,
+    },
+  },
+  modules: ["@nuxtjs/i18n"],
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        file: "en-US.json",
+      },
+      {
+        code: "fr",
+        file: "fr-FR.json",
+      },
+    ],
+    lazy: true,
+    langDir: "lang",
+    defaultLocale: "en",
+    strategy: "prefix_except_default",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root", // recommended
+    },
+  },
 });
