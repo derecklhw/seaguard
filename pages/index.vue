@@ -14,6 +14,10 @@
       <br />
       <button @click="setLocale('fr')">Button French</button>
       <p>{{ $t("welcome") }}</p>
+      <form @submit.prevent="handleFileSubmit">
+        <input type="file" @change="handleFileChange" />
+        <button type="submit">Upload file</button>
+      </form>
     </div>
     <div v-if="!profile">
       <p>User not logged in</p>
@@ -78,6 +82,27 @@ const getInitials = () => {
   const fletter = nameArray[0].charAt(0);
   const lletter = nameArray[1].charAt(0);
   initials.value = fletter + lletter;
+};
+
+const files = ref(null);
+const handleFileChange = (event) => {
+  files.value = event.target.files;
+};
+
+const handleFileSubmit = async () => {
+  const fd = new FormData();
+  if (files.value) {
+    fd.append(`index`, files.value[0]);
+  }
+  // const data = await $fetch("/api/extract-text-from-document", {
+  //   method: "POST",
+  //   body: fd,
+  // });
+  const data = await $fetch("/api/extract-text-from-license", {
+    method: "POST",
+    body: fd,
+  });
+  console.log(data);
 };
 </script>
 <style lang="scss" scoped>

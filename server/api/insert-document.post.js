@@ -1,12 +1,11 @@
 import { getDB } from "../db/index";
 
 export default defineEventHandler(async (event) => {
-  const db = await getDB();
-
-  const body = await readBody(event);
-  const { extractedText, type } = body;
-  console.log(extractedText, type);
   try {
+    const db = await getDB();
+
+    const body = await readBody(event);
+    const { extractedText, type } = body;
     const titleParagraph = extractedText.paragraphs[0];
 
     const title =
@@ -15,6 +14,8 @@ export default defineEventHandler(async (event) => {
         : "No title found";
 
     const content = extractedText.content;
+
+    // TODO: check if insert query good
 
     const response = await db
       .request()
@@ -26,9 +27,9 @@ export default defineEventHandler(async (event) => {
         "INSERT INTO Documents (Title, Content, Type, UserId) OUTPUT INSERTED.Id VALUES (@Title, @Content, @Type, @UserId)"
       );
 
-    return response.recordset[0];
+    return { success: true, message: response.recordset[0] };
   } catch (err) {
-    console.error("Error inserting document:", err);
+    console.error(err);
     return {
       success: false,
       message: "Error inserting document",

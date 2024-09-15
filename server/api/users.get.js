@@ -3,11 +3,14 @@ import { getDB } from "../db/index";
 export default defineEventHandler(async (event) => {
   try {
     const db = await getDB();
-    // create a request object to inject data
-    // const request = await db.request();
+
     const result = await db.query`SELECT * FROM users`;
-    return result;
+    return { success: true, message: result };
   } catch (err) {
     console.log(err);
+    return {
+      success: false,
+      message: "Error fetching users",
+    };
   }
 });
