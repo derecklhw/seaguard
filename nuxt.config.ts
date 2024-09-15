@@ -21,7 +21,13 @@ export default defineNuxtConfig({
       },
     },
   },
-  plugins: [{ src: "~/plugins/msal.js", mode: "client" }],
+  plugins: [
+    { src: "~/plugins/msal.js", mode: "client" },
+    { src: "~/plugins/vue-camera-lib.client.js", ssr: false },
+  ],
+  build: {
+    transpile: ["vue-camera-lib"],
+  },
   runtimeConfig: {
     public: {
       clientId: process.env.CLIENT_ID,

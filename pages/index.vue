@@ -93,16 +93,16 @@ const handleFileSubmit = async () => {
   const fd = new FormData();
   if (files.value) {
     fd.append(`index`, files.value[0]);
+    fd.append("isPhotoTaken", "false");
+    fd.append("model", "MruBoatLicenseModel"); // prebuilt-layout, MruBoatLicenseModel
   }
-  // const data = await $fetch("/api/extract-text-from-document", {
-  //   method: "POST",
-  //   body: fd,
-  // });
-  const data = await $fetch("/api/extract-text-from-license", {
+  const data = await $fetch("/api/extract-text-from-document", {
     method: "POST",
     body: fd,
   });
   console.log(data);
+  // MruBoatLicenseModel
+  // console.log(data.message.documents[0].fields);
 };
 </script>
 <style lang="scss" scoped>
