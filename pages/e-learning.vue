@@ -21,29 +21,46 @@
         </div>
       </div>
     </div>
-    
-    <div class="content" style="height: 10vh; margin-top: 10px; justify-content: center">
+
+    <div
+      class="content"
+      style="height: 10vh; margin-top: 10px; justify-content: center"
+    >
       <div class="circle-item">
-        <div class="circle" style="background: linear-gradient(135deg, #3778b5, #143f7a)">
+        <div
+          class="circle"
+          style="background: linear-gradient(135deg, #3778b5, #143f7a)"
+        >
           <IconVideoCam />
         </div>
         <div class="circle-text">{{ videoCount }}+ videos</div>
 
-        <div class="circle" style="background: linear-gradient(135deg, #3778b5, #42536d)">
+        <div
+          class="circle"
+          style="background: linear-gradient(135deg, #3778b5, #42536d)"
+        >
           <IconUsers />
         </div>
         <div class="circle-text">{{ userCount }}+ Users</div>
       </div>
     </div>
 
-    <div class="content" style="height: 20vh; margin-top: 10px; justify-content: center">
-      <Carousel class="w-full" :style="{ width: '60%' }" :opts="{ align: 'start', dots: true }">
+    <div
+      class="content"
+      style="height: 20vh; margin-top: 10px; justify-content: center"
+    >
+      <Carousel
+        class="w-full"
+        :style="{ width: '60%' }"
+        :opts="{ align: 'start', dots: true }"
+      >
         <CarouselContent>
           <!-- Dynamically generate carousel items based on videoData -->
           <CarouselItem
-            v-for="(video, index) in videoData" 
+            v-for="(video, index) in videoData"
             :key="index"
             class="md:basis-1/2 lg:basis-1/3"
+            @click="navigateToVideo(video.id)" 
           >
             <div class="card">
               <div class="img"></div>
@@ -70,9 +87,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ref, onMounted } from "vue";
+import { useRouter } from 'vue-router'; // Import useRouter for navigation
 
 export default {
   setup() {
+    const router = useRouter(); // Initialize router
     const userCount = ref(0);
     const videoCount = ref(0);
     const videoData = ref([]);
@@ -97,7 +116,8 @@ export default {
           videoCount.value = data.count.recordsets[0][0]["count"] || 0;
 
           // Create a list of video items based on the details
-          videoData.value = data.videos.recordsets[0].map(video => ({
+          videoData.value = data.videos.recordsets[0].map((video) => ({
+            id: video.Id, // Include video ID
             title: video.Name, // Use video name
             details: `${video.DurationInSeconds} seconds`, // Use video duration
           }));
@@ -109,10 +129,16 @@ export default {
       }
     });
 
+    // Method to navigate to the video detail page
+    const navigateToVideo = (id) => {
+      router.push(`/e-learning/${id}`); // Redirect to the video detail page
+    };
+
     return {
       userCount,
       videoCount,
       videoData,
+      navigateToVideo, // Expose method to the template
     };
   },
 };
