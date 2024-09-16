@@ -85,7 +85,9 @@
     <div
       class="flex w-80 items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4"
     >
-      <Button v-if="!profile" @click="loginUser">Login</Button>
+      <Button v-if="!store.getUserPrincipalName" @click="loginUser"
+        >Login</Button
+      >
       <DropdownMenu v-else>
         <DropdownMenuTrigger as-child>
           <Button variant="secondary" size="icon" class="rounded-full">
@@ -107,12 +109,10 @@
 </template>
 <script setup>
 const localePath = useLocalePath();
-const { $login, $profileInfo, $logout } = useNuxtApp();
-const profile = ref();
-onMounted(async () => {
-  const profileInfo = await $profileInfo();
-  profile.value = profileInfo;
-});
+const { $login, $logout } = useNuxtApp();
+const store = useProfileStore();
+
+onMounted(async () => {});
 const loginUser = async () => {
   clearSiteData();
   const loginResponse = await $login();
@@ -126,6 +126,7 @@ function clearSiteData() {
     const [name, _] = cookie.split("=").map((c) => c.trim());
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   });
+  store.clearProfile();
   localStorage.clear();
   sessionStorage.clear();
 }
