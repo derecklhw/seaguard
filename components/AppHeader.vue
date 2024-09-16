@@ -5,12 +5,12 @@
     <nav
       class="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-8"
     >
-      <img src="/images/logo.png" alt="Logo" class="h-12 w-12" />
+      <img src="/images/logo.png" alt="Logo" class="size-12" />
       <NuxtLink
         :to="localePath('/')"
         class="text-foreground transition-colors hover:text-foreground"
       >
-        Home
+        {{ $t("home") }}
       </NuxtLink>
 
       <NuxtLink
@@ -25,24 +25,21 @@
       >
         {{ $t("map") }}
       </NuxtLink>
-      <a
-        href="#"
+      <NuxtLink
+        :to="localePath('incidents')"
         class="text-muted-foreground transition-colors hover:text-foreground"
       >
-        Incidents
-      </a>
-      <a
-        href="#"
+        {{ $t("incidents") }}
+      </NuxtLink>
+      <NuxtLink
+        :to="localePath('donation')"
         class="text-muted-foreground transition-colors hover:text-foreground"
       >
-        Donation
-      </a>
-      <a
-        href="#"
-        class="text-muted-foreground transition-colors hover:text-foreground"
-      >
+        {{ $t("donation") }}
+      </NuxtLink>
+      <p class="text-muted-foreground transition-colors hover:text-foreground">
         Quiz
-      </a>
+      </p>
     </nav>
     <Sheet>
       <SheetTrigger as-child>
@@ -53,32 +50,45 @@
       </SheetTrigger>
       <SheetContent side="left">
         <nav class="grid gap-6 text-lg font-medium">
-          <img src="/images/logo.png" alt="Logo" class="h-12 w-12" />
-          <span class="sr-only">Acme Inc</span>
-
-          <a href="#" class="hover:text-foreground"> Home </a>
-          <a href="#" class="text-muted-foreground hover:text-foreground">
-            E-Learning
-          </a>
-          <a href="#" class="text-muted-foreground hover:text-foreground">
-            Map
-          </a>
-          <a href="#" class="text-muted-foreground hover:text-foreground">
-            Incidents
-          </a>
-          <a href="#" class="text-muted-foreground hover:text-foreground">
-            Donation
-          </a>
-          <a href="#" class="text-muted-foreground hover:text-foreground">
-            Quiz
-          </a>
+          <img src="/images/logo.png" alt="Logo" class="size-12" />
+          <NuxtLink :to="localePath('/')" class="hover:text-foreground">
+            {{ $t("home") }}
+          </NuxtLink>
+          <NuxtLink
+            :to="localePath('e-learning')"
+            class="text-muted-foreground hover:text-foreground"
+          >
+            {{ $t("e-learning") }}
+          </NuxtLink>
+          <NuxtLink
+            :to="localePath('map')"
+            class="text-muted-foreground hover:text-foreground"
+          >
+            {{ $t("map") }}
+          </NuxtLink>
+          <NuxtLink
+            :to="localePath('incidents')"
+            class="text-muted-foreground hover:text-foreground"
+          >
+            {{ $t("incidents") }}
+          </NuxtLink>
+          <NuxtLink
+            :to="localePath('donation')"
+            class="text-muted-foreground hover:text-foreground"
+          >
+            {{ $t("donation") }}
+          </NuxtLink>
+          <p class="text-muted-foreground hover:text-foreground">Quiz</p>
         </nav>
       </SheetContent>
     </Sheet>
     <div
       class="flex w-80 items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4"
     >
-      <DropdownMenu>
+      <Button v-if="!store.getUserPrincipalName" @click="loginUser"
+        >Login</Button
+      >
+      <DropdownMenu v-else>
         <DropdownMenuTrigger as-child>
           <Button variant="secondary" size="icon" class="rounded-full">
             <IconCircleUser class="h-5 w-5" />
@@ -88,10 +98,10 @@
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
+          <!-- <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem>Support</DropdownMenuItem> -->
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuItem @click="logout">Logout</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
@@ -99,4 +109,25 @@
 </template>
 <script setup>
 const localePath = useLocalePath();
+const { $login, $logout } = useNuxtApp();
+const store = useProfileStore();
+
+onMounted(async () => {});
+const loginUser = async () => {
+  clearSiteData();
+  const loginResponse = await $login();
+  if (loginResponse) reloadNuxtApp();
+};
+const logout = async () => {
+  await $logout();
+};
+function clearSiteData() {
+  document.cookie.split(";").forEach((cookie) => {
+    const [name, _] = cookie.split("=").map((c) => c.trim());
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  });
+  store.clearProfile();
+  localStorage.clear();
+  sessionStorage.clear();
+}
 </script>
