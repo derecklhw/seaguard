@@ -1,7 +1,10 @@
 {
     "welcome": "Welcome",
     "about": "About",
-    "main_text_training": "Find The Best Online Courses On The Mauritian Sea Territories"
-
-      
+    "e-learning": "E-learning",
+    "map": "Map",
+    "incidents": "Incidents",
+    "donation": "Donation",
+    "quiz": "Quiz",
+    "main_text_e-learning": "Find The Best Online Courses On The Mauritian Sea Territories"
 }
