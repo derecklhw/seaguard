@@ -23,6 +23,8 @@
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.441.0",
     "mssql": "^11.0.1",
+    "leaflet": "^1.9.4",
+    "leaflet-ellipse": "^0.9.1",
     "nuxt": "^3.13.0",
     "radix-vue": "^1.9.5",
     "shadcn-nuxt": "^0.10.4",
