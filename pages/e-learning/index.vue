@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="main-body-container">
+      <!-- Background video -->
       <video autoplay muted loop id="background-video">
         <source src="/videos/background_e-learning.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -22,46 +23,25 @@
       </div>
     </div>
 
-    <div
-      class="content"
-      style="height: 10vh; margin-top: 10px; justify-content: center"
-    >
+    <div class="content" style="height: 10vh; margin-top: 10px; justify-content: center">
       <div class="circle-item">
-        <div
-          class="circle"
-          style="background: linear-gradient(135deg, #3778b5, #143f7a)"
-        >
+        <div class="circle" style="background: linear-gradient(135deg, #3778b5, #143f7a)">
           <IconVideoCam />
         </div>
         <div class="circle-text">{{ videoCount }}+ videos</div>
 
-        <div
-          class="circle"
-          style="background: linear-gradient(135deg, #3778b5, #42536d)"
-        >
+        <div class="circle" style="background: linear-gradient(135deg, #3778b5, #42536d)">
           <IconUsers />
         </div>
         <div class="circle-text">{{ userCount }}+ Users</div>
       </div>
     </div>
 
-    <div
-      class="content"
-      style="height: 20vh; margin-top: 10px; justify-content: center"
-    >
-      <Carousel
-        class="w-full"
-        :style="{ width: '60%' }"
-        :opts="{ align: 'start', dots: true }"
-      >
+    <div class="content" style="height: 20vh; margin-top: 10px; justify-content: center">
+      <Carousel class="w-full" :style="{ width: '60%' }" :opts="{ align: 'start', dots: true }">
         <CarouselContent>
           <!-- Dynamically generate carousel items based on videoData -->
-          <CarouselItem
-            v-for="(video, index) in videoData"
-            :key="index"
-            class="md:basis-1/2 lg:basis-1/3"
-            @click="navigateToVideo(video.id)" 
-          >
+          <CarouselItem v-for="(video, index) in videoData" :key="index" class="md:basis-1/2 lg:basis-1/3" @click="$router.push(`/e-learning/${video.id}`)">
             <div class="card">
               <div class="img"></div>
               <div class="text">
