@@ -1,4 +1,5 @@
 import { getDB } from "../db/index";
+import sql from "mssql";
 
 export default defineEventHandler(async (event) => {
   const db = await getDB();
@@ -18,7 +19,10 @@ export default defineEventHandler(async (event) => {
         `);
 
     if (result.rowsAffected[0] > 0) {
-      res.json({ success: true });
+      return {
+        success: true,
+        message: "Booking deleted successfully",
+      };
     } else {
       return {
         success: true,

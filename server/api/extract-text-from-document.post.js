@@ -1,5 +1,4 @@
-import DocumentIntelligence from "@azure-rest/ai-document-intelligence";
-import {
+import DocumentIntelligence, {
   getLongRunningPoller,
   isUnexpected,
 } from "@azure-rest/ai-document-intelligence";

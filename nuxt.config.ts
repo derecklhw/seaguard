@@ -50,7 +50,23 @@ export default defineNuxtConfig({
       endpoint: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_ENDPOINT,
     },
   },
-  modules: ["@nuxtjs/i18n"],
+  modules: [
+    "@nuxtjs/i18n",
+    "@nuxt/eslint",
+    "shadcn-nuxt",
+    "@nuxtjs/tailwindcss",
+  ],
+  shadcn: {
+    /**
+     * Prefix for all the imported component
+     */
+    prefix: "",
+    /**
+     * Directory that the component lives in.
+     * @default "./components/ui"
+     */
+    componentDir: "./components/ui",
+  },
   i18n: {
     locales: [
       {

@@ -49,6 +49,7 @@ export default defineNuxtPlugin(async () => {
       let json = await payload.json();
       return json;
     } catch (error) {
+      console.log(error);
       return null;
     }
   };

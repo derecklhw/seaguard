@@ -1,10 +1,7 @@
 <template>
   <div id="app">
-    <!-- <h1>Camera Component Demo</h1>
-    <AppCamera @photo-clicked="onPhotoClicked" />
-    <img v-if="photoData" :src="photoData" alt="Captured Image" /> -->
     <ClientOnly>
-      <WebCamUI :fullscreenState="false" @photoTaken="photoTaken" />
+      <WebCamUI :fullscreen-state="false" @photo-taken="photoTaken" />
     </ClientOnly>
   </div>
 </template>

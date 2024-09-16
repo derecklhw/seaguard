@@ -2,7 +2,7 @@
   <div v-if="loading" class="loadData">
     <div class="loader"></div>
   </div>
-  <div class="home-container" v-else>
+  <div v-else class="home-container">
     <p>Home</p>
     <!-- <pre>{{ data }}</pre> -->
     <div>
@@ -10,9 +10,9 @@
         >Redirect to {{ $t("about") }} Page</NuxtLink
       >
       <br />
-      <button @click="setLocale('en')">Button English</button>
+      <Button @click="setLocale('en')">Button English</Button>
       <br />
-      <button @click="setLocale('fr')">Button French</button>
+      <Button @click="setLocale('fr')">Button French</Button>
       <p>{{ $t("welcome") }}</p>
       <form @submit.prevent="handleFileSubmit">
         <input type="file" @change="handleFileChange" />
@@ -24,10 +24,10 @@
     </div>
     <div v-else>
       <p>Profile Page</p>
-      <div class="profile" v-if="profileImg">
+      <div v-if="profileImg" class="profile">
         <img :src="profileImg" width="250" class="profile-image" />
       </div>
-      <div class="initials-container" v-else>
+      <div v-else class="initials-container">
         <div class="initials">{{ initials }}</div>
       </div>
       <div class="name">
@@ -39,11 +39,11 @@
       <div class="username">
         <h2>{{ profile.jobTitle }}</h2>
       </div>
-      <div class="phone" v-if="profile.mobilePhone">
+      <div v-if="profile.mobilePhone" class="phone">
         <h4>Phone no. : {{ profile.mobilePhone }}</h4>
       </div>
       <div class="button" @click="logout">
-        <button class="logout-btn">Logout</button>
+        <Button class="logout-btn">Logout</Button>
       </div>
     </div>
   </div>
@@ -55,10 +55,10 @@ const { $profileInfo, $profileImg, $logout } = useNuxtApp();
 const profile = ref();
 const profileImg = ref();
 const loading = ref(true);
-const { data } = await useFetch("/api/gemini", {
-  method: "post",
-  body: { message: "Hello" },
-});
+// const { data } = await useFetch("/api/gemini", {
+//   method: "post",
+//   body: { message: "Hello" },
+// });
 
 const logout = async () => {
   await $logout();

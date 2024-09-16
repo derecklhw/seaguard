@@ -1,6 +1,6 @@
 import { getDB } from "../db/index";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   try {
     const db = await getDB();
 
