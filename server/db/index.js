@@ -17,9 +17,11 @@ const connectDB = async () => {
   }
 };
 
-const getDB = () => {
+const getDB = async () => {
   if (!db) {
-    throw new Error("Database not connected");
+    console.log("Database not connected, retry connecting now");
+    await connectDB();
+    getDB();
   }
   return db;
 };
