@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="video-container">
     <!-- Display Video Player -->
-    <div v-if="videoId">
+    <div class="video-player" v-if="videoId">
       <iframe
-        width="1280"
-        height="720"
+        width="100%"
+        height="100%"
         :src="`https://www.videoindexer.ai/embed/player/a219ba29-e6ea-4d94-88b3-176fab58244c/${videoId}/?&locale=en&location=southeastasia`"
         frameborder="0"
         allowfullscreen
@@ -12,17 +12,21 @@
     </div>
 
     <!-- Display Insights Widget -->
-    <div v-if="videoId">
-      <iframe
-        width="580"
-        height="780"
-        :src="`https://www.videoindexer.ai/embed/insights/a219ba29-e6ea-4d94-88b3-176fab58244c/${videoId}/?&locale=en&location=southeastasia`"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
+    <div class="insights-container" v-if="videoId">
+      <div class="insights-header">
+        <h2>Insights Title</h2>
+        <p>Description of the insights.</p>
+      </div>
+      <div class="insights-content">
+        <iframe
+          width="100%"
+          height="100%"
+          :src="`https://www.videoindexer.ai/embed/insights/a219ba29-e6ea-4d94-88b3-176fab58244c/${videoId}/?&locale=en&location=southeastasia`"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
-
-
   </div>
 </template>
 
@@ -35,10 +39,58 @@ export default {
   },
   data() {
     return {
-      videoId: ""};}}
-
+      videoId: "",
+    };
+  },
+};
 </script>
 
 <style scoped>
+.video-container {
+  display: flex;
+  background-color: #dde6ef;
+  padding: 10px;
+  gap: 10px;
+  height: 80vh; /* Set container height to 80% of the viewport height */
+}
 
+.video-player {
+  flex: 3; /* 60% of the container width */
+  max-width: 60%;
+  border-radius: 8px;
+  border: 2px solid white;
+  overflow: hidden;
+  height: 100%; /* Ensure the iframe takes the full height of its container */
+}
+
+.insights-container {
+  flex: 2; /* 40% of the container width */
+  max-width: 40%;
+  border-radius: 8px;
+  border: 2px solid white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure the container takes the full height of the video-container */
+}
+
+.insights-header {
+  background-color: #e0e5ec;
+  padding: 10px;
+  border-bottom: 2px solid white;
+  height: 10%; /* 10% of the insights-container height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.insights-content {
+  height: 90%; /* 90% of the insights-container height */
+  display: flex;
+}
+
+.insights-content iframe {
+  width: 100%;
+  height: 100%;
+}
 </style>
