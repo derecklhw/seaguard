@@ -28,7 +28,7 @@
               <Button
                 size="lg"
                 class="m-6 text-md md:text-lg"
-                @click="$router.push(localePath('map'))"
+                @click="scrollTo('carousel-container')"
               >
                 Explore Now
               </Button>
@@ -101,7 +101,7 @@
     </div>
 
     <!-- Carousel section with responsive styling -->
-    <div class="carousel-container">
+    <div class="carousel-container" id="carousel-container">
       <div class="carousel-wrapper">
         <Carousel
           class="w-full"
@@ -160,7 +160,10 @@ import {
 } from "@/components/ui/carousel";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router"; // Import useRouter for navigation
-
+const scrollTo = (id) => {
+  const element = document.getElementById(id);
+  element.scrollIntoView({ behavior: "smooth" });
+};
 export default {
   computed: {
     mainText() {
