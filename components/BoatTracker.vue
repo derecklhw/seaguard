@@ -1,20 +1,38 @@
 <template>
   <div>
     <div id="controls">
-      <label for="startTime">Start Time:</label>
-      <input
-        type="datetime-local"
-        id="startTime"
-        v-model="startTime"
-        required
-      />
-      <label for="endTime">End Time:</label>
-      <input type="datetime-local" id="endTime" v-model="endTime" required />
+      <!-- Select the date once -->
+      <label for="selectedDate">Select Date:</label>
+      <input type="date" id="selectedDate" v-model="selectedDate" required />
+
+      <TimeSelect
+      id="startDateTime"
+      label="Start Time"
+      start="06:00"
+      end="12:00"
+      :step="15"
+      v-model="startDateTime"
+    />
+
+    <TimeSelect
+      id="endDateTime"
+      label="End Time"
+      start="06:00"
+      end="12:00"
+      :step="15"
+      v-model="endDateTime"
+    />
+
+      <!-- Submit Button -->
       <Button @click="submitTimes">Submit Times</Button>
+
+      <!-- Hidden button for sending data -->
       <Button id="sendData" style="display: none" @click="sendMarkerData">
         Send Data
       </Button>
     </div>
+
+    <!-- Map -->
     <client-only>
       <div id="mapContainer" style="height: 500px; width: 100%"></div>
     </client-only>
@@ -22,6 +40,7 @@
 </template>
 
 <script setup>
+import TimeSelect from './TimeSelect.vue';
 import { ref, onMounted, watch } from "vue";
 import { useFetch } from "#app";
 import "leaflet/dist/leaflet.css";
@@ -109,7 +128,7 @@ const handleMapClick = (e, icon) => {
         .bindPopup(
           `
         <div>
-          <p>New Marker</p>
+          <p>Your Marker</p>
           <Button class="remove-pin-btn">Remove Pin</Button>
         </div>
       `
@@ -162,22 +181,26 @@ const updateIconSize = (zoom) => {
 
 const fetchAllMarkersAndUserBookings = async () => {
   if (process.client && L.value) {
+    // console.log(startTime.value, endTime.value);
+    let isoStartTime = new Date(startTime.value).toISOString(); // Converts to ISO format
+    let isoEndTime = new Date(endTime.value).toISOString(); // Converts to ISO format
 
+    // console.log(isoStartTime, isoEndTime);
     try {
-      const userBookings  = await $fetch("/api/check-user-booking", {
+      const userBookings = await $fetch("/api/check-user-booking", {
         method: "GET",
         params: {
-          startTime: startTime.value,
-          endTime: endTime.value,
+          startTime: isoStartTime,
+          endTime: isoEndTime,
           userEmail: userEmail.value,
         },
       });
 
-      const markers  = await $fetch("/api/get-markers", {
+      const markers = await $fetch("/api/get-markers", {
         method: "GET",
         params: {
-          startTime: startTime.value,
-          endTime: endTime.value,
+          startTime: isoStartTime,
+          endTime: isoEndTime,
           userEmail: userEmail.value,
         },
       });
@@ -185,18 +208,12 @@ const fetchAllMarkersAndUserBookings = async () => {
       clearMarkers();
 
       // Process user bookings
-      // console.log(userBookings);
-      if (
-        userBookings &&
-        Array.isArray(userBookings)
-      ) {
-        console.log('Hi')
+      if (userBookings && Array.isArray(userBookings)) {
+        console.log(userBookings);
         userBookings.forEach((booking) => {
           let startDate = new Date(booking.startTime);
           let endDate = new Date(booking.endTime);
-
-          startDate.setHours(startDate.getHours() - 4);
-          endDate.setHours(endDate.getHours() - 4);
+          console.log(startDate, endDate);
 
           const userMarker = L.value
             .marker([booking.Latitude, booking.Longitude], {
@@ -233,18 +250,16 @@ const fetchAllMarkersAndUserBookings = async () => {
 
       // Process other markers
 
-      console.log(markers); 
+      // console.log(markers);
       if (markers && Array.isArray(markers)) {
         markers.forEach((marker) => {
           let startDate = new Date(marker.startTime);
           let endDate = new Date(marker.endTime);
 
-          startDate.setHours(startDate.getHours() - 4);
-          endDate.setHours(endDate.getHours() - 4);
-
-          L.value.marker([marker.Latitude, marker.Longitude], {
-            icon: getBoatIcon(),
-          })
+          L.value
+            .marker([marker.Latitude, marker.Longitude], {
+              icon: getBoatIcon(),
+            })
             .bindPopup(
               `
           <div>
@@ -327,11 +342,16 @@ const updateEllipseColorsOnRemove = (lat, lng) => {
 };
 
 const submitTimes = () => {
-  if (
-    startTime.value &&
-    endTime.value &&
-    new Date(startTime.value) < new Date(endTime.value)
-  ) {
+  if (selectedDate.value && startDateTime.value && endDateTime.value) {
+    startTime.value = new Date(`${selectedDate.value}T${startDateTime.value}`);
+    endTime.value = new Date(`${selectedDate.value}T${endDateTime.value}`);
+
+    // console.log(startTime.value, endTime.value);
+    if (startTime.value >= endTime.value) {
+      alert("Start time must be earlier than end time.");
+      return;
+    }
+
     if (mapInitialized.value) {
       resetMap();
       initializeMap();
@@ -345,7 +365,7 @@ const submitTimes = () => {
 
     fetchAllMarkersAndUserBookings();
   } else {
-    alert("Please select valid start and end times.");
+    alert("Please select a date and valid start and end times.");
   }
 };
 
