@@ -13,10 +13,6 @@
 
     <!-- Display Insights Widget -->
     <div class="insights-container" v-if="videoId">
-      <div class="insights-header">
-        <h2>Insights Title</h2>
-        <p>Description of the insights.</p>
-      </div>
       <div class="insights-content">
         <iframe
           width="100%"
@@ -104,20 +100,20 @@ export default {
 
   .video-player {
     max-width: 100%; /* Full width on mobile */
-    height: 60vh; /* Adjust the height for the video player */
+    height: 10vh; /* Adjust the height for the video player */
   }
 
   .insights-container {
     max-width: 100%; /* Full width on mobile */
-    height: 50vh; /* Adjust the height for the insights container */
+    height: 90vh; /* Adjust the height for the insights container */
   }
 
   .insights-header {
-    height: auto; /* Let the header adjust automatically */
+    height: 10vh; /* Let the header adjust automatically */
   }
 
   .insights-content {
-    height: auto; /* Let the content adjust automatically */
+    height: 60vh; /* Let the content adjust automatically */
   }
 }
 </style>
