@@ -1,177 +1,184 @@
 .main-body-container {
-    position: relative;
-    width: 100%;
-    height: 50vh;
-    overflow: hidden;
-  }
-  
-  .h1 {
-    font-family: "Times New Roman", Times, serif;
-  }
-  /* Video element styling */
-  #background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
-  }
-  
-  /* Overlay for dimming the video background */
-  .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(25, 90, 148, 0.5); /* Adjust opacity for dimming effect */
-    z-index: -1;
-  }
-  
-  .content {
-    display: flex;
-    justify-content: space-between; /* Center the text-sections horizontally */
-    align-items: center; /* Center the text-sections vertically */
-    height: 50vh; /* Adjust as needed */
-  }
-  
-  .text-section-container {
-    display: flex;
-    width: 80%; /* Adjust container width */
-    max-width: 1200px; /* Optional: Max width for responsiveness */
-  }
-  
-  .text-section {
-    padding: 20px;
-    background-color: #f0f0f0; /* Optional: Background color for visibility */
-    border-radius: 8px; /* Optional: Rounded corners */
-  }
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+}
 
-  .circle-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Space between circle-items */
-  }
-  
-  .circle-item {
-    display: flex;
-    align-items: center; /* Center items vertically */
-  }
-  
-  .circle {
-    width: 10vh; /* Adjust circle size */
-    height: 10vh; /* Adjust circle size */
-    border-radius: 50%; /* Makes it a circle */
-    background-color: #007bff; /* Example color */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .circle i {
-    color: white; /* Icon color */
-  }
-  
-  .circle-text {
-    margin-left: 10px; /* Space between circle and text */
-  }
-  .icon {
-    fill: #ff0000; /* Red color */
-  }
+h1 {
+  font-family: "Times New Roman", Times, serif;
+}
 
-  .card {
-    width: 252px;
-    height: 265px;
-    background: white;
-    border-radius: 30px;
-    box-shadow: 15px 15px 30px #bebebe,
-               -15px -15px 30px #ffffff;
-    transition: 0.2s ease-in-out;
-  }
-  
-  .img {
-    width: 100%;
-    height: 50%;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    background: linear-gradient(#e66465, #9198e5);
-    display: flex;
-    align-items: top;
-    justify-content: right;
-  }
-  
-  .save {
-    transition: 0.2s ease-in-out;
-    border-radius: 10px;
-    margin: 20px;
-    width: 30px;
-    height: 30px;
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .text {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: space-around;
-  }
-  
-  .save .svg {
-    transition: 0.2s ease-in-out;
-    width: 15px;
-    height: 15px;
-  }
-  
-  .icon-box {
-    margin-top: 15px;
-    width: 70%;
-    padding: 10px;
-    background-color: #e3fff9;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-  }
-  
-  .icon-box svg {
-    width: 17px;
-  }
-  
-  .text .h3 {
-    font-family: 'Lucida Sans' sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: black;
-  }
-  
-  .text .p {
-    font-family: 'Lucida Sans' sans-serif;
-    color: #999999;
-    font-size: 13px;
-  }
-  
-  .icon-box .span {
-    margin-left: 10px;
-    font-family: 'Lucida Sans' sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: #9198e5;
-  }
-  
-  .card:hover {
-    cursor: pointer;
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
-  }
-  
-  .save:hover {
-    transform: scale(1.1) rotate(10deg);
-  }
-  
-  .save:hover .svg {
-    fill: #ced8de;
-  }
+/* Video element styling */
+#background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Overlay for dimming the video background */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(25, 90, 148, 0.5); /* Adjust opacity for dimming effect */
+  z-index: -1;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50vh; /* Adjust as needed */
+}
+
+.text-section-container {
+  display: flex;
+  width: 80%; /* Adjust container width */
+  max-width: 1200px; /* Max width for responsiveness */
+}
+
+.text-section {
+  padding: 20px;
+  background-color: #f0f0f0; /* Optional: Background color */
+  border-radius: 8px; /* Optional: Rounded corners */
+}
+
+.circle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between circle-items */
+}
+
+.circle-item {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  margin-bottom: 20px; /* Added margin for separation */
+}
+
+.circle {
+  width: 8vh; /* Circle size based on viewport height */
+  height: 8vh; /* Circle size based on viewport height */
+  border-radius: 50%; /* Makes it a circle */
+  background-color: #007bff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px; /* Added margin to separate text */
+}
+
+.circle-text {
+  margin-left: 10px; /* Space between circle and text */
+  font-size: 1.2rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 300px;
+  height: 265px;
+  background: white;
+  border-radius: 30px;
+  box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+  transition: 0.2s ease-in-out;
+  margin: 10px;
+}
+
+.img {
+  width: 100%;
+  height: 50%;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  background: linear-gradient(#e66465, #9198e5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.text h3 {
+  font-family: "Lucida Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+}
+
+.text p {
+  font-family: "Lucida Sans", sans-serif;
+  color: #999999;
+  font-size: 14px;
+}
+
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.icon-box {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background-color: #e3fff9;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-box svg {
+  width: 20px;
+}
+
+.icon-box span {
+  margin-left: 10px;
+  font-family: "Lucida Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9198e5;
+}
+
+.save {
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+  margin: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.save:hover .svg {
+  fill: #ced8de;
+}
+
+
+.carousel-container {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Centers the carousel within its container */
+  margin-top: 20px;
+}
+
+.carousel-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center; /* Center the carousel inside the wrapper */
+}
