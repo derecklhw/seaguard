@@ -1,4 +1,9 @@
 <template>
+    <div v-if="loading" class="loader-container">
+      <Spinner />
+    </div>
+
+
   <div class="main-container">
     <div class="main-body-container">
       <!-- Background video -->
