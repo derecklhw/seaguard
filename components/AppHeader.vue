@@ -40,6 +40,31 @@
       <p class="text-muted-foreground transition-colors hover:text-foreground">
         Quiz
       </p>
+      <Dialog>
+        <DialogTrigger as-child>
+          <p
+            class="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Language
+          </p>
+        </DialogTrigger>
+        <DialogContent class="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Supported Language</DialogTitle>
+          </DialogHeader>
+          <div class="flex items-center space-x-2">
+            <DialogClose as-child>
+              <Button @click="setLocale('en')">English</Button>
+            </DialogClose>
+            <DialogClose as-child>
+              <Button @click="setLocale('fr')">French</Button>
+            </DialogClose>
+            <DialogClose as-child>
+              <Button @click="setLocale('mfe')">Creole</Button>
+            </DialogClose>
+          </div>
+        </DialogContent>
+      </Dialog>
     </nav>
     <Sheet>
       <SheetTrigger as-child>
@@ -91,6 +116,31 @@
           <SheetClose as-child>
             <p class="text-muted-foreground hover:text-foreground">Quiz</p>
           </SheetClose>
+          <Dialog>
+            <DialogTrigger as-child>
+              <p
+                class="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Language
+              </p>
+            </DialogTrigger>
+            <DialogContent class="max-w-xs sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Supported Language</DialogTitle>
+              </DialogHeader>
+              <div class="flex items-center space-x-2">
+                <DialogClose as-child>
+                  <Button @click="setLocale('en')">English</Button>
+                </DialogClose>
+                <DialogClose as-child>
+                  <Button @click="setLocale('fr')">French</Button>
+                </DialogClose>
+                <DialogClose as-child>
+                  <Button @click="setLocale('mfe')">Creole</Button>
+                </DialogClose>
+              </div>
+            </DialogContent>
+          </Dialog>
         </nav>
       </SheetContent>
     </Sheet>
@@ -120,6 +170,7 @@
   </header>
 </template>
 <script setup>
+const { setLocale } = useI18n();
 const localePath = useLocalePath();
 const { $login, $logout } = useNuxtApp();
 const store = useProfileStore();
