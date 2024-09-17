@@ -186,7 +186,7 @@
         >Report an incident</Button
       >
     </div>
-    <div class="flex flex-col items-center mt-10 py-8 bg-DAEDFF">
+    <div class="flex flex-col items-center mt-10 py-8">
       <h2 class="text-3xl md:text-4xl font-bold uppercase">
         Donation Platform
       </h2>
@@ -198,10 +198,10 @@
         </div>
         <div class="text-center">
           <p class="font-bold md:text-2xl">1,173</p>
-          <p class="md:text-xl">Donation</p>
+          <p class="md:text-xl">Donations</p>
         </div>
         <div class="text-center">
-          <p class="font-bold md:text-2xl">$200,000</p>
+          <p class="font-bold md:text-2xl">$200,000.00</p>
           <p class="md:text-xl">Goal</p>
         </div>
       </div>
