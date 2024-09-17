@@ -120,7 +120,9 @@
     </div>
     <div class="flex flex-col items-center my-14">
       <h2 class="text-3xl md:text-4xl font-bold uppercase">Incident Reports</h2>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-16 w-9/12 mt-12">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-16 w-11/12 md:w-8/12 mt-12"
+      >
         <Card
           class="flex flex-col aspect-square items-center justify-center text-center p-6 border-A4C8F9 border-solid"
         >
@@ -181,7 +183,7 @@
       </div>
       <Button
         size="lg"
-        class="m-6 text-md md:text-lg"
+        class="mt-12 text-md md:text-lg"
         @click="$router.push(localePath('incidents'))"
         >Report an incident</Button
       >
@@ -190,8 +192,8 @@
       <h2 class="text-3xl md:text-4xl font-bold uppercase">
         Donation Platform
       </h2>
-      <Progress v-model="progress" class="w-4/5 md:w-3/5 my-10 md:my-16" />
-      <div class="flex w-4/5 md:w-3/5 justify-around mb-6 md:mb-8">
+      <Progress v-model="progress" class="w-4/5 md:w-3/5 my-16" />
+      <div class="flex w-4/5 md:w-3/5 justify-around mb-16">
         <div class="text-center">
           <p class="font-bold md:text-2xl">$101,173.29</p>
           <p class="md:text-xl">Raised</p>
