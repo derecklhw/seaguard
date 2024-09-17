@@ -51,34 +51,46 @@
       <SheetContent side="left">
         <nav class="grid gap-6 text-lg font-medium">
           <img src="/images/logo.png" alt="Logo" class="size-12" />
-          <NuxtLink :to="localePath('/')" class="hover:text-foreground">
-            {{ $t("home") }}
-          </NuxtLink>
-          <NuxtLink
-            :to="localePath('e-learning')"
-            class="text-muted-foreground hover:text-foreground"
-          >
-            {{ $t("e-learning") }}
-          </NuxtLink>
-          <NuxtLink
-            :to="localePath('map')"
-            class="text-muted-foreground hover:text-foreground"
-          >
-            {{ $t("map") }}
-          </NuxtLink>
-          <NuxtLink
-            :to="localePath('incidents')"
-            class="text-muted-foreground hover:text-foreground"
-          >
-            {{ $t("incidents") }}
-          </NuxtLink>
-          <NuxtLink
-            :to="localePath('donation')"
-            class="text-muted-foreground hover:text-foreground"
-          >
-            {{ $t("donation") }}
-          </NuxtLink>
-          <p class="text-muted-foreground hover:text-foreground">Quiz</p>
+          <SheetClose as-child>
+            <NuxtLink :to="localePath('/')" class="hover:text-foreground">
+              {{ $t("home") }}
+            </NuxtLink>
+          </SheetClose>
+          <SheetClose as-child>
+            <NuxtLink
+              :to="localePath('e-learning')"
+              class="text-muted-foreground hover:text-foreground"
+            >
+              {{ $t("e-learning") }}
+            </NuxtLink>
+          </SheetClose>
+          <SheetClose as-child>
+            <NuxtLink
+              :to="localePath('map')"
+              class="text-muted-foreground hover:text-foreground"
+            >
+              {{ $t("map") }}
+            </NuxtLink>
+          </SheetClose>
+          <SheetClose as-child>
+            <NuxtLink
+              :to="localePath('incidents')"
+              class="text-muted-foreground hover:text-foreground"
+            >
+              {{ $t("incidents") }}
+            </NuxtLink>
+          </SheetClose>
+          <SheetClose as-child>
+            <NuxtLink
+              :to="localePath('donation')"
+              class="text-muted-foreground hover:text-foreground"
+            >
+              {{ $t("donation") }}
+            </NuxtLink>
+          </SheetClose>
+          <SheetClose as-child>
+            <p class="text-muted-foreground hover:text-foreground">Quiz</p>
+          </SheetClose>
         </nav>
       </SheetContent>
     </Sheet>
