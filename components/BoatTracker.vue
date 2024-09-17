@@ -1,46 +1,51 @@
 <template>
   <div>
-    <div id="controls">
-      <!-- Select the date once -->
-      <label for="selectedDate">Select Date:</label>
-      <input type="date" id="selectedDate" v-model="selectedDate" required />
+    <section class="border-y-2 border-gray-300 bg-sky-900 ">
+        <div id="controls" class="flex flex-col lg:flex-row justify-center m-5 items-center h-fit lg:h-20">
+        <div class="mx-5 my-1">
+          <DatePicker type="date" id="selectedDate" v-model="selectedDate" required />
+        </div>
+        <div class="mx-5 my-1">
+          <TimeSelect
+          id="startDateTime"
+          label="Start Time"
+          start="06:00"
+          end="12:00"
+          :step="15"
+          v-model="startDateTime"
+          />
+        </div>
 
-      <TimeSelect
-      id="startDateTime"
-      label="Start Time"
-      start="06:00"
-      end="12:00"
-      :step="15"
-      v-model="startDateTime"
-    />
+        <div class="mx-5 my-1">
+          <TimeSelect
+          id="endDateTime"
+          label="End Time"
+          start="06:00"
+          end="12:00"
+          :step="15"
+          v-model="endDateTime"
+          />
+        </div>
+        <div class="mx-5 my-1">
+          <Button @click="submitTimes">Submit Times</Button>
+        </div>
+        <div class="mx-5 my-1">      
+          <Button id="sendData" style="display: none" @click="sendMarkerData">
+          Send Data
+          </Button>
+        </div>
+      </div>
+    </section>
 
-    <TimeSelect
-      id="endDateTime"
-      label="End Time"
-      start="06:00"
-      end="12:00"
-      :step="15"
-      v-model="endDateTime"
-    />
-
-      <!-- Submit Button -->
-      <Button @click="submitTimes">Submit Times</Button>
-
-      <!-- Hidden button for sending data -->
-      <Button id="sendData" style="display: none" @click="sendMarkerData">
-        Send Data
-      </Button>
-    </div>
-
-    <!-- Map -->
     <client-only>
-      <div id="mapContainer" style="height: 500px; width: 100%"></div>
+      <div id="mapContainer" class="h-screen z-0 w-screen" style=" width: 100%; z-index: 0;"></div>
     </client-only>
   </div>
 </template>
 
 <script setup>
 import TimeSelect from './TimeSelect.vue';
+import DatePicker from './DatePicker.vue';
 import { ref, onMounted, watch } from "vue";
 import { useFetch } from "#app";
 import "leaflet/dist/leaflet.css";
@@ -51,8 +56,12 @@ const mapInitialized = ref(false);
 const currentMarker = ref(null);
 const ellipses = ref([]);
 const ellipseMarkersCount = ref({});
-const startTime = ref("");
-const endTime = ref("");
+const startTime = ref(null);
+const selectedDate = ref(null);
+const endTime = ref(null);
+const startDateTime = ref(null);
+const endDateTime = ref(null);
+
 const userEmail = ref("john.doe@example.com"); // Placeholder email
 
 onMounted(async () => {
@@ -342,6 +351,7 @@ const updateEllipseColorsOnRemove = (lat, lng) => {
 };
 
 const submitTimes = () => {
+  console.log(selectedDate.value)
   if (selectedDate.value && startDateTime.value && endDateTime.value) {
     startTime.value = new Date(`${selectedDate.value}T${startDateTime.value}`);
     endTime.value = new Date(`${selectedDate.value}T${endDateTime.value}`);
@@ -473,5 +483,4 @@ const sendMarkerData = async () => {
   display: block;
 }
 
-/* @import 'leaflet/dist/leaflet.css'; */
 </style>
