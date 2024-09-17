@@ -9,7 +9,7 @@ export default defineEventHandler(async () => {
 
     // Then, retrieve the video details: Name, DurationInSeconds, and Id
     const videoDetails = await db.query`
-      SELECT Id, Name, DurationInSeconds 
+      SELECT Id, Name, DurationInSeconds ,ThumbnailId 
       FROM VideoAnalysisResults
     `;
 

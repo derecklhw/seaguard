@@ -15,7 +15,15 @@
           <div class="text-section-container">
             <div class="text-section-wrapper">
               <div class="text-section">
-                <p v-html="mainText" style="font-size: 36px; font-weight: bold; margin: 0; color: #ffffff"></p>
+                <p
+                  v-html="mainText"
+                  style="
+                    font-size: 36px;
+                    font-weight: bold;
+                    margin: 0;
+                    color: #ffffff;
+                  "
+                ></p>
               </div>
               <Button
                 size="lg"
@@ -27,10 +35,10 @@
             </div>
           </div>
 
-          <!-- Image Section -->
-          <div class="image-section">
-            <img src="/images/learning.png" alt="Description of image" id="background-image" style="width: 100%; height: auto;">
-          </div>
+     
+          <!-- <div class="image-section">
+            <img src="/images/test.png" alt="Description of image" id="background-image" style="width: 100%; height: auto;">
+          </div> -->
         </div>
       </div>
     </div>
@@ -38,42 +46,56 @@
     <!-- Circle content section -->
     <div
       class="content"
-      style="height: 10vh; margin-top: 10px; justify-content: center"
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin-top: 10px;
+      "
     >
-      <div class="circle-item">
-        <div
-          class="circle"
-          style="background: linear-gradient(135deg, #3778b5, #143f7a)"
-        >
+      <div
+        class="circle-item"
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+        "
+      >
+        <div class="circle">
           <IconVideoCam />
         </div>
-        <div class="circle-text">
-          <span class="number">{{ videoCount }}</span
-          ><span class="plus">+</span> <br />
-          <span class="label">VIDEOS</span>
+        <div class="circle-text" style="text-align: center; font-size: 1rem">
+          <span class="number" style="font-size: 1.5rem; font-weight: bold">{{
+            videoCount
+          }}</span>
+          <span class="plus" style="font-size: 1.5rem">+</span> <br />
+          <span class="label" style="font-size: 1rem">VIDEOS</span>
         </div>
 
-        <div
-          class="circle"
-          style="background: linear-gradient(135deg, #3778b5, #42536d)"
-        >
+        <div class="circle">
           <IconUsers />
         </div>
-        <div class="circle-text">
-          <span class="number">{{ userCount }}</span
-          ><span class="plus">+</span> <br />
-          <span class="label">USERS</span>
+        <div class="circle-text" style="text-align: center; font-size: 1rem">
+          <span class="number" style="font-size: 1.5rem; font-weight: bold">{{
+            userCount
+          }}</span>
+          <span class="plus" style="font-size: 1.5rem">+</span> <br />
+          <span class="label" style="font-size: 1rem">USERS</span>
         </div>
 
-        <div
-          class="circle"
-          style="background: linear-gradient(135deg, #3778b5, #42536d)"
-        >
+        <div class="circle">
           <IconUsers />
         </div>
-        <div class="circle-text">
-          <span class="number">2</span><span class="plus">+</span> <br />
-          <span class="label">TRAINER</span>
+        <div class="circle-text" style="text-align: center; font-size: 1rem">
+          <span class="number" style="font-size: 1.5rem; font-weight: bold"
+            >2</span
+          >
+          <span class="plus" style="font-size: 1.5rem">+</span> <br />
+          <span class="label" style="font-size: 1rem">TRAINER</span>
         </div>
       </div>
     </div>
@@ -84,7 +106,7 @@
         <Carousel
           class="w-full"
           :style="{
-            width: '100%',
+            width: '90%',
             maxWidth: '1200px',
             padding: '0 20px',
           }"
@@ -98,7 +120,21 @@
               @click="$router.push(`/e-learning/${video.id}`)"
             >
               <div class="card">
-                <div class="img"></div>
+                <div class="img">
+                  <img
+                    v-if="video.ThumbnailId"
+                    :src="video.ThumbnailId"
+                    alt="Thumbnail"
+                    style="width: 100%; height: auto; "
+                  />
+                  <img
+                    v-else
+                    src="/images/default-thumbnail.png"
+                    alt="Default Thumbnail"
+                    style="width: 100%; height: auto;"
+                  />
+
+                </div>
                 <div class="text">
                   <h3>{{ video.title }}</h3>
                   <p>{{ video.details }}</p>
@@ -162,6 +198,7 @@ export default {
             id: video.Id, // Include video ID
             title: video.Name, // Use video name
             details: `${video.DurationInSeconds} seconds`, // Use video duration
+            ThumbnailId: video.ThumbnailId // Include ThumbnailId
           }));
         } else {
           console.error("Error fetching video count:", data.message);

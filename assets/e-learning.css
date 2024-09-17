@@ -42,6 +42,7 @@ h1 {
   display: flex;
   width: 80%; /* Adjust container width */
   max-width: 1200px; /* Max width for responsiveness */
+  margin-top: 10%;
 }
 
 .text-section {
@@ -50,35 +51,7 @@ h1 {
   border-radius: 8px; /* Optional: Rounded corners */
 }
 
-.circle-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Space between circle-items */
-}
 
-.circle-item {
-  display: flex;
-  align-items: center; /* Center items vertically */
-  margin-bottom: 20px; /* Added margin for separation */
-  
-}
-
-.circle {
-  width: 8vh; /* Circle size based on viewport height */
-  height: 8vh; /* Circle size based on viewport height */
-  border-radius: 50%; /* Makes it a circle */
-  background-color: #007bff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px; /* Added margin to separate text */
-}
-
-.circle-text {
-  margin-left: 10px;
-  margin-right: 70px; /* Space between circle and text */
-  font-size: 1.2rem;
-}
 
 .card {
   width: 100%;
@@ -100,6 +73,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .text {
@@ -188,18 +162,7 @@ h1 {
 }
 
 
-.circle-text .number {
-  font-size: 2rem; /* Larger font size for the number */
-  font-weight: bold; /* Optional: Make numbers bold */
-}
 
-.circle-text .plus {
-  font-size: 2rem; /* Larger font size for the plus symbol */
-}
-
-.circle-text .label {
-  font-size: 1.2rem; /* Font size for the text */
-}
 
 /* Ensure the text and image container takes full width */
 .text-image-container {
@@ -211,7 +174,7 @@ h1 {
 
 /* Style for text section */
 .text-section-container {
-  flex: 0 0 60%;
+  flex: 0 0 100%;
   text-align: left;
   padding-left: 30px;
   box-sizing: border-box; /* Ensure padding is included in width */
@@ -240,3 +203,75 @@ h1 {
     text-align: center;
   }
 }
+
+
+
+.circle-item {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  gap: 20px; /* Space between circle-items */
+  margin-bottom: 20px; /* Added margin for separation */
+}
+
+.circle {
+  width: 5vw; /* Circle size based on viewport width */
+  height: 5vw; /* Circle size based on viewport width */
+  min-width: 60px; /* Minimum width */
+  min-height: 60px; /* Minimum height */
+  border-radius: 50%; /* Makes it a circle */
+  background-color: #1f63ab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-text {
+  margin: 10px;
+  text-align: center; /* Center text inside the circle-text div */
+  font-size: 1rem; /* Font size for better readability on small screens */
+}
+
+.circle-text .number {
+  font-size: 1.5rem; /* Larger font size for the number */
+  font-weight: bold; /* Make numbers bold */
+}
+
+.circle-text .plus {
+  font-size: 1.5rem; /* Larger font size for the plus symbol */
+}
+
+.circle-text .label {
+  font-size: 1rem; /* Font size for the text */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+  .circle-item {
+    flex-direction: column; /* Stack circles and text vertically */
+    align-items: center; /* Center items horizontally */
+  }
+
+  .circle {
+    width: 20vw; /* Adjust size for smaller screens */
+    height: 20vw; /* Adjust size for smaller screens */
+  }
+
+  .circle-text {
+    font-size: 0.9rem; /* Smaller font size for text */
+  }
+
+  .circle-text .number {
+    font-size: 1.2rem; /* Smaller font size for the number */
+  }
+
+  .circle-text .plus {
+    font-size: 1.2rem; /* Smaller font size for the plus symbol */
+  }
+
+  .circle-text .label {
+    font-size: 0.9rem; /* Smaller font size for the label */
+  }
+}
+
