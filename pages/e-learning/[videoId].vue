@@ -109,7 +109,7 @@ export default {
 
   .insights-container {
     max-width: 100%; /* Full width on mobile */
-    height: 30vh; /* Adjust the height for the insights container */
+    height: 50vh; /* Adjust the height for the insights container */
   }
 
   .insights-header {
