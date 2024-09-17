@@ -17,11 +17,8 @@ const store = useProfileStore();
 const loading = ref(true);
 
 onMounted(async () => {
-  console.log(loading.value);
   const profileInfo = await $profileInfo();
-  console.log(profileInfo);
   store.setProfile(profileInfo);
   loading.value = false;
-  console.log(loading.value);
 });
 </script>

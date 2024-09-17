@@ -50,7 +50,7 @@
     <div class="flex flex-col items-center my-14">
       <h2 class="text-3xl md:text-4xl font-bold uppercase">Our Features</h2>
       <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-16 w-9/12 mt-12"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-16 w-10/12 mt-12"
       >
         <Card>
           <CardContent
@@ -93,7 +93,7 @@
     <div class="flex flex-col items-center my-14">
       <h2 class="text-3xl md:text-4xl font-bold uppercase">Interactive Map</h2>
       <div
-        class="bg-cover bg-center w-screen flex flex-col justify-center items-center m-10"
+        class="bg-cover bg-center w-screen flex flex-col justify-center items-center mt-10"
         style="
           height: 36rem;
           background-image: radial-gradient(
@@ -179,11 +179,50 @@
           </CardFooter>
         </Card>
       </div>
+      <Button
+        size="lg"
+        class="m-6 text-md md:text-lg"
+        @click="$router.push(localePath('incidents'))"
+        >Report an incident</Button
+      >
+    </div>
+    <div class="flex flex-col items-center mt-10 py-8 bg-DAEDFF">
+      <h2 class="text-3xl md:text-4xl font-bold uppercase">
+        Donation Platform
+      </h2>
+      <Progress v-model="progress" class="w-4/5 md:w-3/5 my-10 md:my-16" />
+      <div class="flex w-4/5 md:w-3/5 justify-around mb-6 md:mb-8">
+        <div class="text-center">
+          <p class="font-bold md:text-2xl">$101,173.29</p>
+          <p class="md:text-xl">Raised</p>
+        </div>
+        <div class="text-center">
+          <p class="font-bold md:text-2xl">1,173</p>
+          <p class="md:text-xl">Donation</p>
+        </div>
+        <div class="text-center">
+          <p class="font-bold md:text-2xl">$200,000</p>
+          <p class="md:text-xl">Goal</p>
+        </div>
+      </div>
+      <Button
+        size="lg"
+        class="text-md md:text-lg"
+        @click="$router.push(localePath('donation'))"
+        >Donate now</Button
+      >
     </div>
   </div>
 </template>
 <script setup>
+import { ref, watchEffect } from "vue";
 const localePath = useLocalePath();
+const progress = ref(13);
+
+watchEffect((cleanupFn) => {
+  const timer = setTimeout(() => (progress.value = 66), 500);
+  cleanupFn(() => clearTimeout(timer));
+});
 const scrollTo = (id) => {
   const element = document.getElementById(id);
   element.scrollIntoView({ behavior: "smooth" });
