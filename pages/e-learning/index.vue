@@ -12,49 +12,93 @@
       <div class="content">
         <div class="text-section-container">
           <!-- Left aligned text section, 40% width -->
-          <div class="text-section" style="flex: 0 0 40%; text-align: left">
-            <p v-html="mainText"></p>
+          <div class="main-container" style="flex: 0 0 60%; text-align: left; padding-left: 30px;">
+            <div class="text-section-wrapper">
+              <div class="text-section">
+                <p v-html="mainText" style="font-size: 36px; font-weight: bold; margin: 0;color: #ffffff"></p>
+
+              </div>
+              <Button
+                size="lg"
+                class="m-6 text-md md:text-lg"
+                @click="$router.push(localePath('map'))"
+                >Explore Now</Button
+              >
+            </div>
+            <!-- Other content -->
           </div>
+
           <!-- Right aligned text section, 60% width -->
-          <div class="text-section" style="flex: 0 0 60%; margin-right: auto">
-            <p>{{ $t("main_text_e-learning") }}</p>
+          <div class="text-section" style="flex: 0 0 40%; margin-right: auto">
+
+            <img src="/images/learning.png" alt="Description of image" id="background-image" style="width: 100%; height: auto;">
           </div>
         </div>
       </div>
     </div>
 
     <!-- Circle content section -->
-    <div class="content" style="height: 10vh; margin-top: 10px; justify-content: center">
+    <div
+      class="content"
+      style="height: 10vh; margin-top: 10px; justify-content: center"
+    >
       <div class="circle-item">
-        <div class="circle" style="background: linear-gradient(135deg, #3778b5, #143f7a)">
+        <div
+          class="circle"
+          style="background: linear-gradient(135deg, #3778b5, #143f7a)"
+        >
           <IconVideoCam />
         </div>
-        <div class="circle-text">{{ videoCount }}+ videos</div>
+        <div class="circle-text">
+          <span class="number">{{ videoCount }}</span
+          ><span class="plus">+</span> <br />
+          <span class="label">VIDEOS</span>
+        </div>
 
-        <div class="circle" style="background: linear-gradient(135deg, #3778b5, #42536d)">
+        <div
+          class="circle"
+          style="background: linear-gradient(135deg, #3778b5, #42536d)"
+        >
           <IconUsers />
         </div>
-        <div class="circle-text">{{ userCount }}+ Users</div>
+        <div class="circle-text">
+          <span class="number">{{ userCount }}</span
+          ><span class="plus">+</span> <br />
+          <span class="label">USERS</span>
+        </div>
+
+        <div
+          class="circle"
+          style="background: linear-gradient(135deg, #3778b5, #42536d)"
+        >
+          <IconUsers />
+        </div>
+        <div class="circle-text">
+          <span class="number">2</span><span class="plus">+</span> <br />
+          <span class="label">TRAINER</span>
+        </div>
       </div>
     </div>
 
     <!-- Carousel section with responsive styling -->
     <div class="carousel-container">
       <div class="carousel-wrapper">
-        <Carousel 
-          class="w-full" 
-          :style="{ 
-            width: '100%',        
-            maxWidth: '1200px',  
+        <Carousel
+          class="w-full"
+          :style="{
+            width: '100%',
+            maxWidth: '1200px',
             padding: '0 20px',
-          }" 
-          :opts="{ align: 'start', dots: true }">
+          }"
+          :opts="{ align: 'start', dots: true }"
+        >
           <CarouselContent>
-            <CarouselItem 
-              v-for="(video, index) in videoData" 
-              :key="index" 
-              class="md:basis-1/2 lg:basis-1/3" 
-              @click="$router.push(`/e-learning/${video.id}`)">
+            <CarouselItem
+              v-for="(video, index) in videoData"
+              :key="index"
+              class="md:basis-1/2 lg:basis-1/3"
+              @click="$router.push(`/e-learning/${video.id}`)"
+            >
               <div class="card">
                 <div class="img"></div>
                 <div class="text">
@@ -68,7 +112,7 @@
           <CarouselNext />
         </Carousel>
       </div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -81,14 +125,14 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ref, onMounted } from "vue";
-import { useRouter } from 'vue-router'; // Import useRouter for navigation
+import { useRouter } from "vue-router"; // Import useRouter for navigation
 
 export default {
   computed: {
     mainText() {
       // Retrieve the translated text and replace \n with <br>
-      return this.$t('main_text_e-learning').replace(/\\n/g, '<br>');
-    }
+      return this.$t("main_text_e-learning").replace(/\\n/g, "<br>");
+    },
   },
   setup() {
     const router = useRouter(); // Initialize router
