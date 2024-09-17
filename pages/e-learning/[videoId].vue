@@ -104,7 +104,7 @@ export default {
 
   .video-player {
     max-width: 100%; /* Full width on mobile */
-    height: 50vh; /* Adjust the height for the video player */
+    height: 60vh; /* Adjust the height for the video player */
   }
 
   .insights-container {
