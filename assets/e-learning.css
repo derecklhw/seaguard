@@ -200,3 +200,43 @@ h1 {
 .circle-text .label {
   font-size: 1.2rem; /* Font size for the text */
 }
+
+/* Ensure the text and image container takes full width */
+.text-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Allow text and image to wrap if necessary */
+}
+
+/* Style for text section */
+.text-section-container {
+  flex: 0 0 60%;
+  text-align: left;
+  padding-left: 30px;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Style for image section */
+.image-section {
+  flex: 0 0 40%;
+  display: none; /* Hide image by default */
+}
+
+/* Media query for larger viewports */
+@media (min-width: 768px) {
+  .text-section-container {
+    text-align: left;
+  }
+  .image-section {
+    display: block; /* Show image on larger screens */
+  }
+}
+
+/* Ensure the text section is centered when image is hidden */
+@media (max-width: 768px) {
+  .text-section-container {
+    flex: 1;
+    text-align: center;
+  }
+}

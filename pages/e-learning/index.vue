@@ -10,27 +10,25 @@
       <div class="video-overlay"></div>
 
       <div class="content">
-        <div class="text-section-container">
-          <!-- Left aligned text section, 40% width -->
-          <div class="main-container" style="flex: 0 0 60%; text-align: left; padding-left: 30px;">
+        <div class="text-image-container">
+          <!-- Text Section -->
+          <div class="text-section-container">
             <div class="text-section-wrapper">
               <div class="text-section">
-                <p v-html="mainText" style="font-size: 36px; font-weight: bold; margin: 0;color: #ffffff"></p>
-
+                <p v-html="mainText" style="font-size: 36px; font-weight: bold; margin: 0; color: #ffffff"></p>
               </div>
               <Button
                 size="lg"
                 class="m-6 text-md md:text-lg"
                 @click="$router.push(localePath('map'))"
-                >Explore Now</Button
               >
+                Explore Now
+              </Button>
             </div>
-            <!-- Other content -->
           </div>
 
-          <!-- Right aligned text section, 60% width -->
-          <div class="text-section" style="flex: 0 0 40%; margin-right: auto">
-
+          <!-- Image Section -->
+          <div class="image-section">
             <img src="/images/learning.png" alt="Description of image" id="background-image" style="width: 100%; height: auto;">
           </div>
         </div>
