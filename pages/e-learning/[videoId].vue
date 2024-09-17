@@ -48,6 +48,7 @@ export default {
 <style scoped>
 .video-container {
   display: flex;
+  flex-direction: row;
   background-color: #dde6ef;
   padding: 10px;
   gap: 10px;
@@ -92,5 +93,31 @@ export default {
 .insights-content iframe {
   width: 100%;
   height: 100%;
+}
+
+/* Responsive layout for small screens */
+@media (max-width: 768px) {
+  .video-container {
+    flex-direction: column; /* Stack the video player and insights vertically */
+    height: auto; /* Let the height adjust automatically */
+  }
+
+  .video-player {
+    max-width: 100%; /* Full width on mobile */
+    height: 50vh; /* Adjust the height for the video player */
+  }
+
+  .insights-container {
+    max-width: 100%; /* Full width on mobile */
+    height: 30vh; /* Adjust the height for the insights container */
+  }
+
+  .insights-header {
+    height: auto; /* Let the header adjust automatically */
+  }
+
+  .insights-content {
+    height: auto; /* Let the content adjust automatically */
+  }
 }
 </style>
