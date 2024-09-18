@@ -1,33 +1,31 @@
 -- Users Table
 CREATE TABLE Users (
     Email NVARCHAR(50) PRIMARY KEY,
-    Password NVARCHAR(50) NOT NULL,
-    Name NVARCHAR(50) NOT NULL,
+    UserPrincipalName NVARCHAR(100) NOT NULL,
+    Surname NVARCHAR(50) NOT NULL,
+    Id NVARCHAR(100) NOT NULL,
+    GivenName NVARCHAR(50) NOT NULL,
     LicenseNumber NVARCHAR(50) NOT NULL,
     Role NVARCHAR(50) NOT NULL,
 );
--- Mocks some data to the Users table
-INSERT INTO Users (Email, Password, Name, LicenseNumber, Role)
+-- Mocks test user to the Users table
+INSERT INTO Users (
+        Email,
+        UserPrincipalName,
+        Surname,
+        Id,
+        GivenName,
+        LicenseNumber,
+        Role
+    )
 VALUES (
         'john.doe@example.com',
-        'password123',
-        'John Doe',
-        'LN123456',
-        'Admin'
-    ),
-    (
-        'jane.smith@example.com',
-        'password456',
-        'Jane Smith',
-        'LN654321',
-        'User'
-    ),
-    (
-        'michael.jones@example.com',
-        'password789',
-        'Michael Jones',
-        'LN987654',
-        'Moderator'
+        '8405b387-929b-460f-ac89-5387a1b287d0@digicupexternaltenant.onmicrosoft.com',
+        'Doe',
+        '8405b387-929b-460f-ac89-5357a1b288d0',
+        'John',
+        'PC 1234-OL-12',
+        'Skipper'
     );
 -- Documents Table
 CREATE TABLE Documents (
@@ -57,7 +55,7 @@ CREATE TABLE Videos (
     Captions NVARCHAR(MAX),
     Creole NVARCHAR(MAX),
     English NVARCHAR(MAX),
-    FRENCH NVARCHAR(MAX),
+    French NVARCHAR(MAX),
     Summary NVARCHAR(MAX),
     UploadDate DATETIME DEFAULT GETDATE()
 );
@@ -80,7 +78,10 @@ GO CREATE TABLE [dbo].[VideoAnalysisResults](
         [Insights] [nvarchar](max) NULL,
         [Keywords] [nvarchar](max) NULL,
         [Captions] [nvarchar](max) NULL,
-        [SummarizedInsights] [nvarchar](max) NULL
+        [SummarizedInsights] [nvarchar](max) NULL,
+        [Creole] [nvarchar](max) NULL,
+        [English] [nvarchar](max) NULL,
+        [French] [nvarchar](max) NULL
     ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 SET ANSI_PADDING ON
