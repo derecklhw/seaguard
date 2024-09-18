@@ -1,1 +1,3 @@
-<template><p>map</p></template>
+<template>
+    <BoatTracker></BoatTracker>
+</template>

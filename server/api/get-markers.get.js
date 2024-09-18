@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
 
   const query = getQuery(event);
   const { startTime, endTime, userEmail } = query;
+
   try {
     const result = await db
       .request()
@@ -51,6 +52,7 @@ export default defineEventHandler(async (event) => {
             )
         )
     `);
+    
     return result.recordset;
   } catch (error) {
     console.error("Error fetching markers:", error);
