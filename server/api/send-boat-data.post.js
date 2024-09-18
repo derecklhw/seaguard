@@ -62,25 +62,25 @@ export default defineEventHandler(async (event) => {
 
     if (checkStartResult.recordset[0].count > 0) {
       return {
-        error: "A booking with the same start time already exists.",
+        message: "A booking with the same start time already exists.",
       };
     }
 
     if (checkEndResult.recordset[0].count > 0) {
       return {
-        error: "A booking with the same end time already exists.",
+        message: "A booking with the same end time already exists.",
       };
     }
 
     if (checkEndTimeOverlap.recordset[0].count > 0) {
       return {
-        error: "End time is overlapping with an existing booking.",
+        message: "End time is overlapping with an existing booking.",
       };
     }
 
     if (checkStartTimeOverlap.recordset[0].count > 0) {
       return {
-        error: "Start time is overlapping with an existing booking.",
+        message: "Start time is overlapping with an existing booking.",
       };
     }
 
@@ -102,6 +102,6 @@ export default defineEventHandler(async (event) => {
     return { message: "Booking successful.", bookingId: newBookingId };
   } catch (error) {
     console.error("Error processing booking:", error);
-    return { error: "An error occurred while processing the booking." };
+    return { message: "An error occurred while processing the booking." };
   }
 });
