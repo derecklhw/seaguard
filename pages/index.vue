@@ -217,7 +217,7 @@
   </div>
 </template>
 <script setup>
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, onMounted } from "vue";
 const localePath = useLocalePath();
 const progress = ref(13);
 
@@ -229,5 +229,6 @@ const scrollTo = (id) => {
   const element = document.getElementById(id);
   element.scrollIntoView({ behavior: "smooth" });
 };
+onMounted(async () => {});
 </script>
 <style lang="scss" scoped></style>

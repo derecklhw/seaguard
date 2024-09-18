@@ -37,13 +37,16 @@
       >
         {{ $t("donation") }}
       </NuxtLink>
-      <p class="text-muted-foreground transition-colors hover:text-foreground">
-        Quiz
-      </p>
+      <NuxtLink
+        :to="localePath('quiz')"
+        class="text-muted-foreground transition-colors hover:text-foreground"
+      >
+        {{ $t("quiz") }}
+      </NuxtLink>
       <Dialog>
         <DialogTrigger as-child>
           <p
-            class="text-muted-foreground transition-colors hover:text-foreground"
+            class="text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
           >
             Language
           </p>
@@ -114,12 +117,17 @@
             </NuxtLink>
           </SheetClose>
           <SheetClose as-child>
-            <p class="text-muted-foreground hover:text-foreground">Quiz</p>
+            <NuxtLink
+              :to="localePath('quiz')"
+              class="text-muted-foreground hover:text-foreground"
+            >
+              {{ $t("quiz") }}
+            </NuxtLink>
           </SheetClose>
           <Dialog>
             <DialogTrigger as-child>
               <p
-                class="text-muted-foreground transition-colors hover:text-foreground"
+                class="text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
               >
                 Language
               </p>
