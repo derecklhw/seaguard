@@ -2,14 +2,9 @@ import { defineStore } from "pinia";
 
 export const useProfileStore = defineStore("profile", {
   state: () => ({
-    businessPhones: [],
-    displayName: "",
     givenName: "",
-    jobTitle: "",
+    id: "",
     mail: "",
-    mobilePhone: "",
-    officeLocation: "",
-    preferredLanguage: "",
     surname: "",
     userPrincipalName: "",
   }),
@@ -17,29 +12,29 @@ export const useProfileStore = defineStore("profile", {
     getUserPrincipalName: (state) => state.userPrincipalName,
   },
   actions: {
-    setProfile(profile) {
+    async setProfile(profile) {
       if (profile) {
-        this.businessPhones = profile.businessPhones;
-        this.displayName = profile.displayName;
         this.givenName = profile.givenName;
-        this.jobTitle = profile.jobTitle;
+        this.id = profile.id;
         this.mail = profile.mail;
-        this.mobile = profile.mobilePhone;
-        this.officeLocation = profile.officeLocation;
-        this.preferredLanguage = profile.preferredLanguage;
         this.surname = profile.surname;
         this.userPrincipalName = profile.userPrincipalName;
+        await $fetch("/api/insert-user", {
+          method: "POST",
+          body: {
+            givenName: this.givenName,
+            id: this.id,
+            mail: this.mail,
+            surname: this.surname,
+            userPrincipalName: this.userPrincipalName,
+          },
+        });
       }
     },
     clearProfile() {
-      this.businessPhones = [];
-      this.displayName = "";
       this.givenName = "";
-      this.jobTitle = "";
+      this.id = "";
       this.mail = "";
-      this.mobile = "";
-      this.officeLocation = "";
-      this.preferredLanguage = "";
       this.surname = "";
       this.userPrincipalName = "";
     },

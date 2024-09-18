@@ -1,21 +1,23 @@
 <template>
   <ClientOnly>
-    <div class="login-container">
-      <div class="text">
-        <h1>MSAL Authentication in Nuxt3</h1>
+    <div class="h-screen flex flex-col justify-center items-center">
+      <div class="image">
+        <img src="/images/logo.png" class="size-48" />
       </div>
-      <p>{{ config.public.clientId ?? "kok" }}</p>
-      <div class="button">
-        <button class="btn" @click="loginUser">
-          Click to login with Microsoft 365
-        </button>
+
+      <div class="my-10">
+        <Button @click="loginUser" size="lg" class="text-xl">
+          Click to login with Email
+        </Button>
       </div>
     </div>
   </ClientOnly>
 </template>
 <script setup>
 const { $login } = useNuxtApp();
-const config = useRuntimeConfig();
+definePageMeta({
+  layout: false,
+});
 const loginUser = async () => {
   clearSiteData();
   const loginResponse = await $login();

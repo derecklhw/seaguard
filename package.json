@@ -20,6 +20,7 @@
     "@nuxtjs/i18n": "^8.5.3",
     "@pinia/nuxt": "^0.5.4",
     "@vueuse/core": "^11.1.0",
+    "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-vue": "^8.3.0",
