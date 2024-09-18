@@ -1,112 +1,234 @@
 <template>
-  <div v-if="loading" class="loadData">
-    <div class="loader"></div>
-  </div>
-  <div v-else class="home-container">
-    <p>Home</p>
-    <!-- <pre>{{ data }}</pre> -->
-    <div>
-      <NuxtLink :to="localePath('about')"
-        >Redirect to {{ $t("about") }} Page</NuxtLink
+  <div>
+    <div
+      class="bg-cover bg-center h-screen flex flex-col justify-center items-center"
+      style="
+        background-image: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.5),
+            transparent
+          ),
+          url('/images/home_hero.png');
+      "
+    >
+      <h1 class="text-2xl sm:text-3xl md:text-5xl uppercase font-extrabold">
+        Welcome to Seaguard
+      </h1>
+      <Button size="lg" class="m-6 text-lg" @click="scrollTo('about-us')"
+        >Learn more about us!</Button
       >
-      <br />
-      <Button @click="setLocale('en')">Button English</Button>
-      <br />
-      <Button @click="setLocale('fr')">Button French</Button>
-      <p>{{ $t("welcome") }}</p>
-      <form @submit.prevent="handleFileSubmit">
-        <input type="file" @change="handleFileChange" />
-        <button type="submit">Upload file</button>
-      </form>
     </div>
-    <div v-if="!profile">
-      <p>User not logged in</p>
+    <div
+      id="about-us"
+      class="grid grid-cols-1 sm:grid-cols-2 items-center my-14 mx-8 md:mx-24"
+    >
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold uppercase">About us</h2>
+        <p class="text-xl md:text-2xl my-2 leading-relaxed">
+          {{ $t("home.about_us_text") }}
+        </p>
+      </div>
+      <div
+        class="relative w-11/12 sm:w-10/12 lg:w-3/4 xl:w-1/2 aspect-square max-w-s mx-auto mt-6 md:mt-0"
+      >
+        <div class="absolute top-0 left-0 w-2/3 h-2/3 z-0">
+          <img
+            src="/images/home_dolphin.jpg"
+            alt="Dolphins jumping"
+            class="w-full h-full object-cover rounded-lg shadow-lg"
+          />
+        </div>
+        <div class="absolute bottom-0 right-0 w-2/3 h-2/3 z-0">
+          <img
+            src="/images/home_whale.jpg"
+            alt="Whales swimming"
+            class="w-full h-full object-cover rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
     </div>
-    <div v-else>
-      <p>Profile Page</p>
-      <div v-if="profileImg" class="profile">
-        <img :src="profileImg" width="250" class="profile-image" />
+    <div class="flex flex-col items-center my-14">
+      <h2 class="text-3xl md:text-4xl font-bold uppercase">Our Features</h2>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-16 w-10/12 mt-14"
+      >
+        <Card>
+          <CardContent
+            class="bg-DAEDFF hover:bg-DAEDFF/90 flex flex-col aspect-video items-center justify-center text-center p-6 cursor-pointer"
+            @click="$router.push(localePath('map'))"
+          >
+            <IconMapInformation class="size-12 m-3" />
+            <span class="text-2xl font-semibold">Interactive Map</span>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent
+            class="bg-A4C8F9 hover:bg-A4C8F9/90 flex flex-col aspect-video items-center justify-center text-center p-6 cursor-pointer"
+            @click="$router.push(localePath('e-learning'))"
+          >
+            <IconLaptop class="size-12 m-3" />
+            <span class="text-2xl font-semibold">E-Learning Platform</span>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent
+            class="bg-5C98CC hover:bg-5C98CC/90 flex flex-col aspect-video items-center justify-center text-center p-6 cursor-pointer"
+            @click="$router.push(localePath('incidents'))"
+          >
+            <IconDangerOutline class="size-12 m-3" />
+            <span class="text-2xl font-semibold">Incident Reporting</span>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent
+            class="bg-4E6D98 hover:bg-4E6D98/90 flex flex-col aspect-video items-center justify-center text-center p-6 cursor-pointer"
+            @click="$router.push(localePath('donation'))"
+          >
+            <IconMoneyBag class="size-12 m-3" />
+            <span class="text-2xl font-semibold">Donation Platform</span>
+          </CardContent>
+        </Card>
       </div>
-      <div v-else class="initials-container">
-        <div class="initials">{{ initials }}</div>
+    </div>
+    <div class="flex flex-col items-center my-14">
+      <h2 class="text-3xl md:text-4xl font-bold uppercase">Interactive Map</h2>
+      <div
+        class="bg-cover bg-center w-screen flex flex-col justify-center items-center mt-10"
+        style="
+          height: 36rem;
+          background-image: radial-gradient(
+              circle,
+              rgba(255, 255, 255, 0.85),
+              transparent
+            ),
+            url('/images/home_interactive_map.png');
+        "
+      >
+        <p class="w-10/12 md:w-2/5 text-lg md:text-xl font-bold text-center">
+          Navigate Mauritius’ waters with our Interactive Map, featuring red and
+          yellow zones to indicate restricted areas. Skippers can log boat
+          details, including time-in and time-out, and track their location
+          safely.
+        </p>
+        <Button
+          size="lg"
+          class="m-6 text-md md:text-lg"
+          @click="$router.push(localePath('map'))"
+          >Check Zones Colors</Button
+        >
       </div>
-      <div class="name">
-        <h1>Welcome, {{ profile.displayName }}!</h1>
+    </div>
+    <div class="flex flex-col items-center my-14">
+      <h2 class="text-3xl md:text-4xl font-bold uppercase">Incident Reports</h2>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-16 w-11/12 md:w-10/12 mt-12"
+      >
+        <Card
+          class="flex flex-col aspect-square items-center justify-center text-center p-6 border-A4C8F9 border-solid"
+        >
+          <CardHeader>
+            <h3 class="text-lg font-bold">Incident 1</h3>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
+              incidunt aliquam numquam exercitationem, unde, autem tenetur
+              temporibus est a, impedit sapiente delectus veritatis!
+            </p>
+          </CardContent>
+          <CardFooter class="flex items-center space-x-2 text-4E6D98">
+            <span class="h-2 w-2 rounded-full bg-green-500" />
+            <p>Posted 2 hours ago - resolved</p>
+          </CardFooter>
+        </Card>
+        <Card
+          class="flex flex-col aspect-square items-center justify-center text-center p-6 border-A4C8F9 border-solid"
+        >
+          <CardHeader>
+            <h3 class="text-lg font-bold">Incident 2</h3>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
+              incidunt aliquam numquam exercitationem, unde, autem tenetur
+              temporibus est a, impedit sapiente delectus veritatis!
+            </p>
+          </CardContent>
+          <CardFooter class="flex items-center space-x-2 text-4E6D98">
+            <span class="h-2 w-2 rounded-full bg-yellow-500" />
+            <p>Posted 3 hours ago - pending</p>
+          </CardFooter>
+        </Card>
+        <Card
+          class="flex flex-col aspect-square items-center justify-center text-center p-6 border-A4C8F9 border-solid"
+        >
+          <CardHeader>
+            <h3 class="text-lg font-bold">Incident 3</h3>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
+              incidunt aliquam numquam exercitationem, unde, autem tenetur
+              temporibus est a, impedit sapiente delectus veritatis!
+            </p>
+          </CardContent>
+          <CardFooter class="flex items-center space-x-2 text-4E6D98">
+            <span class="h-2 w-2 rounded-full bg-yellow-500" />
+            <p>Posted 4 hours ago - pending</p>
+          </CardFooter>
+        </Card>
       </div>
-      <div class="email">
-        <h4>{{ profile.mail }}</h4>
+      <Button
+        size="lg"
+        class="mt-12 text-md md:text-lg"
+        @click="$router.push(localePath('incidents'))"
+        >Report an incident</Button
+      >
+    </div>
+    <div class="flex flex-col items-center mt-10 py-8">
+      <h2 class="text-3xl md:text-4xl font-bold uppercase">
+        Donation Platform
+      </h2>
+      <Progress v-model="progress" class="w-4/5 md:w-3/5 my-16" />
+      <div class="flex w-4/5 md:w-3/5 justify-around mb-16">
+        <div class="text-center">
+          <p class="font-bold md:text-2xl">$101,173.29</p>
+          <p class="md:text-xl">Raised</p>
+        </div>
+        <div class="text-center">
+          <p class="font-bold md:text-2xl">1,173</p>
+          <p class="md:text-xl">Donations</p>
+        </div>
+        <div class="text-center">
+          <p class="font-bold md:text-2xl">$200,000.00</p>
+          <p class="md:text-xl">Goal</p>
+        </div>
       </div>
-      <div class="username">
-        <h2>{{ profile.jobTitle }}</h2>
-      </div>
-      <div v-if="profile.mobilePhone" class="phone">
-        <h4>Phone no. : {{ profile.mobilePhone }}</h4>
-      </div>
-      <div class="button" @click="logout">
-        <Button class="logout-btn">Logout</Button>
-      </div>
+      <Button
+        size="lg"
+        class="text-md md:text-lg"
+        @click="$router.push(localePath('donation'))"
+        >Donate now</Button
+      >
     </div>
   </div>
 </template>
 <script setup>
-const { locale, setLocale } = useI18n();
+import { ref, watchEffect, onMounted } from "vue";
 const localePath = useLocalePath();
-const { $profileInfo, $profileImg, $logout } = useNuxtApp();
-const profile = ref();
-const profileImg = ref();
-const loading = ref(true);
-// const { data } = await useFetch("/api/gemini", {
-//   method: "post",
-//   body: { message: "Hello" },
-// });
+const progress = ref(13);
 
-const logout = async () => {
-  await $logout();
-};
-onMounted(async () => {
-  loading.value = true;
-  const profileInfo = await $profileInfo();
-  profile.value = profileInfo;
-  const { data, error } = await $profileImg();
-  if (data) {
-    profileImg.value = data;
-  }
-  if (error && profile.value) {
-    getInitials();
-  }
-  loading.value = false;
+watchEffect((cleanupFn) => {
+  const timer = setTimeout(() => (progress.value = 66), 500);
+  cleanupFn(() => clearTimeout(timer));
 });
-const initials = ref();
-const getInitials = () => {
-  const nameArray = profile.value.displayName.split(" ");
-  const fletter = nameArray[0].charAt(0);
-  const lletter = nameArray[1].charAt(0);
-  initials.value = fletter + lletter;
+const scrollTo = (id) => {
+  const element = document.getElementById(id);
+  element.scrollIntoView({ behavior: "smooth" });
 };
-
-const files = ref(null);
-const handleFileChange = (event) => {
-  files.value = event.target.files;
-};
-
-const handleFileSubmit = async () => {
-  const fd = new FormData();
-  if (files.value) {
-    fd.append(`index`, files.value[0]);
-    fd.append("isPhotoTaken", "false");
-    fd.append("model", "MruBoatLicenseModel"); // prebuilt-layout, MruBoatLicenseModel
-  }
-  const data = await $fetch("/api/extract-text-from-document", {
-    method: "POST",
-    body: fd,
-  });
-  console.log(data);
-  // MruBoatLicenseModel
-  // console.log(data.message.documents[0].fields);
-};
+onMounted(async () => {});
 </script>
-<style lang="scss" scoped>
-h1 {
-  color: $primary;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -21,6 +21,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  alias: {
+    pinia: "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs",
+  },
   plugins: [
     { src: "~/plugins/msal.js", mode: "client" },
     { src: "~/plugins/vue-camera-lib.client.js", ssr: false },
@@ -55,6 +58,7 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "shadcn-nuxt",
     "@nuxtjs/tailwindcss",
+    "@pinia/nuxt",
   ],
   shadcn: {
     /**
@@ -76,6 +80,10 @@ export default defineNuxtConfig({
       {
         code: "fr",
         file: "fr-FR.json",
+      },
+      {
+        code: "mfe",
+        file: "mfe-MFE.json",
       },
     ],
     lazy: true,
