@@ -1,7 +1,7 @@
 <template>
   <div>
-    <section class="border-y-2 border-gray-300 bg-sky-900 ">
-        <div id="controls" class="flex flex-col lg:flex-row justify-center m-5 items-center h-fit lg:h-20">
+    <section class="border-t-2 border-gray-300" style="background-color: #aad3df;">
+        <div id="controls" class="flex flex-col lg:flex-row justify-center items-center h-fit lg:h-20">
         <div class="mx-5 my-1">
           <DatePicker type="date" id="selectedDate" v-model="selectedDate" required />
         </div>
@@ -46,6 +46,7 @@
 <script setup>
 import TimeSelect from './TimeSelect.vue';
 import DatePicker from './DatePicker.vue';
+import Swal from 'sweetalert2';
 import { ref, onMounted, watch } from "vue";
 import { useFetch } from "#app";
 import "leaflet/dist/leaflet.css";
@@ -136,9 +137,9 @@ const handleMapClick = (e, icon) => {
       currentMarker.value
         .bindPopup(
           `
-        <div>
-          <p>Your Marker</p>
-          <Button class="remove-pin-btn">Remove Pin</Button>
+        <div class="justify-center items-center">
+          <p>Your New Marker</p>
+          <button class="remove-pin-btn border-2 border-gray-900 justify-center items-center rounded">Remove the marker</button>
         </div>
       `
         )
@@ -152,7 +153,12 @@ const handleMapClick = (e, icon) => {
         .openPopup();
     }
   } else {
-    alert("Click within an ellipse to add a marker.");
+    Swal.fire({
+      icon: 'info',
+      title: 'Notice',
+      text: 'Click within an ellipse to add a marker.',
+      confirmButtonText: 'OK'
+    });
   }
 };
 
@@ -218,7 +224,7 @@ const fetchAllMarkersAndUserBookings = async () => {
 
       // Process user bookings
       if (userBookings && Array.isArray(userBookings)) {
-        console.log(userBookings);
+        // console.log(userBookings);
         userBookings.forEach((booking) => {
           let startDate = new Date(booking.startTime);
           let endDate = new Date(booking.endTime);
@@ -471,16 +477,3 @@ const sendMarkerData = async () => {
 };
 </script>
 
-<style scoped>
-#map {
-  height: 1000px;
-  width: 100%;
-}
-#controls {
-  margin-bottom: 10px;
-}
-#mapContainer {
-  display: block;
-}
-
-</style>
