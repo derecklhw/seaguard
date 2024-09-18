@@ -6,7 +6,10 @@ export default defineEventHandler(async (event) => {
 
     const config = useRuntimeConfig();
     const genAI = new GoogleGenerativeAI(config.geminiApiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      generationConfig: { response_mime_type: "application/json" },
+    });
     const finalPrompt = `${prompt} ${document}`;
     const result = await model.generateContent(finalPrompt);
     return { success: true, message: result.response.text() };
