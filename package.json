@@ -7,17 +7,43 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@azure-rest/ai-document-intelligence": "^1.0.0-beta.3",
+    "@azure/core-auth": "^1.8.0",
+    "@azure/msal-browser": "^3.23.0",
+    "@google/generative-ai": "^0.19.0",
+    "@nuxt/eslint": "^0.5.7",
+    "@nuxtjs/i18n": "^8.5.3",
+    "@pinia/nuxt": "^0.5.4",
+    "@vueuse/core": "^11.1.0",
+    "canvas-confetti": "^1.9.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "leaflet": "^1.9.4",
+    "leaflet-ellipse": "^0.9.1",
+    "embla-carousel-vue": "^8.3.0",
+    "lucide-vue-next": "^0.441.0",
+    "mssql": "^11.0.1",
     "nuxt": "^3.13.0",
-    "vue": "latest"
+    "sweetalert2": "^11.7.32", 
+    "radix-vue": "^1.9.5",
+    "shadcn-nuxt": "^0.10.4",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7",
+    "vue": "latest",
+    "vue-camera-lib": "^1.0.6"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.4.1",
+    "@nuxtjs/tailwindcss": "^6.12.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.41",
     "sass": "^1.77.8",
-    "tailwindcss": "^3.4.10"
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.6.2"
   }
 }

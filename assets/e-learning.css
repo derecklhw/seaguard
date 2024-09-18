@@ -1,0 +1,82 @@
+.main-body-container {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    overflow: hidden;
+  }
+  
+  .h1 {
+    font-family: "Times New Roman", Times, serif;
+  }
+  /* Video element styling */
+  #background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+  }
+  
+  /* Overlay for dimming the video background */
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(25, 90, 148, 0.5); /* Adjust opacity for dimming effect */
+    z-index: -1;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: space-between; /* Center the text-sections horizontally */
+    align-items: center; /* Center the text-sections vertically */
+    height: 50vh; /* Adjust as needed */
+  }
+  
+  .text-section-container {
+    display: flex;
+    width: 80%; /* Adjust container width */
+    max-width: 1200px; /* Optional: Max width for responsiveness */
+  }
+  
+  .text-section {
+    padding: 20px;
+    background-color: #f0f0f0; /* Optional: Background color for visibility */
+    border-radius: 8px; /* Optional: Rounded corners */
+  }
+
+  .circle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between circle-items */
+  }
+  
+  .circle-item {
+    display: flex;
+    align-items: center; /* Center items vertically */
+  }
+  
+  .circle {
+    width: 10vh; /* Adjust circle size */
+    height: 10vh; /* Adjust circle size */
+    border-radius: 50%; /* Makes it a circle */
+    background-color: #007bff; /* Example color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .circle i {
+    color: white; /* Icon color */
+  }
+  
+  .circle-text {
+    margin-left: 10px; /* Space between circle and text */
+  }
+  .icon {
+    fill: #ff0000; /* Red color */
+  }

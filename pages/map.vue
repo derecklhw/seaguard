@@ -1,0 +1,3 @@
+<template>
+    <BoatTracker></BoatTracker>
+</template>
