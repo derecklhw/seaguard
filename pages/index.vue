@@ -50,7 +50,7 @@
     <div class="flex flex-col items-center my-14">
       <h2 class="text-3xl md:text-4xl font-bold uppercase">Our Features</h2>
       <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-16 w-10/12 mt-12"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-16 w-10/12 mt-14"
       >
         <Card>
           <CardContent
@@ -121,7 +121,7 @@
     <div class="flex flex-col items-center my-14">
       <h2 class="text-3xl md:text-4xl font-bold uppercase">Incident Reports</h2>
       <div
-        class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-16 w-11/12 md:w-8/12 mt-12"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-16 w-11/12 md:w-10/12 mt-12"
       >
         <Card
           class="flex flex-col aspect-square items-center justify-center text-center p-6 border-A4C8F9 border-solid"

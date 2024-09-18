@@ -5,7 +5,7 @@ CREATE TABLE Users (
     Surname NVARCHAR(50) NOT NULL,
     Id NVARCHAR(100) NOT NULL,
     GivenName NVARCHAR(50) NOT NULL,
-    LicenseNumber NVARCHAR(50) NOT NULL,
+    LicenseNumber NVARCHAR(50),
     Role NVARCHAR(50) NOT NULL,
 );
 -- Mocks test user to the Users table
