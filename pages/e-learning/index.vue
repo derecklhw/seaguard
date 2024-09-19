@@ -111,11 +111,10 @@
         <Carousel
           class="w-full"
           :style="{
-            width: '90%',
+            width: '100%',
             maxWidth: '1200px',
-            padding: '0 20px',
           }"
-          :opts="{ align: 'start', dots: true }"
+
         >
           <CarouselContent>
             <CarouselItem

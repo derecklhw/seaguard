@@ -13,7 +13,6 @@ const { orientation } = useCarousel()
     role="group"
     aria-roledescription="slide"
     :class="cn(
-      'flex items-center justify-center min-w-0 shrink-0 grow-0 basis-full',
       'min-w-0 shrink-0 grow-0 basis-full',
       orientation === 'horizontal' ? 'pl-4' : 'pt-4',
       props.class,
@@ -22,4 +21,3 @@ const { orientation } = useCarousel()
     <slot />
   </div>
 </template>
-

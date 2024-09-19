@@ -47,11 +47,8 @@ h1 {
 
 .text-section {
   padding: 20px;
-
   border-radius: 8px; /* Optional: Rounded corners */
 }
-
-
 
 .card {
   width: 100%;
@@ -143,26 +140,76 @@ h1 {
   fill: #ced8de;
 }
 
-
 .carousel-container {
   width: 100%;
   display: flex;
   justify-content: center; /* Centers the carousel within its container */
   margin-top: 20px;
   margin-bottom: 20px;
+  position: relative; /* Ensure positioning context for buttons */
 }
 
 .carousel-wrapper {
   width: 100%;
   max-width: 1200px;
   padding: 0 20px;
-  margin-bottom: 10px;
   display: flex;
   justify-content: center; /* Center the carousel inside the wrapper */
 }
 
+/* Styling for the previous and next buttons */
+.carousel-next, .carousel-previous {
+  position: absolute;
+  top: 50%; /* Vertically center the buttons */
+  transform: translateY(-50%);
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+.carousel-next {
+  right: 10px; /* Position to the right */
+}
 
+.carousel-previous {
+  left: 10px; /* Position to the left */
+}
+
+.carousel-next:hover, .carousel-previous:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .carousel-next, .carousel-previous {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+  }
+  
+  .carousel-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .carousel-wrapper {
+    padding: 0 100px;
+  }
+}
+
+/* Adjust button size and position on very small screens */
+@media (max-width: 480px) {
+  .carousel-next, .carousel-previous {
+    width: 25px;
+    height: 25px;
+    padding: 3px;
+    font-size: 12px;
+  }
+}
 
 /* Ensure the text and image container takes full width */
 .text-image-container {
@@ -203,8 +250,6 @@ h1 {
     text-align: center;
   }
 }
-
-
 
 .circle-item {
   display: flex;
@@ -274,4 +319,3 @@ h1 {
     font-size: 0.9rem; /* Smaller font size for the label */
   }
 }
-
