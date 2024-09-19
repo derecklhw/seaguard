@@ -47,6 +47,21 @@ export default defineNuxtConfig({
         trustServerCertificate: false,
       },
     },
+    azure: {
+      tenantId: process.env.AZURE_TENANT_ID,
+      clientId: process.env.AZURE_CLIENT_ID,
+      clientSecret: process.env.AZURE_CLIENT_SECRET,
+      subscriptionId: process.env.AZURE_SUBSCRIPTION_ID,
+      resourceGroup: process.env.AZURE_RESOURCE_GROUP,
+      videoIndexerAccountName: process.env.AZURE_VIDEO_INDEXER_ACCOUNT_NAME,
+    },
+    azureVideoIndexer: {
+      accountId: process.env.AZURE_VIDEO_INDEXER_ACCOUNT_ID,
+      location: process.env.AZURE_VIDEO_INDEXER_LOCATION,
+    },
+    azureStorage: {
+      connectionString: process.env.AZURE_STORAGE_CONNECTION_STRING,
+    },
     geminiApiKey: process.env.GEMINI_API_KEY,
     azureAiDocumentIntelligence: {
       apiKey: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_KEY,
