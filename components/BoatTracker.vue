@@ -46,6 +46,7 @@
 <script setup>
 import TimeSelect from './TimeSelect.vue';
 import DatePicker from './DatePicker.vue';
+const store = useProfileStore();
 import Swal from 'sweetalert2';
 import { ref, onMounted, watch } from "vue";
 import { useFetch } from "#app";
@@ -63,9 +64,9 @@ const endTime = ref(null);
 const startDateTime = ref(null);
 const endDateTime = ref(null);
 
-const userEmail = ref("john.doe@example.com"); // Placeholder email
+let userEmail = ref(store.getUserMail);
 
-onMounted(async () => {
+onMounted(async () => { 
   if (process.client) {
     await loadLeaflet();
     initializeMap();
@@ -90,7 +91,7 @@ const initializeMap = async () => {
       minZoom: 10,
       maxZoom: 16,
     });
-
+    console.log(userEmail); 
     L.value
       .tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
       .addTo(map.value);
@@ -99,8 +100,11 @@ const initializeMap = async () => {
 
     const currentIcon = updateIconSize(map.value.getZoom());
 
-    map.value.on("click", (e) => handleMapClick(e, currentIcon));
-    map.value.on("zoomend", () => updateMarkerIconSize(map.value.getZoom()));
+    if ((userEmail.value != "") && (startDateTime.value && endDateTime.value && selectedDate.value))
+    {
+      map.value.on("click", (e) => handleMapClick(e, currentIcon));
+      map.value.on("zoomend", () => updateMarkerIconSize(map.value.getZoom()));
+    }
 
     mapInitialized.value = true;
   }
@@ -125,9 +129,12 @@ const handleMapClick = (e, icon) => {
 
   if (insideEllipse) {
     if (currentMarker.value) {
-      alert(
-        "You already have a marker. Please remove it before adding a new one."
-      );
+      Swal.fire({
+      icon: 'info',
+      title: 'Notice',
+      text: 'You already have a marker. Please remove it before adding a new one.',
+      confirmButtonText: 'OK'
+    });
     } else {
       currentMarker.value = L.value.marker(latlng, { icon }).addTo(map.value);
       updateEllipseColors(
@@ -239,7 +246,7 @@ const fetchAllMarkersAndUserBookings = async () => {
           <b>Your Booking:</b><br>
           Start: ${startDate.toLocaleString()}<br>
           End: ${endDate.toLocaleString()}<br>
-          <button class="deleteBookingBtn" data-booking-id="${
+          <button class="deleteBookingBtn border-2 border-gray-900 place-content-center rounded" data-booking-id="${
             booking.Id
           }">Delete Booking</button>
         `
@@ -301,12 +308,26 @@ const deleteUserBooking = async (bookingId, marker, userEmail) => {
   });
 
   if (data.value.success) {
-    alert("Booking deleted successfully");
+    Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      text: 'Booking deleted successfully',
+      confirmButtonText: 'OK', 
+      timer: 3000
+    });
     map.value.removeLayer(marker);
     resetMap();
     initializeMap();
   } else {
-    alert("Error deleting booking: " + data.value.message);
+    Swal.fire({
+      icon: 'Error',
+      title: 'Error',
+      text: 'Error deleting booking: ' + data.value.message,
+      confirmButtonText: 'OK', 
+      timer: 3000
+    });
+    resetMap();
+    initializeMap();
   }
 };
 
@@ -364,7 +385,12 @@ const submitTimes = () => {
 
     // console.log(startTime.value, endTime.value);
     if (startTime.value >= endTime.value) {
-      alert("Start time must be earlier than end time.");
+      Swal.fire({
+        icon: 'Error',
+        title: 'Error',
+        text: 'Start time must be earlier than end time',
+        confirmButtonText: 'OK', 
+      });
       return;
     }
 
@@ -377,11 +403,20 @@ const submitTimes = () => {
 
     mapInitialized.value = true;
     document.getElementById("mapContainer").style.display = "block";
-    document.getElementById("sendData").style.display = "inline";
+
+    if (userEmail.value != "")
+    {
+      document.getElementById("sendData").style.display = "inline";
+    }
 
     fetchAllMarkersAndUserBookings();
   } else {
-    alert("Please select a date and valid start and end times.");
+    Swal.fire({
+        icon: 'Error',
+        title: 'Error',
+        text: 'Please select a date and valid start and end times.',
+        confirmButtonText: 'OK', 
+      });
   }
 };
 
@@ -466,13 +501,31 @@ const sendMarkerData = async () => {
       body: markerData,
     });
 
-    if (data.value.success) {
-      alert("Marker data sent successfully.");
+    if (data.value.message == "Booking successful.") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Marker data saved successfully.',
+        confirmButtonText: 'OK', 
+      });
+      resetMap();
+      initializeMap();
+      location.reload();  
     } else {
-      alert("Error sending marker data: " + data.value.message);
+      Swal.fire({
+        icon: 'Error',
+        title: 'Error',
+        text: 'Error sending marker data: ' + data.value.message,
+        confirmButtonText: 'OK', 
+      });
     }
   } else {
-    alert("Please add a marker before sending data.");
+    Swal.fire({
+        icon: 'Error',
+        title: 'Error',
+        text: 'Please add a marker before sending data.',
+        confirmButtonText: 'OK', 
+      });
   }
 };
 </script>
