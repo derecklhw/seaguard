@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useQuizStore = defineStore("quiz", {
   state: () => ({
     trivia: [],
-    questionCount: 10,
+    questionCount: 2,
     currentQuestion: 0,
     quizAnswers: [],
     quizCorrectAnswer: "",
@@ -12,7 +12,7 @@ export const useQuizStore = defineStore("quiz", {
     difficulty: "medium",
   }),
   actions: {
-    async getTriviaByCategory() {
+    async getQuestions() {
       const documents = await $fetch("/api/get-documents");
       const randomDocument =
         documents.message.recordset[

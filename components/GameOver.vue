@@ -1,6 +1,6 @@
 <template>
   <div
-    class="quiz-card z-10 relative w-full max-w-[500px] bg-white rounded-3xl p-8 mb-6 text-center flex flex-col items-center justify-center gap-8 shadow-xl hover:shadow-2xl"
+    class="quiz-card z-0 relative w-full max-w-[500px] bg-white rounded-3xl p-8 mb-6 text-center flex flex-col items-center justify-center gap-8 shadow-xl hover:shadow-2xl"
   >
     <div class="flex flex-col items-center justify-center gap-4 min-h-[50vh]">
       <div class="font-semibold text-xl">Congratulations!!!</div>
@@ -10,18 +10,18 @@
         You won
         <span
           class="text-primary inline-flex flex-row items-center justify-center gap-1"
-          ><i class="ri-vip-diamond-fill -mt-[1px]"></i
           >{{ props.userScore * 10 }}</span
         >
+        points
       </div>
     </div>
   </div>
-  <span
+  <Button
     @click="reloadNuxtApp()"
-    class="w-full max-w-[250px] text-sm font-semibold flex flex-col items-center justify-center self-center min-h-[50px] rounded-full px-4 bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary shadow-xl hover:shadow-2xl"
+    class="w-full max-w-[250px] text-sm font-semibold flex flex-col items-center justify-center self-center min-h-[50px] rounded-full px-4 text-primary-foreground shadow-xl hover:shadow-2xl"
   >
     Play Again
-  </span>
+  </Button>
 </template>
 <script setup>
 import { onMounted } from "vue";
