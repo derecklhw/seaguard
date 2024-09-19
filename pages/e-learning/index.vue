@@ -1,10 +1,7 @@
 <template>
-    <div v-if="loading" class="loader-container">
-      <Spinner />
-    </div>
 
 
-  <div class="main-container">
+  <div v-if="!loading" class="main-container">
     <div class="main-body-container">
       <!-- Background video -->
       <video autoplay muted loop id="background-video">
@@ -152,6 +149,12 @@
       </div>
     </div>
   </div>
+
+  <div v-else>
+    <div class="flex items-center justify-center h-screen">
+      <IconSpinner class="size-24 text-primary" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -162,14 +165,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router"; // Import useRouter for navigation
+
 const scrollTo = (id) => {
   const element = document.getElementById(id);
   element.scrollIntoView({ behavior: "smooth" });
 };
 
-const loading = ref(true);
 export default {
   computed: {
     mainText() {
@@ -182,6 +185,15 @@ export default {
     const userCount = ref(0);
     const videoCount = ref(0);
     const videoData = ref([]);
+    const loading = ref(true); // Initial state is loading
+
+    // Watcher for the loading state
+    watch(loading, (newValue) => {
+      console.log("Loading state changed:", newValue);
+      if (!newValue) {
+        console.log("Loading completed. Loader is now hidden.");
+      }
+    });
 
     onMounted(async () => {
       try {
@@ -214,9 +226,8 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching video count:", error);
-      } finally
-      {
-        loading.value = true;
+      } finally {
+        loading.value = false; // Set loading to false when data is fetched
       }
     });
 
@@ -229,10 +240,12 @@ export default {
       userCount,
       videoCount,
       videoData,
+      loading, // Expose loading to the template
       navigateToVideo, // Expose method to the template
     };
   },
 };
+
 </script>
 
 <style src="@/assets/e-learning.css"></style>

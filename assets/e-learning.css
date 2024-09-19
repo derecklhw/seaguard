@@ -194,13 +194,11 @@ h1 {
   }
   
   .carousel-container {
-    margin-top: 10px;
-    margin-bottom: 10px;
     overflow: hidden; /* Hide overflow on smaller screens */
   }
 
   .carousel-wrapper {
-    padding: 0 15vw;
+    padding: 0 16vw;
   }
 }
 
