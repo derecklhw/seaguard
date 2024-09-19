@@ -8,10 +8,6 @@
             <Package2 class="h-6 w-6" />
             <span class="">SEA GUARD</span>
           </a>
-          <Button variant="outline" size="icon" class="ml-auto h-8 w-8">
-            <Bell class="h-4 w-4" />
-            <span class="sr-only">Toggle notifications</span>
-          </Button>
         </div>
         <div class="flex-1">
           <nav class="grid items-start px-2 text-sm font-medium lg:px-4">
@@ -43,6 +39,15 @@
               <Package class="h-4 w-4" />
               Thumbnail Upload
             </a>
+            <a
+              href="#"
+              @click.prevent="setActiveSection('documentUpload')"
+              :class="activeSection === 'documentUpload' ? 'text-blue-500' : 'text-black'"
+              class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+              >
+              <ShoppingCart class="h-4 w-4" />
+              Document Upload
+            </a>
           </nav>
         </div>
         <div class="mt-auto p-4">
@@ -66,6 +71,7 @@
             {{ activeSection === 'incidentDashboard' ? 'Incident Dashboard' : '' }}
             {{ activeSection === 'videoUpload' ? 'Video Upload' : '' }}
             {{ activeSection === 'thumbnailUpload' ? 'Thumbnail Upload' : '' }}
+            {{ activeSection === 'documentUpload' ? 'Document Upload' : '' }}
           </h1>
         </div>
 
@@ -86,7 +92,7 @@ import { Card, CardDescription, CardHeader } from '@/components/ui/card';
 import IncidentDashboard from '@/components/IncidentDashboard.vue';
 import VideoUpload from '@/components/VideoUpload.vue';
 import ThumbnailUpload from '@/components/ThumbnailUpload.vue';
-
+import DocumentUpload from '@/components/DocumentUpload.vue';
 // Define which section is active
 const activeSection = ref('incidentDashboard');
 
@@ -104,6 +110,8 @@ const activeComponent = computed(() => {
       return VideoUpload;
     case 'thumbnailUpload':
       return ThumbnailUpload;
+    case 'documentUpload':
+      return DocumentUpload;
     default:
       return IncidentDashboard;
   }
