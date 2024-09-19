@@ -5,10 +5,10 @@
       style="
         background-image: radial-gradient(
             circle,
-            rgba(255, 255, 255, 0.25),
+            rgba(0, 0, 0, 0.6),
             transparent
           ),
-          url('/images/home_hero.png');
+          url('/images/quiz_background.png');
       "
     >
       <h1 class="text-5xl font-bold text-primary-foreground">Quiz</h1>

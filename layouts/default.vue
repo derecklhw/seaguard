@@ -1,8 +1,10 @@
 <template>
-  <div v-if="!loading">
-    <AppHeader />
-    <slot />
-    <AppFooter />
+  <div v-if="!loading" class="min-h-screen flex flex-col">
+    <AppHeader class="flex-none" />
+    <div class="flex-1">
+      <slot />
+    </div>
+    <AppFooter class="flex-none" />
   </div>
   <div v-else>
     <div class="flex items-center justify-center h-screen">
