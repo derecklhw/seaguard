@@ -25,7 +25,7 @@ const toggleCamera = () => {
 };
 
 const photoTaken = (data) => {
-  emit("photoAnalysis", "loading");
+  emit("photoAnalysis", { loading: true });
   const model =
     props.type === "license" ? "MruBoatLicenseModel" : "prebuilt-layout";
 
@@ -40,6 +40,7 @@ const photoTaken = (data) => {
     method: "POST",
     body: fd,
   }).then((response) => {
+    emit("photoAnalysis", { loading: false });
     emit("photoAnalysis", response);
   });
 };

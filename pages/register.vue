@@ -114,6 +114,8 @@
 <script setup>
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
+import Swal from "sweetalert2";
+
 import * as z from "zod";
 
 const profileStore = useProfileStore();
@@ -121,7 +123,7 @@ const localePath = useLocalePath();
 
 const formSchema = toTypedSchema(
   z.object({
-    licensee: z.string().min(10).max(50),
+    licensee: z.string().min(5).max(50),
     address: z.string().min(10).max(50),
     registration_no: z.string().min(12).max(50),
     mooring_place: z.string().min(10).max(50),
@@ -148,6 +150,51 @@ const onSubmit = form.handleSubmit(async (values) => {
 });
 
 const photoAnalysis = (data) => {
-  console.log("photo taken", data);
+  if (data.loading === true) {
+    return;
+  } else if (data.loading === false) {
+    return;
+  } else {
+    fillFields(data);
+  }
+};
+
+const fillFields = (data) => {
+  if (data.success === false) {
+    Swal.fire({
+      icon: "Error",
+      title: "Error",
+      text: "Error analyzing image",
+      confirmButtonText: "OK",
+    }).then(() => {
+      reloadNuxtApp();
+    });
+  } else if (data.success === true) {
+    Swal.fire({
+      icon: "info",
+      title: "Info",
+      text: "Analysis successfully. Please review the details.",
+      confirmButtonText: "OK",
+    });
+    const fields = data.message.documents[0].fields;
+
+    if (fields) {
+      if (fields.Licensee && fields.Licensee.valueString)
+        form.setFieldValue("licensee", fields.Licensee.valueString);
+      if (fields.Address && fields.Address.valueString)
+        form.setFieldValue("address", fields.Address.valueString);
+      if (fields.RegistrationNo && fields.RegistrationNo.valueString)
+        form.setFieldValue(
+          "registration_no",
+          fields.RegistrationNo.valueString
+        );
+      if (fields.MooringPlace && fields.MooringPlace.valueString)
+        form.setFieldValue("mooring_place", fields.MooringPlace.valueString);
+      if (fields.ReceiptNo && fields.ReceiptNo.valueString)
+        form.setFieldValue("receipt_no", fields.ReceiptNo.valueString);
+      if (fields.DateIssued && fields.DateIssued.valueString)
+        form.setFieldValue("date_issued", fields.DateIssued.valueString);
+    }
+  }
 };
 </script>
