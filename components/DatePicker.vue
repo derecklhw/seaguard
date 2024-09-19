@@ -61,7 +61,7 @@ const handleDateSelect = (date: DateValue | undefined) => {
           :aria-required="required"
         >
           <CalendarIcon class="mr-4 h-4 w-4" />
-          {{ internalDate ? df.format(internalDate.toDate(getLocalTimeZone())) : "Pick a date" }}
+          {{ internalDate ? df.format(internalDate.toDate(getLocalTimeZone())) : $t('pick_time') }}
         </Button>
       </PopoverTrigger>
       <PopoverContent class="w-auto p-0 ">
