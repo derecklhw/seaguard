@@ -1,6 +1,6 @@
 import { useRuntimeConfig } from '#imports'; // Nuxt's way to import runtime config
 import { getDB } from "../db/index"; // Assuming you have a db connection helper
-
+import sql from "mssql";
 let azureVideoIndexerAccessToken = null;
 
 // Function to get Azure AD token using runtime config
@@ -72,7 +72,7 @@ async function startVideoAnalysis(videoUrl, runtimeConfig) {
   videoIndexerApiUrl.searchParams.append("accessToken", accessToken);
   videoIndexerApiUrl.searchParams.append("videoUrl", videoUrl);
   videoIndexerApiUrl.searchParams.append("name", "VideoAnalysis");
-
+  videoIndexerApiUrl.searchParams.append("privacy", "Public");
   const response = await fetch(videoIndexerApiUrl.toString(), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -107,6 +107,7 @@ async function pollVideoAnalysis(videoId, runtimeConfig) {
     }
 
     data = await response.json();
+    console.log("Current analysis state:", data);
     console.log("Current analysis state:", data.state);
     await new Promise((resolve) => setTimeout(resolve, 5000)); // Polling every 5 seconds
   } while (data.state !== "Processed" && data.state !== "Failed" && data.state !== "Canceled");
@@ -120,30 +121,47 @@ async function pollVideoAnalysis(videoId, runtimeConfig) {
 
 // API handler for starting video analysis
 export default defineEventHandler(async (event) => {
-  const runtimeConfig = useRuntimeConfig();
-  const query = getQuery(event);
-  const videoUrl = query.videoUrl;
-
-  if (!videoUrl) {
-    throw new Error("Missing video URL");
-  }
-
-  try {
-    const videoId = await startVideoAnalysis(videoUrl, runtimeConfig);
-    const analysisResults = await pollVideoAnalysis(videoId, runtimeConfig);
-
-    // Insert analysis result into the database
-    const db = await getDB();
-    const summarizedInsights = JSON.stringify(analysisResults.summarizedInsights);
-    const captions = JSON.stringify(analysisResults.captions || {});
-    await db.query(
-      `INSERT INTO VideoAnalysisResults (Id, AccountId, Name, Created, DurationInSeconds, SummarizedInsights, Captions)
-       VALUES (${videoId}, ${analysisResults.accountId}, ${analysisResults.name}, ${new Date(analysisResults.created)}, 
-               ${analysisResults.durationInSeconds}, ${summarizedInsights}, ${captions})`
-    );
-
-    return { success: true, message: "Video analysis completed", analysisResults };
-  } catch (error) {
-    return { success: false, message: error.message };
-  }
-});
+    const runtimeConfig = useRuntimeConfig();
+    const query = getQuery(event);
+    const videoUrl = query.videoUrl;
+  
+    if (!videoUrl) {
+      throw new Error("Missing video URL");
+    }
+  
+    try {
+      // Start the video analysis
+      const videoId = await startVideoAnalysis(videoUrl, runtimeConfig);
+      const analysisResults = await pollVideoAnalysis(videoId, runtimeConfig);
+  
+      // Prepare data for insertion into the database
+      const videoAnalysisData = {
+        Id: videoId,
+        AccountId: analysisResults.accountId || null,
+        Name: analysisResults.name || "Unnamed",
+        Created: new Date(analysisResults.created),
+        DurationInSeconds: analysisResults.durationInSeconds || 0,
+      };
+  
+      const db = await getDB();
+  
+      // Insert into the database
+      const response = await db
+        .request()
+        .input("Id", sql.NVarChar, videoAnalysisData.Id)
+        .input("AccountId", sql.NVarChar, videoAnalysisData.AccountId)
+        .input("Name", sql.NVarChar, videoAnalysisData.Name)
+        .input("Created", sql.DateTimeOffset, videoAnalysisData.Created)
+        .input("DurationInSeconds", sql.Float, videoAnalysisData.DurationInSeconds)
+        .query(
+          "INSERT INTO VideoAnalysisResults (Id, AccountId, Name, Created, DurationInSeconds) OUTPUT INSERTED.Id VALUES (@Id, @AccountId, @Name, @Created, @DurationInSeconds)"
+        );
+  
+      console.log("Inserted data: ", response.recordset[0]);
+  
+      return { success: true, message: "Video analysis completed", analysisResults };
+    } catch (error) {
+      console.error("Error during video analysis or DB insertion: ", error);
+      return { success: false, message: error.message };
+    }
+  });
