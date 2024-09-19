@@ -7,5 +7,8 @@
     "incidents": "Incidents",
     "donation": "Don",
     "quiz": "Quiz",
-    "main_text_e-learning": "Trouvez les meilleurs \\n cours en ligne \\n sur les territoires de la mer Mauricien"
+    "e-learning.main_text": "Trouvez les meilleurs \\n cours en ligne \\n sur les territoires de la mer Mauricien",
+    "e-learning.users": "Utilisateurs",
+    "e-learning.videoCount": "Vidéos",
+    "e-learning.trainer": "Formateur"
 }

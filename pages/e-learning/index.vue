@@ -75,7 +75,7 @@
             videoCount
           }}</span>
           <span class="plus" style="font-size: 1.5rem">+</span> <br />
-          <span class="label" style="font-size: 1rem">VIDEOS</span>
+          <span class="label" style="font-size: 1rem"><p v-html="videotag" ></p></span>
         </div>
 
         <div class="circle">
@@ -86,7 +86,7 @@
             userCount
           }}</span>
           <span class="plus" style="font-size: 1.5rem">+</span> <br />
-          <span class="label" style="font-size: 1rem">USERS</span>
+          <span class="label" style="font-size: 1rem"><p v-html="users" ></p></span>
         </div>
 
         <div class="circle">
@@ -97,7 +97,7 @@
             >2</span
           >
           <span class="plus" style="font-size: 1.5rem">+</span> <br />
-          <span class="label" style="font-size: 1rem">TRAINER</span>
+          <span class="label" style="font-size: 1rem"><p v-html="trainer" ></p></span>
         </div>
       </div>
     </div>
@@ -177,7 +177,17 @@ export default {
   computed: {
     mainText() {
       // Retrieve the translated text and replace \n with <br>
-      return this.$t("main_text_e-learning").replace(/\\n/g, "<br>");
+      return this.$t("e-learning.main_text").replace(/\\n/g, "<br>");
+    },
+    users() {
+      return this.$t("e-learning.users");
+    },
+    videotag() {
+      return this.$t("e-learning.videoCount");
+    },
+
+    trainer() {
+      return this.$t("e-learning.trainer");
     },
   },
   setup() {

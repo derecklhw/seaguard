@@ -7,5 +7,8 @@
     "incidents": "Incidents",
     "donation": "Donation",
     "quiz": "Quiz",
-    "main_text_e-learning": "Find The Best \\n Online Courses \\n On The Mauritian Sea Territories"
+    "e-learning.main_text": "Find The Best \\n Online Courses \\n On The Mauritian Sea Territories",
+    "e-learning.users": "Users",
+    "e-learning.videoCount": "Videos",
+    "e-learning.trainer": "Trainer"
 }

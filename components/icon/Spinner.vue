@@ -12,7 +12,7 @@
     >
       <animateTransform
         attributeName="transform"
-        dur="1.0s"
+        dur="0.75s"
         repeatCount="indefinite"
         type="rotate"
         values="0 12 12;360 12 12"
