@@ -7,7 +7,10 @@
     "incidents": "Incidents",
     "donation": "Don",
     "quiz": "Quiz",
-    "main_text_e-learning": "Trouvez les meilleurs cours en ligne sur les territoires de la mer Mauricien", 
+    "e-learning.main_text": "Trouvez les meilleurs \\n cours en ligne \\n sur les territoires de la mer Mauricien",
+    "e-learning.users": "Utilisateurs",
+    "e-learning.videoCount": "Vidéos",
+    "e-learning.trainer": "Formateur"
     "start_time": "Heure Initiale", 
     "end_time": "Heure De Fin",
     "pick_time": "Choisissez une date",
@@ -18,6 +21,4 @@
     "select_date_error": "Veuillez sélectionner une date et des heures de début et de fin valides.",
     "success_booking":"Données du marqueur enregistrées avec succès.",
     "add_marker_before_send": "Veuillez ajouter un marqueur avant d'envoyer les données."
-
-
 }
