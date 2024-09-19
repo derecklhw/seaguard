@@ -106,7 +106,7 @@
     </div>
 
     <!-- Carousel section with responsive styling -->
-    <div class="carousel-container" id="carousel-container">
+    <div class="carousel-container" >
       <div class="carousel-wrapper">
         <Carousel
           class="w-full"
@@ -116,7 +116,7 @@
           }"
 
         >
-          <CarouselContent>
+          <CarouselContent id="carousel-container">
             <CarouselItem
               v-for="(video, index) in videoData"
               :key="index"
@@ -168,6 +168,8 @@ const scrollTo = (id) => {
   const element = document.getElementById(id);
   element.scrollIntoView({ behavior: "smooth" });
 };
+
+const loading = ref(true);
 export default {
   computed: {
     mainText() {
@@ -212,6 +214,9 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching video count:", error);
+      } finally
+      {
+        loading.value = true;
       }
     });
 

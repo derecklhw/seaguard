@@ -40,14 +40,16 @@ h1 {
 
 .text-section-container {
   display: flex;
-  width: 80%; /* Adjust container width */
+  width: 80%;
+  height: 50%; /* Adjust container width */
   max-width: 1200px; /* Max width for responsiveness */
   margin-top: 10%;
 }
 
 .text-section {
   padding: 20px;
-  border-radius: 8px; /* Optional: Rounded corners */
+  border-radius: 8px;
+  position:relative; /* Optional: Rounded corners */
 }
 
 .card {
@@ -194,10 +196,11 @@ h1 {
   .carousel-container {
     margin-top: 10px;
     margin-bottom: 10px;
+    overflow: hidden; /* Hide overflow on smaller screens */
   }
 
   .carousel-wrapper {
-    padding: 0 100px;
+    padding: 0 15vw;
   }
 }
 
