@@ -21,7 +21,7 @@
             <TimeSelect
               id="startDateTime"
               v-model="startDateTime"
-              :label="$t('start_time')"
+              :label="$t('map.start_time')"
               start="06:00"
               end="12:00"
               :step="15"
@@ -32,7 +32,7 @@
             <TimeSelect
               id="endDateTime"
               v-model="endDateTime"
-              :label="$t('end_time')"
+              :label="$t('map.end_time')"
               start="06:00"
               end="12:00"
               :step="15"
@@ -81,7 +81,7 @@ const selectedDate = ref(null);
 const endTime = ref(null);
 const startDateTime = ref(null);
 const endDateTime = ref(null);
-
+const userRole = ref(store.getUserRole); 
 const userEmail = ref(store.getUserMail);
 
 onMounted(async () => {
@@ -109,7 +109,7 @@ const initializeMap = async () => {
       minZoom: 10,
       maxZoom: 16,
     });
-    console.log(userEmail);
+  
     L.value
       .tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
       .addTo(map.value);
@@ -154,7 +154,7 @@ const handleMapClick = (e, icon) => {
       Swal.fire({
         icon: "info",
         title: "Notice",
-        text: t("already_have_marker"),
+        text: t("map.already_have_marker"),
         confirmButtonText: "OK",
       });
     } else {
@@ -185,7 +185,7 @@ const handleMapClick = (e, icon) => {
     Swal.fire({
       icon: "info",
       title: "Notice",
-      text: t("click_ellipse"),
+      text: t("map.click_ellipse"),
       confirmButtonText: "OK",
     });
   }
@@ -333,7 +333,7 @@ const deleteUserBooking = async (bookingId, marker, userEmail) => {
     Swal.fire({
       icon: "success",
       title: "Success",
-      text: t("booking_sucess"),
+      text: t("map.booking_sucess"),
       confirmButtonText: "OK",
       timer: 3000,
     });
@@ -410,7 +410,7 @@ const submitTimes = () => {
       Swal.fire({
         icon: "Error",
         title: "Error",
-        text: t("start_end_error"),
+        text: t("map.start_end_error"),
         confirmButtonText: "OK",
       });
       return;
@@ -425,8 +425,8 @@ const submitTimes = () => {
 
     mapInitialized.value = true;
     document.getElementById("mapContainer").style.display = "block";
-
-    if (userEmail.value != "") {
+    console.log(userRole.value)
+    if (userEmail.value != "" && userRole.value == "Skipper") {
       document.getElementById("sendData").style.display = "inline";
     }
 
@@ -435,7 +435,7 @@ const submitTimes = () => {
     Swal.fire({
       icon: "Error",
       title: "Error",
-      text: t("select_date_error"),
+      text: t("map.select_date_error"),
       confirmButtonText: "OK",
     });
   }
@@ -526,7 +526,7 @@ const sendMarkerData = async () => {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: t("success_booking"),
+        text: t("map.success_booking"),
         confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
@@ -548,7 +548,7 @@ const sendMarkerData = async () => {
     Swal.fire({
       icon: "Error",
       title: "Error",
-      text: t("add_marker_before_send"),
+      text: t("map.add_marker_before_send"),
       confirmButtonText: "OK",
     });
   }

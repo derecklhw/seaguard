@@ -13,6 +13,7 @@ export const useProfileStore = defineStore("profile", {
   getters: {
     getUserPrincipalName: (state) => state.userPrincipalName,
     getUserMail: (state) => state.mail,
+    getUserRole: (state) => state.role, 
   },
   actions: {
     async setProfile(profile) {
