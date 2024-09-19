@@ -55,8 +55,17 @@
           <Spinner class="mr-2 h-4 w-4 animate-spin" />
           Uploading...
         </div>
-        <div v-if="uploadSuccess" class="text-green-500 mt-4">Upload successful!</div>
+        <div v-if="uploadSuccess" class="text-green-500 mt-4">
+          Upload successful! <br />
+          <button @click="analyzeVideo">Start Analysis</button>
+        </div>
         <div v-if="uploadError" class="text-red-500 mt-4">Error: {{ uploadError }}</div>
+  
+        <!-- Show analysis results -->
+        <div v-if="analysisResults" class="mt-4">
+          <h3 class="text-2xl font-bold tracking-tight">Analysis Results</h3>
+          <pre>{{ analysisResults }}</pre>
+        </div>
       </div>
     </div>
   </template>
@@ -75,12 +84,15 @@
         isUploading: false,
         uploadSuccess: false,
         uploadError: null,
+        uploadedVideoUrl: null, // Store the uploaded video URL
+        analysisResults: null, // Store the analysis results
       };
     },
     methods: {
       onFileChange(event) {
         this.file = event.target.files[0];
       },
+  
       async submitForm() {
         if (!this.file || !this.title) {
           alert("Please select a video file and provide a title.");
@@ -107,12 +119,35 @@
   
           const data = await response.json();
           console.log("Upload successful:", data);
+          this.uploadedVideoUrl = data.videoUrl; // Store the video URL
           this.uploadSuccess = true;
         } catch (error) {
           console.error("Error during video upload:", error);
           this.uploadError = error.message;
         } finally {
           this.isUploading = false;
+        }
+      },
+  
+      async analyzeVideo() {
+        if (!this.uploadedVideoUrl) {
+          alert("No uploaded video to analyze.");
+          return;
+        }
+  
+        try {
+          const response = await fetch(`/api/analyze_video?videoUrl=${encodeURIComponent(this.uploadedVideoUrl)}`);
+          const data = await response.json();
+  
+          if (!data.success) {
+            throw new Error(`Analysis failed: ${data.message}`);
+          }
+  
+          this.analysisResults = data.analysisResults;
+          console.log("Analysis successful:", data.analysisResults);
+        } catch (error) {
+          console.error("Error during video analysis:", error);
+          this.uploadError = error.message;
         }
       },
     },
