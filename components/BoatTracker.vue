@@ -8,7 +8,7 @@
         <div class="mx-5 my-1">
           <TimeSelect
           id="startDateTime"
-          label="Start Time"
+          :label="$t('start_time')"
           start="06:00"
           end="12:00"
           :step="15"
@@ -19,7 +19,7 @@
         <div class="mx-5 my-1">
           <TimeSelect
           id="endDateTime"
-          label="End Time"
+          :label="$t('end_time')"
           start="06:00"
           end="12:00"
           :step="15"
@@ -45,6 +45,7 @@
 
 <script setup>
 import TimeSelect from './TimeSelect.vue';
+const { t } = useI18n();
 import DatePicker from './DatePicker.vue';
 const store = useProfileStore();
 import Swal from 'sweetalert2';
@@ -132,7 +133,7 @@ const handleMapClick = (e, icon) => {
       Swal.fire({
       icon: 'info',
       title: 'Notice',
-      text: 'You already have a marker. Please remove it before adding a new one.',
+      text:  t('already_have_marker'),
       confirmButtonText: 'OK'
     });
     } else {
@@ -163,7 +164,7 @@ const handleMapClick = (e, icon) => {
     Swal.fire({
       icon: 'info',
       title: 'Notice',
-      text: 'Click within an ellipse to add a marker.',
+      text:  t('click_ellipse'),
       confirmButtonText: 'OK'
     });
   }
@@ -311,7 +312,7 @@ const deleteUserBooking = async (bookingId, marker, userEmail) => {
     Swal.fire({
       icon: 'success',
       title: 'Success',
-      text: 'Booking deleted successfully',
+      text:  t('booking_sucess'),
       confirmButtonText: 'OK', 
       timer: 3000
     });
@@ -388,7 +389,7 @@ const submitTimes = () => {
       Swal.fire({
         icon: 'Error',
         title: 'Error',
-        text: 'Start time must be earlier than end time',
+        text:  t('start_end_error'),
         confirmButtonText: 'OK', 
       });
       return;
@@ -414,7 +415,7 @@ const submitTimes = () => {
     Swal.fire({
         icon: 'Error',
         title: 'Error',
-        text: 'Please select a date and valid start and end times.',
+        text:  t('select_date_error'),
         confirmButtonText: 'OK', 
       });
   }
@@ -503,14 +504,17 @@ const sendMarkerData = async () => {
 
     if (data.value.message == "Booking successful.") {
       Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Marker data saved successfully.',
-        confirmButtonText: 'OK', 
-      });
-      resetMap();
-      initializeMap();
-      location.reload();  
+      icon: 'success',
+      title: 'Success',
+      text:  t('success_booking'),
+      confirmButtonText: 'OK'
+      }).then((result) => {
+      if (result.isConfirmed) {
+        // Actions to perform after clicking "OK"
+        resetMap();
+        initializeMap();
+        location.reload();
+      }});
     } else {
       Swal.fire({
         icon: 'Error',
@@ -523,10 +527,11 @@ const sendMarkerData = async () => {
     Swal.fire({
         icon: 'Error',
         title: 'Error',
-        text: 'Please add a marker before sending data.',
+        text:  t('add_marker_before_send'),
         confirmButtonText: 'OK', 
       });
   }
 };
 </script>
 
+<style lang="scss" scoped></style>

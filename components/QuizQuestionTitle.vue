@@ -1,6 +1,6 @@
 <template>
   <div
-    class="transition-opacity duration-1000 w-full flex flex-col items-center justify-center gap-4"
+    class="transition-opacity duration-1000 w-full flex flex-col items-center justify-center gap-4 min-h-20"
   >
     <div
       v-if="!currentQuestion"

@@ -7,6 +7,8 @@ export const useProfileStore = defineStore("profile", {
     mail: "",
     surname: "",
     userPrincipalName: "",
+    licenseNumber: "",
+    role: "",
   }),
   getters: {
     getUserPrincipalName: (state) => state.userPrincipalName,
@@ -20,7 +22,7 @@ export const useProfileStore = defineStore("profile", {
         this.mail = profile.mail;
         this.surname = profile.surname;
         this.userPrincipalName = profile.userPrincipalName;
-        await $fetch("/api/insert-user", {
+        const response = await $fetch("/api/insert-user", {
           method: "POST",
           body: {
             givenName: this.givenName,
@@ -30,6 +32,8 @@ export const useProfileStore = defineStore("profile", {
             userPrincipalName: this.userPrincipalName,
           },
         });
+        this.licenseNumber = response.message.LicenseNumber;
+        this.role = response.message.Role;
       }
     },
     clearProfile() {
