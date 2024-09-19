@@ -39,13 +39,20 @@
             />
           </div>
         </div>
-        <div class="mx-5 my-1">
-          <Button @click="submitTimes">Submit Times</Button>
-        </div>
-        <div class="mx-5 my-1">
-          <Button id="sendData" style="display: none" @click="sendMarkerData">
-            Send Data
-          </Button>
+        <div class="flex">
+          <div class="mx-2 my-1">
+            <Button @click="submitTimes">Submit Times</Button>
+          </div>
+          <div class="mx-2 my-1">
+            <Button
+              v-if="userEmail"
+              id="sendData"
+              :class="{ 'disabled-button': isButtonDisabled }"
+              @click="handleClick"
+            >
+              Send Data
+            </Button>
+          </div>
         </div>
       </div>
     </section>
@@ -69,6 +76,7 @@ import { useFetch } from "#app";
 import "leaflet/dist/leaflet.css";
 const { t } = useI18n();
 const store = useProfileStore();
+const localePath = useLocalePath();
 
 const map = ref(null);
 const L = ref(null);
@@ -81,7 +89,6 @@ const selectedDate = ref(null);
 const endTime = ref(null);
 const startDateTime = ref(null);
 const endDateTime = ref(null);
-const userRole = ref(store.getUserRole); 
 const userEmail = ref(store.getUserMail);
 
 onMounted(async () => {
@@ -109,7 +116,7 @@ const initializeMap = async () => {
       minZoom: 10,
       maxZoom: 16,
     });
-  
+
     L.value
       .tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
       .addTo(map.value);
@@ -425,10 +432,6 @@ const submitTimes = () => {
 
     mapInitialized.value = true;
     document.getElementById("mapContainer").style.display = "block";
-    console.log(userRole.value)
-    if (userEmail.value != "" && userRole.value == "Skipper") {
-      document.getElementById("sendData").style.display = "inline";
-    }
 
     fetchAllMarkersAndUserBookings();
   } else {
@@ -506,6 +509,28 @@ const createEllipses = () => {
   });
 };
 
+const isButtonDisabled = computed(() => {
+  return store.getUserMail && store.getUserRole !== "Skipper";
+});
+
+const handleClick = () => {
+  if (isButtonDisabled.value) {
+    Swal.fire({
+      icon: "error",
+      title: "Access Denied",
+      text: "Only skippers can access this feature.",
+      showCancelButton: true,
+      confirmButtonText: "Register",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigateTo(localePath("/"));
+      }
+    });
+  } else {
+    sendMarkerData();
+  }
+};
+
 const sendMarkerData = async () => {
   if (currentMarker.value) {
     const markerData = {
@@ -555,4 +580,9 @@ const sendMarkerData = async () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.disabled-button {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+</style>
