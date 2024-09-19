@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex flex-col">
-    <section class="border-t-2 border-gray-300" style="background-color: white">
+    <section>
       <div
         id="controls"
         class="flex flex-col lg:flex-row justify-center items-center h-fit lg:h-20 my-2 md:my-4"

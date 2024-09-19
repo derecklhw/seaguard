@@ -1,7 +1,7 @@
 <template>
   <div v-if="!loading" class="min-h-screen flex flex-col">
     <AppHeader class="flex-none" />
-    <div class="flex-1">
+    <div class="flex-1 flex items-center justify-center">
       <slot />
     </div>
     <AppFooter class="flex-none" />

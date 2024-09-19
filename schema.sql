@@ -1,51 +1,48 @@
 -- Users Table
 CREATE TABLE Users (
-    Email NVARCHAR(50) PRIMARY KEY,
-    UserPrincipalName NVARCHAR(100) NOT NULL,
-    Surname NVARCHAR(50) NOT NULL,
-    Id NVARCHAR(100) NOT NULL,
-    GivenName NVARCHAR(50) NOT NULL,
-    LicenseNumber NVARCHAR(50),
-    Role NVARCHAR(50) NOT NULL,
+  Email NVARCHAR(50) PRIMARY KEY,
+  UserPrincipalName NVARCHAR(100) NOT NULL,
+  Surname NVARCHAR(50) NOT NULL,
+  Id NVARCHAR(100) NOT NULL,
+  GivenName NVARCHAR(50) NOT NULL,
+  Role NVARCHAR(50) NOT NULL,
 );
 -- Mocks a test skipper to the Users table
 INSERT INTO Users (
-        Email,
-        UserPrincipalName,
-        Surname,
-        Id,
-        GivenName,
-        LicenseNumber,
-        Role
-    )
+    Email,
+    UserPrincipalName,
+    Surname,
+    Id,
+    GivenName,
+    Role
+  )
 VALUES (
-        'john.doe@example.com',
-        '8405b387-929b-460f-ac89-5387a1b287d0@digicupexternaltenant.onmicrosoft.com',
-        'Doe',
-        '8405b387-929b-460f-ac89-5357a1b288d0',
-        'John',
-        'PC 1234-OL-12',
-        'Skipper'
-    );
+    'john.doe@example.com',
+    '8405b387-929b-460f-ac89-5387a1b287d0@digicupexternaltenant.onmicrosoft.com',
+    'Doe',
+    '8405b387-929b-460f-ac89-5357a1b288d0',
+    'John',
+    'Skipper'
+  );
 -- Documents Table
 CREATE TABLE Documents (
-    Id INT IDENTITY(1, 1) PRIMARY KEY,
-    Title NVARCHAR(255) NOT NULL,
-    Content NVARCHAR(MAX) NOT NULL,
-    Type NVARCHAR(50) NOT NULL,
-    UserEmail NVARCHAR(50) NOT NULL,
-    CONSTRAINT FK_Documents_Users FOREIGN KEY (UserEmail) REFERENCES Users(Email)
+  Id INT IDENTITY(1, 1) PRIMARY KEY,
+  Title NVARCHAR(255) NOT NULL,
+  Content NVARCHAR(MAX) NOT NULL,
+  Type NVARCHAR(50) NOT NULL,
+  UserEmail NVARCHAR(50) NOT NULL,
+  CONSTRAINT FK_Documents_Users FOREIGN KEY (UserEmail) REFERENCES Users(Email)
 );
 -- Mocks a formation in document table
 INSERT INTO Documents (
-        Title,
-        Content,
-        Type,
-        UserEmail
-    )
+    Title,
+    Content,
+    Type,
+    UserEmail
+  )
 VALUES (
-        'WHALE UP! FORMATION OPERATEURS - Août 2022',
-        'WHALE UP! FORMATION OPERATEURS - Août 2022
+    'WHALE UP! FORMATION OPERATEURS - Août 2022',
+    'WHALE UP! FORMATION OPERATEURS - Août 2022
       Tourism Authority (Dolphin and Whale Watching) Regulations 2012
       GN No. 154 of 2012
       Government Gazette of Mauritius No. 87 of 1 September 2012
@@ -224,64 +221,94 @@ VALUES (
       2015
       Peer-reviewed journal
       Braulik, Gill .. :unselected: :selected: :selected:',
-        'Formation',
-        'john.doe@example.com'
-    );
+    'Formation',
+    'john.doe@example.com'
+  );
 -- BoatTracker Table
 CREATE TABLE BoatTracker (
-    Id INT IDENTITY(1, 1) PRIMARY KEY,
-    userEmail NVARCHAR(50) NOT NULL,
-    latitude FLOAT NOT NULL,
-    longitude FLOAT NOT NULL,
-    startTime TEXT NOT NULL,
-    endTime TEXT NOT NULL,
-    markerId INT NOT NULL CONSTRAINT FK_BoatTracker_Users FOREIGN KEY (userEmail) REFERENCES Users(Email)
+  Id INT IDENTITY(1, 1) PRIMARY KEY,
+  userEmail NVARCHAR(50) NOT NULL,
+  latitude FLOAT NOT NULL,
+  longitude FLOAT NOT NULL,
+  startTime TEXT NOT NULL,
+  endTime TEXT NOT NULL,
+  markerId INT NOT NULL CONSTRAINT FK_BoatTracker_Users FOREIGN KEY (userEmail) REFERENCES Users(Email)
 );
+-- Licensee Table
+CREATE TABLE Licensee (
+  RegistrationNo NVARCHAR(50) PRIMARY KEY,
+  Licensee NVARCHAR(50) NOT NULL,
+  Address NVARCHAR(255) NOT NULL,
+  MooringPlace NVARCHAR(255) NOT NULL,
+  ReceiptNo NVARCHAR(50) NOT NULL,
+  DateIssued DATETIME NOT NULL,
+  UserEmail NVARCHAR(50) NOT NULL,
+  CONSTRAINT FK_Licensee_Users FOREIGN KEY (UserEmail) REFERENCES Users(Email)
+);
+-- Mocks a licensee in the Licensee table
+INSERT INTO Licensee (
+    RegistrationNo,
+    Licensee,
+    Address,
+    MooringPlace,
+    ReceiptNo,
+    DateIssued,
+    UserEmail
+  )
+VALUES (
+    'PC 1234-OL-12',
+    'John Doe',
+    '123, Main Street, Port Louis',
+    'Grand Baie',
+    '123456789',
+    '2024-09-16',
+    'john.doe@example.com'
+  );
 -- Videos Table
 CREATE TABLE Videos (
-    VideoId INT PRIMARY KEY IDENTITY,
-    Title NVARCHAR(255),
-    BlobUrl NVARCHAR(2048),
-    FilePath NVARCHAR(MAX),
-    Captions NVARCHAR(MAX),
-    Creole NVARCHAR(MAX),
-    English NVARCHAR(MAX),
-    French NVARCHAR(MAX),
-    Summary NVARCHAR(MAX),
-    UploadDate DATETIME DEFAULT GETDATE()
+  VideoId INT PRIMARY KEY IDENTITY,
+  Title NVARCHAR(255),
+  BlobUrl NVARCHAR(2048),
+  FilePath NVARCHAR(MAX),
+  Captions NVARCHAR(MAX),
+  Creole NVARCHAR(MAX),
+  English NVARCHAR(MAX),
+  French NVARCHAR(MAX),
+  Summary NVARCHAR(MAX),
+  UploadDate DATETIME DEFAULT GETDATE()
 );
 -- VideoAnalysisResults Table
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO CREATE TABLE [dbo].[VideoAnalysisResults](
-        [Id] [nvarchar](50) NOT NULL,
-        [AccountId] [nvarchar](50) NULL,
-        [Name] [nvarchar](255) NULL,
-        [UserName] [nvarchar](255) NULL,
-        [Created] [datetimeoffset](7) NULL,
-        [DurationInSeconds] [float] NULL,
-        [Duration] [nvarchar](50) NULL,
-        [PrivacyMode] [nvarchar](50) NULL,
-        [State] [nvarchar](50) NULL,
-        [VideoId] [nvarchar](50) NULL,
-        [ThumbnailId] [nvarchar](50) NULL,
-        [Insights] [nvarchar](max) NULL,
-        [Keywords] [nvarchar](max) NULL,
-        [Captions] [nvarchar](max) NULL,
-        [SummarizedInsights] [nvarchar](max) NULL,
-        [Creole] [nvarchar](max) NULL,
-        [English] [nvarchar](max) NULL,
-        [French] [nvarchar](max) NULL
-    ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+    [Id] [nvarchar](50) NOT NULL,
+    [AccountId] [nvarchar](50) NULL,
+    [Name] [nvarchar](255) NULL,
+    [UserName] [nvarchar](255) NULL,
+    [Created] [datetimeoffset](7) NULL,
+    [DurationInSeconds] [float] NULL,
+    [Duration] [nvarchar](50) NULL,
+    [PrivacyMode] [nvarchar](50) NULL,
+    [State] [nvarchar](50) NULL,
+    [VideoId] [nvarchar](50) NULL,
+    [ThumbnailId] [nvarchar](50) NULL,
+    [Insights] [nvarchar](max) NULL,
+    [Keywords] [nvarchar](max) NULL,
+    [Captions] [nvarchar](max) NULL,
+    [SummarizedInsights] [nvarchar](max) NULL,
+    [Creole] [nvarchar](max) NULL,
+    [English] [nvarchar](max) NULL,
+    [French] [nvarchar](max) NULL
+  ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 SET ANSI_PADDING ON
 GO
 ALTER TABLE [dbo].[VideoAnalysisResults]
 ADD PRIMARY KEY CLUSTERED ([Id] ASC) WITH (
-        STATISTICS_NORECOMPUTE = OFF,
-        IGNORE_DUP_KEY = OFF,
-        ONLINE = OFF,
-        OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
-    ) ON [PRIMARY]
+    STATISTICS_NORECOMPUTE = OFF,
+    IGNORE_DUP_KEY = OFF,
+    ONLINE = OFF,
+    OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
+  ) ON [PRIMARY]
 GO
