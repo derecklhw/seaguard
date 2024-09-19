@@ -6,8 +6,7 @@ export default defineEventHandler(async (event) => {
 
   const query = getQuery(event);
   const { startTime, endTime, userEmail } = query;
-  console.log(startTime, endTime);
-
+ 
   try {
     const result = await db
       .request()

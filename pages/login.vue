@@ -1,21 +1,37 @@
 <template>
   <ClientOnly>
-    <div class="login-container">
-      <div class="text">
-        <h1>MSAL Authentication in Nuxt3</h1>
-      </div>
-      <p>{{ config.public.clientId ?? "kok" }}</p>
-      <div class="button">
-        <button class="btn" @click="loginUser">
-          Click to login with Microsoft 365
-        </button>
+    <div
+      class="h-screen flex flex-col justify-center items-center relative overflow-hidden"
+    >
+      <video
+        autoplay
+        muted
+        loop
+        class="absolute top-0 left-0 w-full h-full object-cover z-0"
+      >
+        <source src="/videos/background_e-learning.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="z-10 flex flex-col justify-center items-center">
+        <div class="image">
+          <img src="/images/logo.png" class="size-48" />
+        </div>
+
+        <div class="my-10">
+          <Button @click="loginUser" size="lg" class="text-xl">
+            Click to login with Email
+          </Button>
+        </div>
       </div>
     </div>
   </ClientOnly>
 </template>
 <script setup>
 const { $login } = useNuxtApp();
-const config = useRuntimeConfig();
+definePageMeta({
+  layout: false,
+});
 const loginUser = async () => {
   clearSiteData();
   const loginResponse = await $login();

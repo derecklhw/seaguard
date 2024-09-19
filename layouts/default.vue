@@ -6,7 +6,7 @@
   </div>
   <div v-else>
     <div class="flex items-center justify-center h-screen">
-      <IconSpinner class="size-24 text-primary" />
+      <IconSpinner class="size-20 text-primary" />
     </div>
   </div>
 </template>

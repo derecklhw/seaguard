@@ -11,4 +11,14 @@
     "e-learning.users": "Utilisateurs",
     "e-learning.videoCount": "Vidéos",
     "e-learning.trainer": "Formateur"
+    "start_time": "Heure Initiale", 
+    "end_time": "Heure De Fin",
+    "pick_time": "Choisissez une date",
+    "already_have_marker":  "Vous avez déjà un marqueur. Veuillez le supprimer avant d'en ajouter un nouveau.",
+    "click_ellipse": "Cliquez dans une ellipse pour ajouter un marqueur.",
+    "booking_sucess": "Réservation supprimée avec succès",
+    "start_end_error": "L'heure de début doit être antérieure à l'heure de fin.",
+    "select_date_error": "Veuillez sélectionner une date et des heures de début et de fin valides.",
+    "success_booking":"Données du marqueur enregistrées avec succès.",
+    "add_marker_before_send": "Veuillez ajouter un marqueur avant d'envoyer les données."
 }

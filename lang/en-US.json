@@ -11,4 +11,14 @@
     "e-learning.users": "Users",
     "e-learning.videoCount": "Videos",
     "e-learning.trainer": "Trainer"
+    "start_time": "Start Time", 
+    "end_time": "End Time",
+    "pick_time": "Pick a date",
+    "already_have_marker":  "You already have a marker. Please remove it before adding a new one.", 
+    "click_ellipse": "Click within an ellipse to add a marker.",
+    "booking_sucess": "Booking deleted successfully",
+    "start_end_error": "Start time must be earlier than end time",
+    "select_date_error": "Please select a date and valid start and end times.", 
+    "success_booking":"Marker data saved successfully.",
+    "add_marker_before_send": "Please add a marker before sending data."
 }

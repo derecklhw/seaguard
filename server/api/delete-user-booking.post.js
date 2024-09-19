@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
       };
     } else {
       return {
-        success: true,
+        success: false,
         message: "Booking not found or already deleted",
       };
     }

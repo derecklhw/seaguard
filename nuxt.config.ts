@@ -81,6 +81,10 @@ export default defineNuxtConfig({
         code: "fr",
         file: "fr-FR.json",
       },
+      {
+        code: "mfe",
+        file: "mfe-MFE.json",
+      },
     ],
     lazy: true,
     langDir: "lang",
