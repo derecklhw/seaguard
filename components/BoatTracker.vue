@@ -1,12 +1,9 @@
 <template>
   <div class="h-full flex flex-col">
-    <section
-      class="border-t-2 border-gray-300"
-      style="background-color: #aad3df"
-    >
+    <section class="border-t-2 border-gray-300" style="background-color: white">
       <div
         id="controls"
-        class="flex flex-col lg:flex-row justify-center items-center h-fit lg:h-20 my-2"
+        class="flex flex-col lg:flex-row justify-center items-center h-fit lg:h-20 my-2 md:my-4"
       >
         <div class="mx-2 my-1">
           <DatePicker
@@ -57,13 +54,15 @@
       </div>
     </section>
 
-    <client-only>
-      <div
-        id="mapContainer"
-        class="flex-grow z-0 w-full"
-        style="min-height: 520px"
-      />
-    </client-only>
+    <div class="flex justify-center items-center w-full">
+      <client-only>
+        <div
+          id="mapContainer"
+          class="flex-grow z-0 w-full max-w-6xl"
+          style="min-height: 480px"
+        />
+      </client-only>
+    </div>
   </div>
 </template>
 
@@ -113,7 +112,7 @@ const initializeMap = async () => {
     map.value = L.value.map("mapContainer", {
       center: [-20.248404, 57.352152],
       zoom: 10,
-      minZoom: 10,
+      minZoom: 8,
       maxZoom: 16,
     });
 
@@ -523,7 +522,7 @@ const handleClick = () => {
       confirmButtonText: "Register",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigateTo(localePath("/"));
+        navigateTo(localePath("/register"));
       }
     });
   } else {
