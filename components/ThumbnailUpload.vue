@@ -1,8 +1,12 @@
 <template>
-  <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm p-6">
+  <div
+    class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm p-6"
+  >
     <div class="flex flex-col items-center gap-6 text-center">
       <h3 class="text-2xl font-bold tracking-tight">Video Analysis Results</h3>
-      <p class="text-sm text-muted-foreground">Click on a video to edit its details and upload a thumbnail.</p>
+      <p class="text-sm text-muted-foreground">
+        Click on a video to edit its details and upload a thumbnail.
+      </p>
 
       <!-- Table to display video results -->
       <div class="w-full overflow-x-auto">
@@ -16,7 +20,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="video in videos" :key="video.Id" class="hover:bg-gray-100">
+            <tr
+              v-for="video in videos"
+              :key="video.Id"
+              class="hover:bg-gray-100"
+            >
               <td class="border px-4 py-2">{{ video.Id }}</td>
               <td class="border px-4 py-2">{{ video.Name }}</td>
               <td class="border px-4 py-2">{{ video.DurationInSeconds }}</td>
@@ -24,7 +32,10 @@
                 <!-- Use DialogTrigger to open the edit dialog -->
                 <Dialog>
                   <DialogTrigger as-child>
-                    <Button class="bg-blue-500 text-white py-1 px-3 rounded" @click="openModal(video)">
+                    <Button
+                      class="bg-blue-500 text-white py-1 px-3 rounded"
+                      @click="openModal(video)"
+                    >
                       Edit
                     </Button>
                   </DialogTrigger>
@@ -32,13 +43,20 @@
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>Edit Video Details</DialogTitle>
-                      <DialogDescription>Edit the details of your video and upload a thumbnail.</DialogDescription>
+                      <DialogDescription
+                        >Edit the details of your video and upload a
+                        thumbnail.</DialogDescription
+                      >
                     </DialogHeader>
 
                     <DialogScrollContent>
                       <div class="mb-4">
                         <Label>ID</Label>
-                        <Input type="text" v-model="selectedVideo.Id" readonly />
+                        <Input
+                          type="text"
+                          v-model="selectedVideo.Id"
+                          readonly
+                        />
                       </div>
 
                       <div class="mb-4">
@@ -48,22 +66,30 @@
 
                       <div class="mb-4">
                         <Label>Duration (Seconds)</Label>
-                        <Input type="number" v-model="selectedVideo.DurationInSeconds" />
+                        <Input
+                          type="number"
+                          v-model="selectedVideo.DurationInSeconds"
+                        />
                       </div>
 
                       <div class="mb-4">
                         <Label>Upload Thumbnail</Label>
-                        <Input type="file" @change="onThumbnailChange" accept="image/*" />
+                        <Input
+                          type="file"
+                          @change="onThumbnailChange"
+                          accept="image/*"
+                        />
                       </div>
+
                       <div class="mb-4">
-                        <Button variant="default" @click="saveChanges">Save</Button>
-                      <!-- Cancel button to close the dialog -->
-                      <DialogClose as-child>
-                        <Button variant="secondary">Cancel</Button>
-                      </DialogClose>
+                        <Button variant="default" @click="saveChanges"
+                          >Save</Button
+                        >
+                        <DialogClose as-child>
+                          <Button variant="secondary">Cancel</Button>
+                        </DialogClose>
                       </div>
                     </DialogScrollContent>
-
                   </DialogContent>
                 </Dialog>
               </td>
@@ -76,11 +102,20 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogScrollContent, DialogFooter, DialogTrigger, DialogClose } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { ref } from "vue";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogScrollContent,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default {
   data() {
@@ -93,13 +128,13 @@ export default {
   methods: {
     async fetchVideos() {
       try {
-        const response = await fetch('/api/get_video_analysis_results');
+        const response = await fetch("/api/get_video_analysis_results");
         const data = await response.json();
         if (data.success) {
           this.videos = data.videos;
         }
       } catch (error) {
-        console.error('Error fetching video results:', error);
+        console.error("Error fetching video results:", error);
       }
     },
     openModal(video) {
@@ -112,27 +147,33 @@ export default {
       try {
         // Create form data to hold the video details and the thumbnail
         const formData = new FormData();
-        formData.append('id', this.selectedVideo.Id);
-        formData.append('name', this.selectedVideo.Name);
-        formData.append('duration', this.selectedVideo.DurationInSeconds);
+        formData.append("id", this.selectedVideo.Id);
+        formData.append("name", this.selectedVideo.Name);
+        formData.append("duration", this.selectedVideo.DurationInSeconds);
 
         // Append the thumbnail file if available
         if (this.thumbnailFile) {
-          formData.append('thumbnail', this.thumbnailFile);
+          formData.append("thumbnail", this.thumbnailFile);
         }
 
         // Send a request to save the changes
-        const response = await fetch('/api/update_video_analysis', {
-          method: 'POST',
+        const response = await fetch("/api/update_video_analysis", {
+          method: "POST",
           body: formData,
         });
 
         const result = await response.json();
         if (result.success) {
           this.fetchVideos(); // Refresh the video list after saving
+          alert("Video updated successfully.");
+        } else {
+          // Log the detailed error message from the backend
+          console.error("Error updating video:", result.message, result.error);
+          alert("Error updating video: " + result.message);
         }
       } catch (error) {
-        console.error('Error saving changes:', error);
+        console.error("Error saving changes:", error);
+        alert("Error saving changes: " + error.message);
       }
     },
   },
@@ -148,7 +189,8 @@ export default {
   border-collapse: collapse;
 }
 
-.table-auto th, .table-auto td {
+.table-auto th,
+.table-auto td {
   border: 1px solid #ddd;
   padding: 8px;
 }
