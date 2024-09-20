@@ -24,6 +24,7 @@
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "embla-carousel-vue": "^8.3.0",
     "leaflet": "^1.9.4",
     "leaflet-ellipse": "^0.9.1",

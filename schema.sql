@@ -245,24 +245,47 @@ CREATE TABLE Licensee (
   UserEmail NVARCHAR(50) NOT NULL,
   CONSTRAINT FK_Licensee_Users FOREIGN KEY (UserEmail) REFERENCES Users(Email)
 );
--- Mocks a licensee in the Licensee table
-INSERT INTO Licensee (
-    RegistrationNo,
-    Licensee,
-    Address,
-    MooringPlace,
-    ReceiptNo,
-    DateIssued,
-    UserEmail
-  )
+-- Incidents Table
+CREATE TABLE Incidents (
+  Id NVARCHAR(50) PRIMARY KEY,
+  Title NVARCHAR(255) NOT NULL,
+  Description NVARCHAR(MAX) NOT NULL,
+  Timestamp INT NOT NULL,
+  Status NVARCHAR(50) NOT NULL,
+);
+-- Create mocks for incidents table
+INSERT INTO Incidents (Id, Title, Description, Timestamp, Status)
 VALUES (
-    'PC 1234-OL-12',
-    'John Doe',
-    '123, Main Street, Port Louis',
-    'Grand Baie',
-    '123456789',
-    '2024-09-16',
-    'john.doe@example.com'
+    '1',
+    'Incident 1',
+    'Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
+              incidunt aliquam numquam exercitationem, unde, autem tenetur
+              temporibus est a, impedit sapiente delectus veritatis!',
+    1726821721,
+    'Resolved'
+  );
+INSERT INTO Incidents (Id, Title, Description, Timestamp, Status)
+VALUES (
+    '2',
+    'Incident 2',
+    'Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
+              incidunt aliquam numquam exercitationem, unde, autem tenetur
+              temporibus est a, impedit sapiente delectus veritatis!',
+    1724121720,
+    'Pending'
+  );
+INSERT INTO Incidents (Id, Title, Description, Timestamp, Status)
+VALUES (
+    '3',
+    'Incident 3',
+    'Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
+              incidunt aliquam numquam exercitationem, unde, autem tenetur
+              temporibus est a, impedit sapiente delectus veritatis!',
+    1726800120,
+    'Critical'
   );
 -- Videos Table
 CREATE TABLE Videos (
