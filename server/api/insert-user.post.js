@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     if (checkUserExists.recordset.length > 0) {
       return {
         success: true,
-        message: "User already exists",
+        message: checkUserExists.recordset[0],
       };
     }
 

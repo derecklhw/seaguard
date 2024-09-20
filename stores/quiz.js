@@ -12,7 +12,7 @@ export const useQuizStore = defineStore("quiz", {
     difficulty: "medium",
   }),
   actions: {
-    async getTriviaByCategory() {
+    async getQuestions() {
       const documents = await $fetch("/api/get-documents");
       const randomDocument =
         documents.message.recordset[

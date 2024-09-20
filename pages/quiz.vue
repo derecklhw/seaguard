@@ -1,51 +1,70 @@
 <template>
-  <div
-    class="w-full items-center justify-center flex flex-col gap-4 p-2"
-    style="height: 68vh"
-  >
-    <GameOver v-if="gameover" :userScore="store.userScore"></GameOver>
+  <div>
     <div
-      v-if="!gameover"
-      class="quiz-card z-0 relative md:w-full max-w-[500px] bg-white rounded-3xl p-8 mb-6 text-center flex flex-col items-center justify-center gap-8 shadow-xl hover:shadow-2xl"
+      class="select-none p-8 min-h-screen overflow-hidden flex flex-col items-center justify-start bg-cover bg-fixed bg-no-repeat bg-center"
+      style="
+        background-image: radial-gradient(
+            circle,
+            rgba(0, 0, 0, 0.6),
+            transparent
+          ),
+          url('/images/quiz_background.png');
+      "
     >
-      <div class="w-full flex flex-row items-center justify-between">
+      <h1 class="text-5xl font-bold text-primary-foreground">Quiz</h1>
+      <div class="w-full max-w-[500px] flex flex-col gap-4">
+        <div class="w-full flex flex-row h-12 items-center">
+          <IconArrowBack
+            class="cursor-pointer text-white"
+            @click="reloadNuxtApp({ path: localePath('/') })"
+          />
+        </div>
+        <GameOver v-if="gameover" :user-score="store.userScore" />
         <div
-          class="flex flex-row items-center justify-start gap-2 min-w-[75px] w-[75px]"
+          v-if="!gameover"
+          class="quiz-card z-0 relative md:w-full max-w-[500px] bg-white rounded-3xl p-8 mb-6 text-center flex flex-col items-center justify-center gap-8 shadow-xl hover:shadow-2xl"
         >
-          <IconBaselineHelp
-            class="ri-question-fill text-gray-600 -mt-[2px] size-6"
-          ></IconBaselineHelp
-          ><span class="text-gray-600"
-            >{{ store.currentQuestion + 1 }}/{{ store.questionCount }}</span
+          <div class="w-full flex flex-row items-center justify-between">
+            <div
+              class="flex flex-row items-center justify-start gap-2 min-w-[75px] w-[75px]"
+            >
+              <IconBaselineHelp
+                class="ri-question-fill text-gray-600 -mt-[2px] size-6"
+              /><span class="text-gray-600"
+                >{{ store.currentQuestion + 1 }}/{{ store.questionCount }}</span
+              >
+            </div>
+            <div
+              class="flex flex-row items-center justify-end gap-2 min-w-[75px] w-[75px]"
+            >
+              <IconFamilyStar
+                class="ri-star-fill text-yellow-500 -mt-[2px] size-6"
+              /><span class="text-gray-600">{{ store.userScore }}</span>
+            </div>
+          </div>
+          <QuizTimer :countdown="countdown" />
+          <QuizQuestionTitle
+            :current-question="store.trivia[store.currentQuestion]"
+          />
+          <div
+            :class="{
+              'pointer-events-none': pauseControls,
+            }"
+            class="w-full flex flex-col items-center justify-center gap-4 min-h-36 md:min-h-56"
           >
-        </div>
-        <div
-          class="flex flex-row items-center justify-end gap-2 min-w-[75px] w-[75px]"
-        >
-          <IconFamilyStar
-            class="ri-star-fill text-yellow-500 -mt-[2px] size-6"
-          ></IconFamilyStar
-          ><span class="text-gray-600">{{ store.userScore }}</span>
+            <QuizMultipleChoiceButton
+              :item="item"
+              v-for="(item, index) in store.quizAnswers ? store.quizAnswers : 4"
+              :key="index"
+              :id="item"
+              @click="evaluateAnswer(item)"
+            />
+          </div>
         </div>
       </div>
-      <QuizTimer :countdown="countdown"></QuizTimer>
-      <QuizQuestionTitle
-        :currentQuestion="store.trivia[store.currentQuestion]"
-      ></QuizQuestionTitle>
-      <div
-        :class="{
-          'pointer-events-none': pauseControls,
-        }"
-        class="w-full flex flex-col items-center justify-center gap-4"
-      >
-        <QuizMultipleChoiceButton
-          :item="item"
-          v-for="(item, index) in store.quizAnswers ? store.quizAnswers : 4"
-          :key="index"
-          :id="item"
-          @click="evaluateAnswer(item)"
-        ></QuizMultipleChoiceButton>
-      </div>
+      <p class="mt-8 text-center text-md text-white">
+        Built with ❤️ by Prompt Engineers
+      </p>
     </div>
   </div>
 </template>
@@ -53,6 +72,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import confetti from "canvas-confetti";
+import Swal from "sweetalert2";
+
+definePageMeta({
+  layout: false,
+});
 
 const localePath = useLocalePath();
 const store = useQuizStore();
@@ -164,10 +188,17 @@ const evaluateAnswer = async (item) => {
 
 onMounted(async () => {
   await store
-    .getTriviaByCategory()
+    .getQuestions()
     .then(bundleAnswers)
     .catch(() => {
-      navigateTo(localePath("/"));
+      Swal.fire({
+        icon: "info",
+        title: "Notice",
+        text: "Error generating the questions.",
+        confirmButtonText: "OK",
+      }).then(() => {
+        reloadNuxtApp();
+      });
     });
 });
 

@@ -4,8 +4,18 @@
     "home.about_us_text": "Nou dédiké pou protéz lavi maren ek asir sekirite bann delfin, balenn ek zot l’habita. Dekouver nou platform pou gagn lenformasyon lor bann l’incidan maren aktyel ek pasé, swiv bann zone kle pou enn tourism maren responsab, ek gagn akse a bann resours aprantisaz online adapte pou bann ki travay dan lanvironnman maren. Ansam nou kapav fer enn diferans—siport nou koz atraver enn don zordi pou ed protéz nou lamer pou bann zenerasion lavenir!",
     "e-learning": "Aprantisaz Online",
     "map": "Map",
-    "incidents": "L'incidan",
+    "incident-reporting": "Raport ene incidan",
     "donation": "Don",
     "quiz": "Kouiz",
-    "main_text_e-learning": "Dekouver Meilleur Kour Online Lor Teritwar Lamer Morisien"
+    "main_text_e-learning": "Dekouver Meilleur Kour Online Lor Teritwar Lamer Morisien",
+    "map.start_time": "Ler Démaré",
+    "map.end_time": "Ler Finision",
+    "map.datepicker.pick_time": "Soizir un date",
+    "map.already_have_marker": "Ou ena déjà enn markeur. Tir li avan ou azout enn nouvo.",
+    "map.click_ellipse": "Klike dan enn ellipse pou azoute enn markeur.",
+    "map.booking_sucess": "Rezervasion finn efase ar siksé",
+    "map.start_end_error": "Ler debi bizin vin pli boner ki ler la finn.",
+    "map.select_date_error": "Soizir enn dat ek enn ler deby ek enn ler finn valab.",
+    "map.success_booking": "Données markeur finn enrezistrer ek siksè",
+    "map.add_marker_before_send": "Azout enn markeur avan ki ou voye bann donné"
 }
