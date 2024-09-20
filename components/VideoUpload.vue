@@ -79,10 +79,8 @@
       <div v-if="isAnalyzing" class="mt-4 w-full">
         <h3 class="text-2xl font-bold tracking-tight">Analysis Progress</h3>
         <!-- Show progress bar during analysis -->
-          <!-- ShadCN Progress Bar -->
-          <Progress :value="parseInt(analysisProgress)" class="w-full mt-2" />
-
-
+        <!-- ShadCN Progress Bar -->
+        <Progress :value="parseInt(analysisProgress)" class="w-full mt-2" />
       </div>
 
       <!-- Show analysis results -->
@@ -142,7 +140,7 @@ export default {
         formData.append("video", this.file);
         formData.append("title", this.title);
 
-        const response = await fetch("/api/upload_video", {
+        const response = await fetch("/api/upload-video", {
           method: "POST",
           body: formData,
         });
@@ -164,40 +162,42 @@ export default {
     },
 
     async analyzeVideo() {
-  if (!this.uploadedVideoUrl) {
-    alert("No uploaded video to analyze.");
-    return;
-  }
+      if (!this.uploadedVideoUrl) {
+        alert("No uploaded video to analyze.");
+        return;
+      }
 
-  this.isAnalyzing = true;
-  this.analysisProgress = 0;
+      this.isAnalyzing = true;
+      this.analysisProgress = 0;
 
-  try {
-    const response = await fetch(
-      `/api/analyze_video?videoUrl=${encodeURIComponent(this.uploadedVideoUrl)}`
-    );
+      try {
+        const response = await fetch(
+          `/api/analyze-video?videoUrl=${encodeURIComponent(
+            this.uploadedVideoUrl
+          )}`
+        );
 
-    if (!response.ok) {
-      throw new Error(`Analysis failed with status ${response.status}`);
-    }
+        if (!response.ok) {
+          throw new Error(`Analysis failed with status ${response.status}`);
+        }
 
-    const data = await response.json();
+        const data = await response.json();
 
-    if (data.success) {
-      // Handle successful analysis
-      this.analysisResults = data.analysisResults;
-      this.isAnalyzing = false;
-      console.log("Video analysis successful:", data.analysisResults);
-    } else {
-      // Handle analysis error if returned from API
-      throw new Error(data.message);
-    }
-  } catch (error) {
-    console.error("Error during video analysis:", error);
-    this.uploadError = error.message;
-    this.isAnalyzing = false;
-  }
-}
+        if (data.success) {
+          // Handle successful analysis
+          this.analysisResults = data.analysisResults;
+          this.isAnalyzing = false;
+          console.log("Video analysis successful:", data.analysisResults);
+        } else {
+          // Handle analysis error if returned from API
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.error("Error during video analysis:", error);
+        this.uploadError = error.message;
+        this.isAnalyzing = false;
+      }
+    },
   },
 };
 </script>
