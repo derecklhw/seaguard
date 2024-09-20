@@ -6,14 +6,13 @@ const stripe = new Stripe(config.stripeApiKey, {
   apiVersion: '2022-11-15',
 });
 
-const YOUR_DOMAIN = 'http://localhost:8000'; 
+const currentDomain = config.public.redirectUri; 
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   try {
     const session = await stripe.checkout.sessions.create({
-
       submit_type: 'donate',
       line_items: [
         {
@@ -22,8 +21,8 @@ export default defineEventHandler(async (event) => {
         },
       ],
       mode: 'payment',
-      success_url: `${YOUR_DOMAIN}/success`,
-      cancel_url: `${YOUR_DOMAIN}/cancel`,
+      success_url: `${currentDomain}donation`,
+      cancel_url: `${currentDomain}donation`,
     });
 
     return {
