@@ -6,7 +6,7 @@ export default defineEventHandler(async () => {
 
     const result =
       // TODO: add parameter to choose to return all incidents in timestamp order
-      await db.query`SELECT * FROM incidents ORDER BY Timestamp ASC`;
+      await db.query`SELECT * FROM incidents ORDER BY Timestamp DESC`;
     return { success: true, message: result };
   } catch (err) {
     console.log(err);

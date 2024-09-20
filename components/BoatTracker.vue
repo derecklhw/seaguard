@@ -58,8 +58,7 @@
       <client-only>
         <div
           id="mapContainer"
-          class="flex-grow z-0 w-full max-w-6xl"
-          style="min-height: 480px"
+          class="flex-grow z-0 w-full max-w-6xl min-h-[400px] md:min-h-[550px]"
         />
       </client-only>
     </div>

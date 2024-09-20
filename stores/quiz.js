@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useQuizStore = defineStore("quiz", {
   state: () => ({
     trivia: [],
-    questionCount: 2,
+    questionCount: 10,
     currentQuestion: 0,
     quizAnswers: [],
     quizCorrectAnswer: "",

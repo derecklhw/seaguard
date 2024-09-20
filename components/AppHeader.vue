@@ -166,12 +166,17 @@
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <!-- <DropdownMenuLabel>My Account</DropdownMenuLabel> -->
+          <DropdownMenuLabel v-if="store.getUserMail">{{
+            store.getUserMail
+          }}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <!-- <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem> -->
-          <DropdownMenuSeparator />
-          <DropdownMenuItem @click="logout">Logout</DropdownMenuItem>
+          <DropdownMenuLabel v-if="store.getUserRole"
+            >Role: {{ store.getUserRole }}</DropdownMenuLabel
+          >
+          <DropdownMenuItem class="cursor-pointer" @click="logout"
+            >Logout</DropdownMenuItem
+          >
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
