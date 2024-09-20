@@ -16,62 +16,63 @@
             <!-- Links with click events to change the active section -->
             <a
               href="#"
-              @click.prevent="setActiveSection('incidents')"
               :class="
                 activeSection === 'incidents' ? 'text-blue-500' : 'text-black'
               "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+              @click.prevent="setActiveSection('incidents')"
             >
-              <!-- <Home class="h-4 w-4" /> -->
+              <IconDangerOutline class="size-4" />
               Incidents
             </a>
+
             <a
               href="#"
-              @click.prevent="setActiveSection('videoUpload')"
-              :class="
-                activeSection === 'videoUpload' ? 'text-blue-500' : 'text-black'
-              "
-              class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
-            >
-              <!-- <ShoppingCart class="h-4 w-4" /> -->
-              Video Upload
-            </a>
-            <a
-              href="#"
-              @click.prevent="setActiveSection('thumbnailUpload')"
-              :class="
-                activeSection === 'thumbnailUpload'
-                  ? 'text-blue-500'
-                  : 'text-black'
-              "
-              class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
-            >
-              <!-- <Package class="h-4 w-4" /> -->
-              Update Video Data
-            </a>
-            <a
-              href="#"
-              @click.prevent="setActiveSection('documents')"
               :class="
                 activeSection === 'documents' ? 'text-blue-500' : 'text-black'
               "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+              @click.prevent="setActiveSection('documents')"
             >
-              <!-- <ShoppingCart class="h-4 w-4" /> -->
+              <IconDocument class="size-4" />
               Documents
             </a>
             <a
               href="#"
-              @click.prevent="setActiveSection('boatTrackers')"
               :class="
                 activeSection === 'boatTrackers'
                   ? 'text-blue-500'
                   : 'text-black'
               "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+              @click.prevent="setActiveSection('boatTrackers')"
             >
-              <!-- <ShoppingCart class="h-4 w-4" /> -->
+              <IconBoat class="size-4" />
               Boat Trackers
+            </a>
+            <a
+              href="#"
+              :class="
+                activeSection === 'thumbnailUpload'
+                  ? 'text-blue-500'
+                  : 'text-black'
+              "
+              class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+              @click.prevent="setActiveSection('thumbnailUpload')"
+            >
+              <IconVideoCam class="size-4" />
+              Videos
+            </a>
+            <a
+              href="#"
+              class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+              :class="
+                activeSection === 'videoUpload' ? 'text-blue-500' : 'text-black'
+              "
+              @click.prevent="setActiveSection('videoUpload')"
+            >
+              <IconVideoUpload class="size-4" />
+              Video Upload
             </a>
           </nav>
         </div>
@@ -95,14 +96,14 @@
             <!-- Display dynamic title based on active section -->
             {{ activeSection === "incidents" ? "Incidents" : "" }}
             {{ activeSection === "videoUpload" ? "Video Upload" : "" }}
-            {{ activeSection === "thumbnailUpload" ? "Update Video Data" : "" }}
+            {{ activeSection === "thumbnailUpload" ? "Videos" : "" }}
             {{ activeSection === "documents" ? "Documents" : "" }}
             {{ activeSection === "boatTrackers" ? "Boat Trackers" : "" }}
           </h1>
         </div>
 
         <!-- Dynamic component for each section -->
-        <component :is="activeComponent"></component>
+        <component :is="activeComponent" />
       </main>
     </div>
   </div>
@@ -110,7 +111,6 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 
 // Import the dynamic components

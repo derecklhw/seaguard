@@ -1,17 +1,14 @@
 <template>
   <div
-    class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm p-6"
+    class="flex flex-1 items-start justify-start rounded-lg border border-dashed shadow-sm p-6"
   >
     <div class="flex flex-col items-center gap-6 text-center">
-      <h3 class="text-2xl font-bold tracking-tight">Video Upload Section</h3>
-      <p class="text-sm text-muted-foreground">Upload videos here.</p>
-
       <!-- Form for uploading video -->
       <form
         @submit.prevent="submitForm"
-        class="flex flex-col items-center gap-4 w-full max-w-md"
+        class="flex flex-col items-start gap-4 w-full max-w-md"
       >
-        <div class="w-full">
+        <div class="w-full text-start">
           <Label for="video">Select Video File</Label>
           <Input
             type="file"
@@ -22,7 +19,7 @@
           />
         </div>
 
-        <div class="w-full">
+        <div class="w-full text-start">
           <Label for="title">Video Title</Label>
           <Input
             type="text"
@@ -59,14 +56,14 @@
       </div>
 
       <!-- Show progress bar during analysis -->
-      <div v-if="isAnalyzing" class="mt-4 ">
+      <div v-if="isAnalyzing" class="mt-4">
         <Label for="video">Analysis in Progress</Label>
         <!-- Show progress bar during analysis -->
-        <IconSpinner class="size-24 text-primary"/>
+        <IconSpinner class="size-24 text-primary" />
       </div>
 
       <!-- Show analysis success message -->
-      <div v-if="analysisResults " class="text-green-500 ">
+      <div v-if="analysisResults" class="text-green-500">
         Video successfully analyzed with ID: {{ analysisResults.id }}
       </div>
     </div>

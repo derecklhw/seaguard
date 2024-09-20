@@ -1,9 +1,8 @@
 <template>
   <div
-    class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm p-6"
+    class="flex flex-1 items-start justify-start rounded-lg border border-dashed shadow-sm p-6"
   >
-    <div class="flex flex-col items-center gap-6 text-center">
-      <h3 class="text-2xl font-bold tracking-tight">Video Analysis Results</h3>
+    <div class="flex flex-col items-start gap-6 text-center">
       <p class="text-sm text-muted-foreground">
         Click on a video to edit its details and upload a thumbnail.
       </p>
