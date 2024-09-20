@@ -1,14 +1,14 @@
 <template>
   <div>
     <div
-      class="bg-primary select-none p-8 min-h-screen overflow-hidden flex flex-col items-center justify-start bg-cover bg-fixed bg-no-repeat bg-center"
+      class="select-none p-8 min-h-screen overflow-hidden flex flex-col items-center justify-start bg-cover bg-fixed bg-no-repeat bg-center"
       style="
         background-image: radial-gradient(
             circle,
-            rgba(255, 255, 255, 0.25),
+            rgba(0, 0, 0, 0.6),
             transparent
           ),
-          url('/images/home_hero.png');
+          url('/images/quiz_background.png');
       "
     >
       <h1 class="text-5xl font-bold text-primary-foreground">Quiz</h1>
@@ -50,7 +50,7 @@
             :class="{
               'pointer-events-none': pauseControls,
             }"
-            class="w-full flex flex-col items-center justify-center gap-4"
+            class="w-full flex flex-col items-center justify-center gap-4 min-h-36 md:min-h-56"
           >
             <QuizMultipleChoiceButton
               :item="item"

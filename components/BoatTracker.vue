@@ -1,57 +1,81 @@
 <template>
-  <div>
-    <section class="border-t-2 border-gray-300" style="background-color: #aad3df;">
-        <div id="controls" class="flex flex-col lg:flex-row justify-center items-center h-fit lg:h-20">
-        <div class="mx-5 my-1">
-          <DatePicker type="date" id="selectedDate" v-model="selectedDate" required />
-        </div>
-        <div class="mx-5 my-1">
-          <TimeSelect
-          id="startDateTime"
-          :label="$t('start_time')"
-          start="06:00"
-          end="12:00"
-          :step="15"
-          v-model="startDateTime"
+  <div class="h-full flex flex-col">
+    <section>
+      <div
+        id="controls"
+        class="flex flex-col lg:flex-row justify-center items-center h-fit lg:h-20 my-2 md:my-4"
+      >
+        <div class="mx-2 my-1">
+          <DatePicker
+            id="selectedDate"
+            v-model="selectedDate"
+            type="date"
+            required
           />
         </div>
+        <div class="flex">
+          <div class="mx-2 my-2">
+            <TimeSelect
+              id="startDateTime"
+              v-model="startDateTime"
+              :label="$t('map.start_time')"
+              start="06:00"
+              end="12:00"
+              :step="15"
+            />
+          </div>
 
-        <div class="mx-5 my-1">
-          <TimeSelect
-          id="endDateTime"
-          :label="$t('end_time')"
-          start="06:00"
-          end="12:00"
-          :step="15"
-          v-model="endDateTime"
-          />
+          <div class="mx-2 my-2">
+            <TimeSelect
+              id="endDateTime"
+              v-model="endDateTime"
+              :label="$t('map.end_time')"
+              start="06:00"
+              end="12:00"
+              :step="15"
+            />
+          </div>
         </div>
-        <div class="mx-5 my-1">
-          <Button @click="submitTimes">Submit Times</Button>
-        </div>
-        <div class="mx-5 my-1">      
-          <Button id="sendData" style="display: none" @click="sendMarkerData">
-          Send Data
-          </Button>
+        <div class="flex">
+          <div class="mx-2 my-1">
+            <Button @click="submitTimes">Submit Times</Button>
+          </div>
+          <div class="mx-2 my-1">
+            <Button
+              v-if="userEmail"
+              id="sendData"
+              :class="{ 'disabled-button': isButtonDisabled }"
+              @click="handleClick"
+            >
+              Send Data
+            </Button>
+          </div>
         </div>
       </div>
     </section>
 
-    <client-only>
-      <div id="mapContainer" class="h-screen z-0 w-screen" style=" width: 100%; z-index: 0;"></div>
-    </client-only>
+    <div class="flex justify-center items-center w-full">
+      <client-only>
+        <div
+          id="mapContainer"
+          class="flex-grow z-0 w-full max-w-6xl"
+          style="min-height: 480px"
+        />
+      </client-only>
+    </div>
   </div>
 </template>
 
 <script setup>
-import TimeSelect from './TimeSelect.vue';
-const { t } = useI18n();
-import DatePicker from './DatePicker.vue';
-const store = useProfileStore();
-import Swal from 'sweetalert2';
-import { ref, onMounted, watch } from "vue";
+import TimeSelect from "./TimeSelect.vue";
+import DatePicker from "./DatePicker.vue";
+import Swal from "sweetalert2";
+import { ref, onMounted } from "vue";
 import { useFetch } from "#app";
 import "leaflet/dist/leaflet.css";
+const { t } = useI18n();
+const store = useProfileStore();
+const localePath = useLocalePath();
 
 const map = ref(null);
 const L = ref(null);
@@ -64,10 +88,9 @@ const selectedDate = ref(null);
 const endTime = ref(null);
 const startDateTime = ref(null);
 const endDateTime = ref(null);
+const userEmail = ref(store.getUserMail);
 
-let userEmail = ref(store.getUserMail);
-
-onMounted(async () => { 
+onMounted(async () => {
   if (process.client) {
     await loadLeaflet();
     initializeMap();
@@ -87,12 +110,12 @@ const loadLeaflet = async () => {
 const initializeMap = async () => {
   if (process.client && L.value) {
     map.value = L.value.map("mapContainer", {
-      center: [-20.348404, 57.552152],
+      center: [-20.248404, 57.352152],
       zoom: 10,
-      minZoom: 10,
+      minZoom: 8,
       maxZoom: 16,
     });
-    console.log(userEmail); 
+
     L.value
       .tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
       .addTo(map.value);
@@ -101,8 +124,12 @@ const initializeMap = async () => {
 
     const currentIcon = updateIconSize(map.value.getZoom());
 
-    if ((userEmail.value != "") && (startDateTime.value && endDateTime.value && selectedDate.value))
-    {
+    if (
+      userEmail.value != "" &&
+      startDateTime.value &&
+      endDateTime.value &&
+      selectedDate.value
+    ) {
       map.value.on("click", (e) => handleMapClick(e, currentIcon));
       map.value.on("zoomend", () => updateMarkerIconSize(map.value.getZoom()));
     }
@@ -131,11 +158,11 @@ const handleMapClick = (e, icon) => {
   if (insideEllipse) {
     if (currentMarker.value) {
       Swal.fire({
-      icon: 'info',
-      title: 'Notice',
-      text:  t('already_have_marker'),
-      confirmButtonText: 'OK'
-    });
+        icon: "info",
+        title: "Notice",
+        text: t("map.already_have_marker"),
+        confirmButtonText: "OK",
+      });
     } else {
       currentMarker.value = L.value.marker(latlng, { icon }).addTo(map.value);
       updateEllipseColors(
@@ -162,10 +189,10 @@ const handleMapClick = (e, icon) => {
     }
   } else {
     Swal.fire({
-      icon: 'info',
-      title: 'Notice',
-      text:  t('click_ellipse'),
-      confirmButtonText: 'OK'
+      icon: "info",
+      title: "Notice",
+      text: t("map.click_ellipse"),
+      confirmButtonText: "OK",
     });
   }
 };
@@ -205,8 +232,8 @@ const updateIconSize = (zoom) => {
 const fetchAllMarkersAndUserBookings = async () => {
   if (process.client && L.value) {
     // console.log(startTime.value, endTime.value);
-    let isoStartTime = new Date(startTime.value).toISOString(); // Converts to ISO format
-    let isoEndTime = new Date(endTime.value).toISOString(); // Converts to ISO format
+    const isoStartTime = new Date(startTime.value).toISOString(); // Converts to ISO format
+    const isoEndTime = new Date(endTime.value).toISOString(); // Converts to ISO format
 
     // console.log(isoStartTime, isoEndTime);
     try {
@@ -234,8 +261,8 @@ const fetchAllMarkersAndUserBookings = async () => {
       if (userBookings && Array.isArray(userBookings)) {
         // console.log(userBookings);
         userBookings.forEach((booking) => {
-          let startDate = new Date(booking.startTime);
-          let endDate = new Date(booking.endTime);
+          const startDate = new Date(booking.startTime);
+          const endDate = new Date(booking.endTime);
           console.log(startDate, endDate);
 
           const userMarker = L.value
@@ -276,8 +303,8 @@ const fetchAllMarkersAndUserBookings = async () => {
       // console.log(markers);
       if (markers && Array.isArray(markers)) {
         markers.forEach((marker) => {
-          let startDate = new Date(marker.startTime);
-          let endDate = new Date(marker.endTime);
+          const startDate = new Date(marker.startTime);
+          const endDate = new Date(marker.endTime);
 
           L.value
             .marker([marker.Latitude, marker.Longitude], {
@@ -310,22 +337,22 @@ const deleteUserBooking = async (bookingId, marker, userEmail) => {
 
   if (data.value.success) {
     Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text:  t('booking_sucess'),
-      confirmButtonText: 'OK', 
-      timer: 3000
+      icon: "success",
+      title: "Success",
+      text: t("map.booking_sucess"),
+      confirmButtonText: "OK",
+      timer: 3000,
     });
     map.value.removeLayer(marker);
     resetMap();
     initializeMap();
   } else {
     Swal.fire({
-      icon: 'Error',
-      title: 'Error',
-      text: 'Error deleting booking: ' + data.value.message,
-      confirmButtonText: 'OK', 
-      timer: 3000
+      icon: "Error",
+      title: "Error",
+      text: "Error deleting booking: " + data.value.message,
+      confirmButtonText: "OK",
+      timer: 3000,
     });
     resetMap();
     initializeMap();
@@ -379,7 +406,7 @@ const updateEllipseColorsOnRemove = (lat, lng) => {
 };
 
 const submitTimes = () => {
-  console.log(selectedDate.value)
+  console.log(selectedDate.value);
   if (selectedDate.value && startDateTime.value && endDateTime.value) {
     startTime.value = new Date(`${selectedDate.value}T${startDateTime.value}`);
     endTime.value = new Date(`${selectedDate.value}T${endDateTime.value}`);
@@ -387,10 +414,10 @@ const submitTimes = () => {
     // console.log(startTime.value, endTime.value);
     if (startTime.value >= endTime.value) {
       Swal.fire({
-        icon: 'Error',
-        title: 'Error',
-        text:  t('start_end_error'),
-        confirmButtonText: 'OK', 
+        icon: "Error",
+        title: "Error",
+        text: t("map.start_end_error"),
+        confirmButtonText: "OK",
       });
       return;
     }
@@ -405,19 +432,14 @@ const submitTimes = () => {
     mapInitialized.value = true;
     document.getElementById("mapContainer").style.display = "block";
 
-    if (userEmail.value != "")
-    {
-      document.getElementById("sendData").style.display = "inline";
-    }
-
     fetchAllMarkersAndUserBookings();
   } else {
     Swal.fire({
-        icon: 'Error',
-        title: 'Error',
-        text:  t('select_date_error'),
-        confirmButtonText: 'OK', 
-      });
+      icon: "Error",
+      title: "Error",
+      text: t("map.select_date_error"),
+      confirmButtonText: "OK",
+    });
   }
 };
 
@@ -486,6 +508,28 @@ const createEllipses = () => {
   });
 };
 
+const isButtonDisabled = computed(() => {
+  return store.getUserMail && store.getUserRole !== "Skipper";
+});
+
+const handleClick = () => {
+  if (isButtonDisabled.value) {
+    Swal.fire({
+      icon: "error",
+      title: "Access Denied",
+      text: "Only skippers can access this feature.",
+      showCancelButton: true,
+      confirmButtonText: "Register",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigateTo(localePath("/license-registration"));
+      }
+    });
+  } else {
+    sendMarkerData();
+  }
+};
+
 const sendMarkerData = async () => {
   if (currentMarker.value) {
     const markerData = {
@@ -504,34 +548,40 @@ const sendMarkerData = async () => {
 
     if (data.value.message == "Booking successful.") {
       Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text:  t('success_booking'),
-      confirmButtonText: 'OK'
+        icon: "success",
+        title: "Success",
+        text: t("map.success_booking"),
+        confirmButtonText: "OK",
       }).then((result) => {
-      if (result.isConfirmed) {
-        // Actions to perform after clicking "OK"
-        resetMap();
-        initializeMap();
-        location.reload();
-      }});
+        if (result.isConfirmed) {
+          // Actions to perform after clicking "OK"
+          resetMap();
+          initializeMap();
+          location.reload();
+        }
+      });
     } else {
       Swal.fire({
-        icon: 'Error',
-        title: 'Error',
-        text: 'Error sending marker data: ' + data.value.message,
-        confirmButtonText: 'OK', 
+        icon: "Error",
+        title: "Error",
+        text: "Error sending marker data: " + data.value.message,
+        confirmButtonText: "OK",
       });
     }
   } else {
     Swal.fire({
-        icon: 'Error',
-        title: 'Error',
-        text:  t('add_marker_before_send'),
-        confirmButtonText: 'OK', 
-      });
+      icon: "Error",
+      title: "Error",
+      text: t("map.add_marker_before_send"),
+      confirmButtonText: "OK",
+    });
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.disabled-button {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+</style>

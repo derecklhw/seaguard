@@ -5,10 +5,6 @@
   overflow: hidden;
 }
 
-h1 {
-  font-family: "Times New Roman", Times, serif;
-}
-
 /* Video element styling */
 #background-video {
   position: absolute;
@@ -27,7 +23,12 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(25, 90, 148, 0.5); /* Adjust opacity for dimming effect */
+  background-color: rgba(
+    25,
+    90,
+    148,
+    0.5
+  ); /* Adjust opacity for dimming effect */
   z-index: -1;
 }
 
@@ -49,7 +50,7 @@ h1 {
 .text-section {
   padding: 20px;
   border-radius: 8px;
-  position:relative; /* Optional: Rounded corners */
+  position: relative; /* Optional: Rounded corners */
 }
 
 .card {
@@ -58,9 +59,9 @@ h1 {
   height: 265px;
   background: white;
   border-radius: 30px;
-  box-shadow: 15px 15px 40px #bebebe, -15px -15px 30px #ffffff;
+  border: solid 1px #d4d4d4;
+  /* box-shadow: 15px 15px 40px #bebebe, -15px -15px 30px #ffffff; */
   transition: 0.2s ease-in-out;
-  margin: 35px;
 }
 
 .img {
@@ -68,7 +69,7 @@ h1 {
   height: 50%;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  background: linear-gradient(#e66465, #9198e5);
+  background: #c7c7c7;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,7 +147,7 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: center; /* Centers the carousel within its container */
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-bottom: 20px;
   position: relative; /* Ensure positioning context for buttons */
 }
@@ -160,7 +161,8 @@ h1 {
 }
 
 /* Styling for the previous and next buttons */
-.carousel-next, .carousel-previous {
+.carousel-next,
+.carousel-previous {
   position: absolute;
   top: 50%; /* Vertically center the buttons */
   transform: translateY(-50%);
@@ -181,18 +183,20 @@ h1 {
   left: 10px; /* Position to the left */
 }
 
-.carousel-next:hover, .carousel-previous:hover {
+.carousel-next:hover,
+.carousel-previous:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-  .carousel-next, .carousel-previous {
+  .carousel-next,
+  .carousel-previous {
     width: 30px;
     height: 30px;
     padding: 5px;
   }
-  
+
   .carousel-container {
     overflow: hidden; /* Hide overflow on smaller screens */
   }
@@ -204,7 +208,8 @@ h1 {
 
 /* Adjust button size and position on very small screens */
 @media (max-width: 480px) {
-  .carousel-next, .carousel-previous {
+  .carousel-next,
+  .carousel-previous {
     width: 25px;
     height: 25px;
     padding: 3px;
@@ -224,7 +229,7 @@ h1 {
 .text-section-container {
   flex: 0 0 100%;
   text-align: left;
-  padding-left: 30px;
+  /* padding-left: 30px; */
   box-sizing: border-box; /* Ensure padding is included in width */
 }
 
@@ -253,11 +258,6 @@ h1 {
 }
 
 .circle-item {
-  display: flex;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  justify-content: center; /* Center items horizontally */
-  align-items: center; /* Center items vertically */
-  gap: 20px; /* Space between circle-items */
   margin-bottom: 20px; /* Added margin for separation */
 }
 
@@ -294,11 +294,6 @@ h1 {
 
 /* Responsive design for smaller screens */
 @media (max-width: 600px) {
-  .circle-item {
-    flex-direction: column; /* Stack circles and text vertically */
-    align-items: center; /* Center items horizontally */
-  }
-
   .circle {
     width: 20vw; /* Adjust size for smaller screens */
     height: 20vw; /* Adjust size for smaller screens */

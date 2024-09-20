@@ -1,31 +1,29 @@
 <template>
-
-
-  <div v-if="!loading" class="main-container">
+  <div v-if="!loading" class="main-container w-full">
     <div class="main-body-container">
       <!-- Background video -->
-      <video autoplay muted loop id="background-video">
+      <video id="background-video" autoplay muted loop>
         <source src="/videos/background_e-learning.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div class="video-overlay"></div>
+      <div class="video-overlay" />
 
       <div class="content">
         <div class="text-image-container">
           <!-- Text Section -->
-          <div class="text-section-container">
+          <div class="text-section-container md:ml-32">
             <div class="text-section-wrapper">
               <div class="text-section">
                 <p
-                  v-html="mainText"
                   style="
                     font-size: 36px;
                     font-weight: bold;
                     margin: 0;
                     color: #ffffff;
                   "
-                ></p>
+                  v-html="mainText"
+                />
               </div>
               <Button
                 size="lg"
@@ -37,7 +35,6 @@
             </div>
           </div>
 
-     
           <!-- <div class="image-section">
             <img src="/images/test.png" alt="Description of image" id="background-image" style="width: 100%; height: auto;">
           </div> -->
@@ -47,63 +44,66 @@
 
     <!-- Circle content section -->
     <div
-      class="content"
+      class="content my-6"
       style="
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         height: auto;
-        margin-top: 10px;
       "
     >
       <div
-        class="circle-item"
-        style="
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          align-items: center;
-          gap: 20px;
-        "
+        class="circle-item flex w-full gap-10"
+        style="justify-content: center; align-items: center"
       >
-        <div class="circle">
-          <IconVideoCam />
+        <div class="flex flex-col md:flex-row">
+          <div class="circle">
+            <IconVideoCam />
+          </div>
+          <div class="circle-text" style="text-align: center; font-size: 1rem">
+            <span class="number" style="font-size: 1.5rem; font-weight: bold">{{
+              videoCount
+            }}</span>
+            <span class="plus" style="font-size: 1.5rem">+</span> <br />
+            <span class="label" style="font-size: 1rem"
+              ><p v-html="videotag"
+            /></span>
+          </div>
         </div>
-        <div class="circle-text" style="text-align: center; font-size: 1rem">
-          <span class="number" style="font-size: 1.5rem; font-weight: bold">{{
-            videoCount
-          }}</span>
-          <span class="plus" style="font-size: 1.5rem">+</span> <br />
-          <span class="label" style="font-size: 1rem"><p v-html="videotag" ></p></span>
+        <div class="flex flex-col md:flex-row">
+          <div class="circle">
+            <IconUsers />
+          </div>
+          <div class="circle-text" style="text-align: center; font-size: 1rem">
+            <span class="number" style="font-size: 1.5rem; font-weight: bold">{{
+              userCount
+            }}</span>
+            <span class="plus" style="font-size: 1.5rem">+</span> <br />
+            <span class="label" style="font-size: 1rem"
+              ><p v-html="users"
+            /></span>
+          </div>
         </div>
-
-        <div class="circle">
-          <IconUsers />
-        </div>
-        <div class="circle-text" style="text-align: center; font-size: 1rem">
-          <span class="number" style="font-size: 1.5rem; font-weight: bold">{{
-            userCount
-          }}</span>
-          <span class="plus" style="font-size: 1.5rem">+</span> <br />
-          <span class="label" style="font-size: 1rem"><p v-html="users" ></p></span>
-        </div>
-
-        <div class="circle">
-          <IconUsers />
-        </div>
-        <div class="circle-text" style="text-align: center; font-size: 1rem">
-          <span class="number" style="font-size: 1.5rem; font-weight: bold"
-            >2</span
-          >
-          <span class="plus" style="font-size: 1.5rem">+</span> <br />
-          <span class="label" style="font-size: 1rem"><p v-html="trainer" ></p></span>
+        <div class="flex flex-col md:flex-row">
+          <div class="circle">
+            <IconUsers />
+          </div>
+          <div class="circle-text" style="text-align: center; font-size: 1rem">
+            <span class="number" style="font-size: 1.5rem; font-weight: bold"
+              >2</span
+            >
+            <span class="plus" style="font-size: 1.5rem">+</span> <br />
+            <span class="label" style="font-size: 1rem"
+              ><p v-html="trainer"
+            /></span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Carousel section with responsive styling -->
-    <div class="carousel-container" >
+    <div class="carousel-container">
       <div class="carousel-wrapper">
         <Carousel
           class="w-full"
@@ -111,7 +111,6 @@
             width: '100%',
             maxWidth: '1200px',
           }"
-
         >
           <CarouselContent id="carousel-container">
             <CarouselItem
@@ -126,15 +125,14 @@
                     v-if="video.ThumbnailId"
                     :src="video.ThumbnailId"
                     alt="Thumbnail"
-                    style="width: 100%; height: auto; "
+                    style="width: 100%; height: auto"
                   />
                   <img
                     v-else
                     src="/images/default-thumbnail.png"
                     alt="Default Thumbnail"
-                    style="width: 100%; height: auto;"
+                    style="width: 100%; height: auto"
                   />
-
                 </div>
                 <div class="text">
                   <h3>{{ video.title }}</h3>
@@ -158,15 +156,8 @@
 </template>
 
 <script>
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { ref, onMounted, watch } from "vue";
-import { useRouter } from "vue-router"; // Import useRouter for navigation
+// import { useRouter } from "vue-router"; // Import useRouter for navigation
 
 const scrollTo = (id) => {
   const element = document.getElementById(id);
@@ -174,24 +165,8 @@ const scrollTo = (id) => {
 };
 
 export default {
-  computed: {
-    mainText() {
-      // Retrieve the translated text and replace \n with <br>
-      return this.$t("e-learning.main_text").replace(/\\n/g, "<br>");
-    },
-    users() {
-      return this.$t("e-learning.users");
-    },
-    videotag() {
-      return this.$t("e-learning.videoCount");
-    },
-
-    trainer() {
-      return this.$t("e-learning.trainer");
-    },
-  },
   setup() {
-    const router = useRouter(); // Initialize router
+    // const router = useRouter(); // Initialize router
     const userCount = ref(0);
     const videoCount = ref(0);
     const videoData = ref([]);
@@ -229,7 +204,7 @@ export default {
             id: video.Id, // Include video ID
             title: video.Name, // Use video name
             details: `${video.DurationInSeconds} seconds`, // Use video duration
-            ThumbnailId: video.ThumbnailId // Include ThumbnailId
+            ThumbnailId: video.ThumbnailId, // Include ThumbnailId
           }));
         } else {
           console.error("Error fetching video count:", data.message);
@@ -254,8 +229,23 @@ export default {
       navigateToVideo, // Expose method to the template
     };
   },
-};
+  computed: {
+    mainText() {
+      // Retrieve the translated text and replace \n with <br>
+      return this.$t("e-learning.main_text").replace(/\\n/g, "<br>");
+    },
+    users() {
+      return this.$t("e-learning.users");
+    },
+    videotag() {
+      return this.$t("e-learning.videoCount");
+    },
 
+    trainer() {
+      return this.$t("e-learning.trainer");
+    },
+  },
+};
 </script>
 
-<style src="@/assets/e-learning.css"></style>
+<style src="@/assets/e-learning.css" scoped></style>

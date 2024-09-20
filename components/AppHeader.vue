@@ -26,10 +26,10 @@
         {{ $t("map") }}
       </NuxtLink>
       <NuxtLink
-        :to="localePath('incidents')"
+        :to="localePath('incident-reporting')"
         class="text-muted-foreground transition-colors hover:text-foreground"
       >
-        {{ $t("incidents") }}
+        {{ $t("incident-reporting") }}
       </NuxtLink>
       <NuxtLink
         :to="localePath('donation')"
@@ -102,10 +102,10 @@
           </SheetClose>
           <SheetClose as-child>
             <NuxtLink
-              :to="localePath('incidents')"
+              :to="localePath('incident-reporting')"
               class="text-muted-foreground hover:text-foreground"
             >
-              {{ $t("incidents") }}
+              {{ $t("incident-reporting") }}
             </NuxtLink>
           </SheetClose>
           <SheetClose as-child>
