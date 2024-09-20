@@ -52,6 +52,7 @@ export default defineNuxtConfig({
       apiKey: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_KEY,
       endpoint: process.env.AZURE_AI_DOCUMENT_INTELLIGENCE_API_ENDPOINT,
     },
+    stripeApiKey: process.env.STRIPE_SECRET_KEY
   },
   modules: [
     "@nuxtjs/i18n",
