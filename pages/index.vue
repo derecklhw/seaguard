@@ -232,8 +232,11 @@ const scrollTo = (id) => {
 onMounted(async () => {
   // TODO: need to cater for the case where there are no incidents
   const response = await $fetch("/api/get-incidents");
-  if (response.success)
+  if (response.success) {
+    // sort the incidents by timestamp in descending order
+    response.message.recordset.sort((a, b) => b.Timestamp - a.Timestamp);
     incidents.value = response.message.recordset.slice(0, 3);
+  }
 });
 
 // Function to calculate the time difference in a human-readable format

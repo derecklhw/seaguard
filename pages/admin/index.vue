@@ -1,5 +1,7 @@
 <template>
-  <div class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+  <div
+    class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]"
+  >
     <!-- Sidebar -->
     <div class="hidden border-r bg-muted/40 md:block">
       <div class="flex h-full max-h-screen flex-col gap-2">
@@ -14,17 +16,21 @@
             <!-- Links with click events to change the active section -->
             <a
               href="#"
-              @click.prevent="setActiveSection('incidentDashboard')"
-              :class="activeSection === 'incidentDashboard' ? 'text-blue-500' : 'text-black'"
+              @click.prevent="setActiveSection('incidents')"
+              :class="
+                activeSection === 'incidents' ? 'text-blue-500' : 'text-black'
+              "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
             >
               <Home class="h-4 w-4" />
-              Incident Dashboard
+              Incidents
             </a>
             <a
               href="#"
               @click.prevent="setActiveSection('videoUpload')"
-              :class="activeSection === 'videoUpload' ? 'text-blue-500' : 'text-black'"
+              :class="
+                activeSection === 'videoUpload' ? 'text-blue-500' : 'text-black'
+              "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
             >
               <ShoppingCart class="h-4 w-4" />
@@ -33,7 +39,11 @@
             <a
               href="#"
               @click.prevent="setActiveSection('thumbnailUpload')"
-              :class="activeSection === 'thumbnailUpload' ? 'text-blue-500' : 'text-black'"
+              :class="
+                activeSection === 'thumbnailUpload'
+                  ? 'text-blue-500'
+                  : 'text-black'
+              "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
             >
               <Package class="h-4 w-4" />
@@ -41,12 +51,14 @@
             </a>
             <a
               href="#"
-              @click.prevent="setActiveSection('documentUpload')"
-              :class="activeSection === 'documentUpload' ? 'text-blue-500' : 'text-black'"
+              @click.prevent="setActiveSection('documents')"
+              :class="
+                activeSection === 'documents' ? 'text-blue-500' : 'text-black'
+              "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
-              >
+            >
               <ShoppingCart class="h-4 w-4" />
-              Document Upload
+              Documents
             </a>
           </nav>
         </div>
@@ -68,10 +80,10 @@
         <div class="flex items-center">
           <h1 class="text-lg font-semibold md:text-2xl">
             <!-- Display dynamic title based on active section -->
-            {{ activeSection === 'incidentDashboard' ? 'Incident Dashboard' : '' }}
-            {{ activeSection === 'videoUpload' ? 'Video Upload' : '' }}
-            {{ activeSection === 'thumbnailUpload' ? 'Thumbnail Upload' : '' }}
-            {{ activeSection === 'documentUpload' ? 'Document Upload' : '' }}
+            {{ activeSection === "incidents" ? "Incidents" : "" }}
+            {{ activeSection === "videoUpload" ? "Video Upload" : "" }}
+            {{ activeSection === "thumbnailUpload" ? "Thumbnail Upload" : "" }}
+            {{ activeSection === "documents" ? "Documents" : "" }}
           </h1>
         </div>
 
@@ -83,18 +95,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { Bell, Home, Package, Package2, ShoppingCart } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Card, CardDescription, CardHeader } from '@/components/ui/card';
+import { ref, computed, onMounted } from "vue";
+import { Bell, Home, Package, Package2, ShoppingCart } from "lucide-vue-next";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 
 // Import the dynamic components
-import IncidentDashboard from '@/components/IncidentDashboard.vue';
-import VideoUpload from '@/components/VideoUpload.vue';
-import ThumbnailUpload from '@/components/ThumbnailUpload.vue';
-import DocumentUpload from '@/components/DocumentUpload.vue';
+import AdminIncidents from "@/components/AdminIncidents.vue";
+import VideoUpload from "@/components/VideoUpload.vue";
+import ThumbnailUpload from "@/components/ThumbnailUpload.vue";
+import AdminDocuments from "@/components/AdminDocuments.vue";
 // Define which section is active
-const activeSection = ref('incidentDashboard');
+const activeSection = ref("incidents");
+const adminStore = useAdminStore();
 
 // Function to change section
 const setActiveSection = (section: string) => {
@@ -104,16 +117,21 @@ const setActiveSection = (section: string) => {
 // Map active section to corresponding component
 const activeComponent = computed(() => {
   switch (activeSection.value) {
-    case 'incidentDashboard':
-      return IncidentDashboard;
-    case 'videoUpload':
+    case "incidents":
+      return AdminIncidents;
+    case "videoUpload":
       return VideoUpload;
-    case 'thumbnailUpload':
+    case "thumbnailUpload":
       return ThumbnailUpload;
-    case 'documentUpload':
-      return DocumentUpload;
+    case "documents":
+      return AdminDocuments;
     default:
-      return IncidentDashboard;
+      return AdminIncidents;
   }
+});
+
+onMounted(() => {
+  adminStore.setIncidents();
+  adminStore.setDocuments();
 });
 </script>
