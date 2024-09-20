@@ -113,6 +113,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
+import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -165,15 +166,30 @@ export default {
         const result = await response.json();
         if (result.success) {
           this.fetchVideos(); // Refresh the video list after saving
-          alert("Video updated successfully.");
+          Swal.fire({
+            title: "Success!",
+            text: "Video updated successfully.",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
         } else {
           // Log the detailed error message from the backend
           console.error("Error updating video:", result.message, result.error);
-          alert("Error updating video: " + result.message);
+          Swal.fire({
+            title: "Error!",
+            text: `Error updating video: ${result.message}`,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         }
       } catch (error) {
         console.error("Error saving changes:", error);
-        alert("Error saving changes: " + error.message);
+        Swal.fire({
+          title: "Error!",
+          text: `Error saving changes: ${error.message}`,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
     },
   },
