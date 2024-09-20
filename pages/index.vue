@@ -195,15 +195,15 @@
       <Progress v-model="progress" class="w-4/5 md:w-3/5 my-16" />
       <div class="flex w-4/5 md:w-3/5 justify-around mb-16">
         <div class="text-center">
-          <p class="font-bold md:text-2xl">$101,173.29</p>
+          <p class="font-bold md:text-2xl">Rs 0.00</p>
           <p class="md:text-xl">Raised</p>
         </div>
         <div class="text-center">
-          <p class="font-bold md:text-2xl">1,173</p>
+          <p class="font-bold md:text-2xl">0</p>
           <p class="md:text-xl">Donations</p>
         </div>
         <div class="text-center">
-          <p class="font-bold md:text-2xl">$200,000.00</p>
+          <p class="font-bold md:text-2xl">Rs 20,000</p>
           <p class="md:text-xl">Goal</p>
         </div>
       </div>
@@ -222,7 +222,7 @@ const localePath = useLocalePath();
 const progress = ref(13);
 
 watchEffect((cleanupFn) => {
-  const timer = setTimeout(() => (progress.value = 66), 500);
+  const timer = setTimeout(() => (progress.value = 0), 500);
   cleanupFn(() => clearTimeout(timer));
 });
 const scrollTo = (id) => {
