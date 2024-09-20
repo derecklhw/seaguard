@@ -7,7 +7,7 @@
       <div class="flex h-full max-h-screen flex-col gap-2">
         <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <a href="/" class="flex items-center gap-2 font-semibold">
-            <Package2 class="h-6 w-6" />
+            <!-- <Package2 class="h-6 w-6" /> -->
             <span class="">SEA GUARD</span>
           </a>
         </div>
@@ -22,7 +22,7 @@
               "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
             >
-              <Home class="h-4 w-4" />
+              <!-- <Home class="h-4 w-4" /> -->
               Incidents
             </a>
             <a
@@ -33,7 +33,7 @@
               "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
             >
-              <ShoppingCart class="h-4 w-4" />
+              <!-- <ShoppingCart class="h-4 w-4" /> -->
               Video Upload
             </a>
             <a
@@ -46,7 +46,7 @@
               "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
             >
-              <Package class="h-4 w-4" />
+              <!-- <Package class="h-4 w-4" /> -->
               Update Video Data
             </a>
             <a
@@ -57,8 +57,21 @@
               "
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
             >
-              <ShoppingCart class="h-4 w-4" />
+              <!-- <ShoppingCart class="h-4 w-4" /> -->
               Documents
+            </a>
+            <a
+              href="#"
+              @click.prevent="setActiveSection('boatTrackers')"
+              :class="
+                activeSection === 'boatTrackers'
+                  ? 'text-blue-500'
+                  : 'text-black'
+              "
+              class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+            >
+              <!-- <ShoppingCart class="h-4 w-4" /> -->
+              Boat Trackers
             </a>
           </nav>
         </div>
@@ -84,6 +97,7 @@
             {{ activeSection === "videoUpload" ? "Video Upload" : "" }}
             {{ activeSection === "thumbnailUpload" ? "Update Video Data" : "" }}
             {{ activeSection === "documents" ? "Documents" : "" }}
+            {{ activeSection === "boatTrackers" ? "Boat Trackers" : "" }}
           </h1>
         </div>
 
@@ -96,7 +110,6 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import { Bell, Home, Package, Package2, ShoppingCart } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 
@@ -105,6 +118,7 @@ import AdminIncidents from "@/components/AdminIncidents.vue";
 import VideoUpload from "@/components/VideoUpload.vue";
 import ThumbnailUpload from "@/components/ThumbnailUpload.vue";
 import AdminDocuments from "@/components/AdminDocuments.vue";
+import BoatTracker from "@/components/AdminBoatTrackers.vue";
 // Define which section is active
 const activeSection = ref("incidents");
 const adminStore = useAdminStore();
@@ -125,6 +139,8 @@ const activeComponent = computed(() => {
       return ThumbnailUpload;
     case "documents":
       return AdminDocuments;
+    case "boatTrackers":
+      return BoatTracker;
     default:
       return AdminIncidents;
   }
