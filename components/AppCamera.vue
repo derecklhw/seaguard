@@ -8,7 +8,9 @@
         @fullscreen="handleFullscreenEvent"
       />
     </ClientOnly>
-    <Button @click="toggleCamera">Take Photo</Button>
+    <Button class="w-full" :disabled="disableButton" @click="toggleCamera"
+      >Take Photo</Button
+    >
   </div>
 </template>
 
@@ -17,7 +19,7 @@ import { WebCamUI } from "vue-camera-lib";
 
 const cameraActive = ref(false);
 
-const props = defineProps(["type"]);
+const props = defineProps(["type", "disableButton"]);
 const emit = defineEmits(["photoAnalysis"]);
 
 const toggleCamera = () => {
@@ -25,7 +27,7 @@ const toggleCamera = () => {
 };
 
 const photoTaken = (data) => {
-  emit("photoAnalysis", "loading");
+  emit("photoAnalysis", { extracting: true });
   const model =
     props.type === "license" ? "MruBoatLicenseModel" : "prebuilt-layout";
 
@@ -40,7 +42,7 @@ const photoTaken = (data) => {
     method: "POST",
     body: fd,
   }).then((response) => {
-    emit("photoAnalysis", response);
+    emit("photoAnalysis", { extracting: false, response });
   });
 };
 

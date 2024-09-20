@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex flex-col">
-    <section class="border-t-2 border-gray-300" style="background-color: white">
+    <section>
       <div
         id="controls"
         class="flex flex-col lg:flex-row justify-center items-center h-fit lg:h-20 my-2 md:my-4"
@@ -58,8 +58,7 @@
       <client-only>
         <div
           id="mapContainer"
-          class="flex-grow z-0 w-full max-w-6xl"
-          style="min-height: 480px"
+          class="flex-grow z-0 w-full max-w-6xl min-h-[400px] md:min-h-[550px]"
         />
       </client-only>
     </div>
@@ -522,7 +521,7 @@ const handleClick = () => {
       confirmButtonText: "Register",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigateTo(localePath("/register"));
+        navigateTo(localePath("/license-registration"));
       }
     });
   } else {
