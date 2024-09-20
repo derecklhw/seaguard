@@ -12,10 +12,11 @@
       "
     >
       <h1 class="text-2xl sm:text-3xl md:text-5xl uppercase font-extrabold">
-        Welcome to Seaguard
+        {{ $t("home.welcome_message") }}
+        
       </h1>
       <Button size="lg" class="m-6 text-lg" @click="scrollTo('about-us')"
-        >Learn more about us!</Button
+        >{{ $t("home.learn_more") }}</Button
       >
     </div>
     <div
@@ -23,7 +24,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 items-center my-14 mx-8 md:mx-24"
     >
       <div>
-        <h2 class="text-3xl md:text-4xl font-bold uppercase">About us</h2>
+        <h2 class="text-3xl md:text-4xl font-bold uppercase">{{ $t("home.about_us") }}</h2>
         <p class="text-xl md:text-2xl my-2 leading-relaxed">
           {{ $t("home.about_us_text") }}
         </p>
@@ -48,7 +49,7 @@
       </div>
     </div>
     <div class="flex flex-col items-center my-14">
-      <h2 class="text-3xl md:text-4xl font-bold uppercase">Our Features</h2>
+      <h2 class="text-3xl md:text-4xl font-bold uppercase">{{ $t("home.features") }}</h2>
       <div
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-16 w-10/12 mt-14"
       >
@@ -58,7 +59,7 @@
             @click="$router.push(localePath('map'))"
           >
             <IconMapInformation class="size-12 m-3" />
-            <span class="text-2xl font-semibold">Interactive Map</span>
+            <span class="text-2xl font-semibold">{{ $t("home.map") }}</span>
           </CardContent>
         </Card>
         <Card>
@@ -67,7 +68,7 @@
             @click="$router.push(localePath('e-learning'))"
           >
             <IconLaptop class="size-12 m-3" />
-            <span class="text-2xl font-semibold">E-Learning Platform</span>
+            <span class="text-2xl font-semibold">{{ $t("home.e-learning") }}</span>
           </CardContent>
         </Card>
         <Card>
@@ -76,7 +77,7 @@
             @click="$router.push(localePath('incident-reporting'))"
           >
             <IconDangerOutline class="size-12 m-3" />
-            <span class="text-2xl font-semibold">Incident Reporting</span>
+            <span class="text-2xl font-semibold">{{ $t("home.incident-reporting") }}</span>
           </CardContent>
         </Card>
         <Card>
@@ -85,13 +86,13 @@
             @click="$router.push(localePath('donation'))"
           >
             <IconMoneyBag class="size-12 m-3" />
-            <span class="text-2xl font-semibold">Donation Platform</span>
+            <span class="text-2xl font-semibold">{{ $t("home.donation") }}</span>
           </CardContent>
         </Card>
       </div>
     </div>
     <div class="flex flex-col items-center my-14">
-      <h2 class="text-3xl md:text-4xl font-bold uppercase">Interactive Map</h2>
+      <h2 class="text-3xl md:text-4xl font-bold uppercase">{{ $t("home.interactive_map") }}</h2>
       <div
         class="bg-cover bg-center w-screen flex flex-col justify-center items-center mt-10"
         style="
@@ -105,10 +106,7 @@
         "
       >
         <p class="w-10/12 md:w-2/5 text-lg md:text-xl font-bold text-center">
-          Navigate Mauritius’ waters with our Interactive Map, featuring red and
-          yellow zones to indicate restricted areas. Skippers can log boat
-          details, including time-in and time-out, and track their location
-          safely.
+          {{ $t("home.interactive_map_text") }}
         </p>
         <Button
           size="lg"
@@ -119,7 +117,7 @@
       </div>
     </div>
     <div class="flex flex-col items-center my-14">
-      <h2 class="text-3xl md:text-4xl font-bold uppercase">Incident Reports</h2>
+      <h2 class="text-3xl md:text-4xl font-bold uppercase">{{ $t("home.incident-reporting") }}</h2>
       <div
         v-if="incidents.length <= 0"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-16 w-11/12 md:w-10/12 mt-12"
@@ -181,33 +179,33 @@
         size="lg"
         class="mt-12 text-md md:text-lg"
         @click="$router.push(localePath('incident-reporting'))"
-        >Report an incident</Button
+        >{{ $t("home.incident-reporting") }}</Button
       >
     </div>
     <div class="flex flex-col items-center mt-10 py-8">
       <h2 class="text-3xl md:text-4xl font-bold uppercase">
-        Donation Platform
+        {{ $t("home.donation") }}
       </h2>
       <Progress v-model="progress" class="w-4/5 md:w-3/5 my-16" />
       <div class="flex w-4/5 md:w-3/5 justify-around mb-16">
         <div class="text-center">
-          <p class="font-bold md:text-2xl">$101,173.29</p>
-          <p class="md:text-xl">Raised</p>
+          <p class="font-bold md:text-2xl">Rs 0.00</p>
+          <p class="md:text-xl">{{ $t("home.donation.raised") }}</p>
         </div>
         <div class="text-center">
-          <p class="font-bold md:text-2xl">1,173</p>
-          <p class="md:text-xl">Donations</p>
+          <p class="font-bold md:text-2xl">0</p>
+          <p class="md:text-xl">{{ $t("home.donation") }}</p>
         </div>
         <div class="text-center">
-          <p class="font-bold md:text-2xl">$200,000.00</p>
-          <p class="md:text-xl">Goal</p>
+          <p class="font-bold md:text-2xl">Rs 20,000</p>
+          <p class="md:text-xl">{{ $t("home.donation.goal") }}</p>
         </div>
       </div>
       <Button
         size="lg"
         class="text-md md:text-lg"
         @click="$router.push(localePath('donation'))"
-        >Donate now</Button
+        >{{ $t("home.donation.now") }}</Button
       >
     </div>
   </div>
@@ -222,7 +220,7 @@ const incidents = ref([]);
 dayjs.extend(relativeTime);
 
 watchEffect((cleanupFn) => {
-  const timer = setTimeout(() => (progress.value = 66), 500);
+  const timer = setTimeout(() => (progress.value = 0), 500);
   cleanupFn(() => clearTimeout(timer));
 });
 const scrollTo = (id) => {
@@ -232,8 +230,11 @@ const scrollTo = (id) => {
 onMounted(async () => {
   // TODO: need to cater for the case where there are no incidents
   const response = await $fetch("/api/get-incidents");
-  if (response.success)
+  if (response.success) {
+    // sort the incidents by timestamp in descending order
+    response.message.recordset.sort((a, b) => b.Timestamp - a.Timestamp);
     incidents.value = response.message.recordset.slice(0, 3);
+  }
 });
 
 // Function to calculate the time difference in a human-readable format
