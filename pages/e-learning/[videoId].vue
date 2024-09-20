@@ -1,18 +1,18 @@
 <template>
-  <div class="video-container">
+  <div class="video-container w-full">
     <!-- Display Video Player -->
-    <div class="video-player" v-if="videoId">
+    <div v-if="videoId" class="video-player">
       <iframe
         width="100%"
         height="100%"
         :src="`https://www.videoindexer.ai/embed/player/a219ba29-e6ea-4d94-88b3-176fab58244c/${videoId}/?&locale=en&location=southeastasia`"
         frameborder="0"
         allowfullscreen
-      ></iframe>
+      />
     </div>
 
     <!-- Display Insights Widget -->
-    <div class="insights-container" v-if="videoId">
+    <div v-if="videoId" class="insights-container">
       <div class="insights-content">
         <iframe
           width="100%"
@@ -20,7 +20,7 @@
           :src="`https://www.videoindexer.ai/embed/insights/a219ba29-e6ea-4d94-88b3-176fab58244c/${videoId}/?&locale=en&location=southeastasia`"
           frameborder="0"
           allowfullscreen
-        ></iframe>
+        />
       </div>
     </div>
   </div>
@@ -28,15 +28,15 @@
 
 <script>
 export default {
-  mounted() {
-    this.videoId = this.$route.params.videoId;
-    console.log(this.videoId);
-    console.log("Highlight");
-  },
   data() {
     return {
       videoId: "",
     };
+  },
+  mounted() {
+    this.videoId = this.$route.params.videoId;
+    console.log(this.videoId);
+    console.log("Highlight");
   },
 };
 </script>

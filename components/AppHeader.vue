@@ -26,10 +26,10 @@
         {{ $t("map") }}
       </NuxtLink>
       <NuxtLink
-        :to="localePath('incidents')"
+        :to="localePath('incident-reporting')"
         class="text-muted-foreground transition-colors hover:text-foreground"
       >
-        {{ $t("incidents") }}
+        {{ $t("incident-reporting") }}
       </NuxtLink>
       <NuxtLink
         :to="localePath('donation')"
@@ -102,10 +102,10 @@
           </SheetClose>
           <SheetClose as-child>
             <NuxtLink
-              :to="localePath('incidents')"
+              :to="localePath('incident-reporting')"
               class="text-muted-foreground hover:text-foreground"
             >
-              {{ $t("incidents") }}
+              {{ $t("incident-reporting") }}
             </NuxtLink>
           </SheetClose>
           <SheetClose as-child>
@@ -166,12 +166,17 @@
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <!-- <DropdownMenuLabel>My Account</DropdownMenuLabel> -->
+          <DropdownMenuLabel v-if="store.getUserMail">{{
+            store.getUserMail
+          }}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <!-- <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem> -->
-          <DropdownMenuSeparator />
-          <DropdownMenuItem @click="logout">Logout</DropdownMenuItem>
+          <DropdownMenuLabel v-if="store.getUserRole"
+            >Role: {{ store.getUserRole }}</DropdownMenuLabel
+          >
+          <DropdownMenuItem class="cursor-pointer" @click="logout"
+            >Logout</DropdownMenuItem
+          >
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

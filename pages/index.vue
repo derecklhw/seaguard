@@ -73,7 +73,7 @@
         <Card>
           <CardContent
             class="bg-5C98CC hover:bg-5C98CC/90 flex flex-col aspect-video items-center justify-center text-center p-6 cursor-pointer"
-            @click="$router.push(localePath('incidents'))"
+            @click="$router.push(localePath('incident-reporting'))"
           >
             <IconDangerOutline class="size-12 m-3" />
             <span class="text-2xl font-semibold">Incident Reporting</span>
@@ -121,70 +121,66 @@
     <div class="flex flex-col items-center my-14">
       <h2 class="text-3xl md:text-4xl font-bold uppercase">Incident Reports</h2>
       <div
+        v-if="incidents.length <= 0"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-16 w-11/12 md:w-10/12 mt-12"
       >
         <Card
+          v-for="n in 3"
+          :key="n"
           class="flex flex-col aspect-square items-center justify-center text-center p-6 border-A4C8F9 border-solid"
         >
           <CardHeader>
-            <h3 class="text-lg font-bold">Incident 1</h3>
+            <Skeleton class="h-4 w-[250px]" />
           </CardHeader>
           <CardContent>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
-              incidunt aliquam numquam exercitationem, unde, autem tenetur
-              temporibus est a, impedit sapiente delectus veritatis!
-            </p>
+            <Skeleton class="h-[125px] w-[250px] rounded-xl" />
+            <div class="space-y-2">
+              <Skeleton class="h-4 w-[250px]" />
+              <Skeleton class="h-4 w-[200px]" />
+            </div>
           </CardContent>
           <CardFooter class="flex items-center space-x-2 text-4E6D98">
-            <span class="h-2 w-2 rounded-full bg-green-500" />
-            <p>Posted 2 hours ago - resolved</p>
+            <Skeleton class="h-4 w-[250px]" />
           </CardFooter>
         </Card>
+      </div>
+      <div
+        v-else
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-16 w-11/12 md:w-10/12 mt-12"
+      >
         <Card
+          v-for="incident in incidents"
+          :key="incident.id"
           class="flex flex-col aspect-square items-center justify-center text-center p-6 border-A4C8F9 border-solid"
         >
           <CardHeader>
-            <h3 class="text-lg font-bold">Incident 2</h3>
+            <h3 class="text-lg font-bold">{{ incident.Title }}</h3>
           </CardHeader>
           <CardContent>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
-              incidunt aliquam numquam exercitationem, unde, autem tenetur
-              temporibus est a, impedit sapiente delectus veritatis!
+              {{ incident.Description }}
             </p>
           </CardContent>
           <CardFooter class="flex items-center space-x-2 text-4E6D98">
-            <span class="h-2 w-2 rounded-full bg-yellow-500" />
-            <p>Posted 3 hours ago - pending</p>
-          </CardFooter>
-        </Card>
-        <Card
-          class="flex flex-col aspect-square items-center justify-center text-center p-6 border-A4C8F9 border-solid"
-        >
-          <CardHeader>
-            <h3 class="text-lg font-bold">Incident 3</h3>
-          </CardHeader>
-          <CardContent>
+            <span
+              :class="{
+                'bg-green-500': incident.Status === 'Resolved',
+                'bg-yellow-500': incident.Status === 'Pending',
+                'bg-red-500': incident.Status === 'Critical',
+              }"
+              class="h-2 w-2 rounded-full"
+            />
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Consectetur ea, dolorum distinctio ipsum ex maiores. Error
-              incidunt aliquam numquam exercitationem, unde, autem tenetur
-              temporibus est a, impedit sapiente delectus veritatis!
+              Posted {{ getRelativeTime(incident.Timestamp) }} -
+              {{ incident.Status }}
             </p>
-          </CardContent>
-          <CardFooter class="flex items-center space-x-2 text-4E6D98">
-            <span class="h-2 w-2 rounded-full bg-yellow-500" />
-            <p>Posted 4 hours ago - pending</p>
           </CardFooter>
         </Card>
       </div>
       <Button
         size="lg"
         class="mt-12 text-md md:text-lg"
-        @click="$router.push(localePath('incidents'))"
+        @click="$router.push(localePath('incident-reporting'))"
         >Report an incident</Button
       >
     </div>
@@ -218,8 +214,12 @@
 </template>
 <script setup>
 import { ref, watchEffect, onMounted } from "vue";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 const localePath = useLocalePath();
 const progress = ref(13);
+const incidents = ref([]);
+dayjs.extend(relativeTime);
 
 watchEffect((cleanupFn) => {
   const timer = setTimeout(() => (progress.value = 66), 500);
@@ -229,6 +229,17 @@ const scrollTo = (id) => {
   const element = document.getElementById(id);
   element.scrollIntoView({ behavior: "smooth" });
 };
-onMounted(async () => {});
+onMounted(async () => {
+  // TODO: need to cater for the case where there are no incidents
+  const response = await $fetch("/api/get-incidents");
+  if (response.success)
+    incidents.value = response.message.recordset.slice(0, 3);
+});
+
+// Function to calculate the time difference in a human-readable format
+const getRelativeTime = (timestamp) => {
+  const incidentDate = dayjs.unix(timestamp);
+  return incidentDate.fromNow();
+};
 </script>
 <style lang="scss" scoped></style>

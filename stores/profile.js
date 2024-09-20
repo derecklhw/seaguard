@@ -7,13 +7,12 @@ export const useProfileStore = defineStore("profile", {
     mail: "",
     surname: "",
     userPrincipalName: "",
-    licenseNumber: "",
     role: "",
   }),
   getters: {
     getUserPrincipalName: (state) => state.userPrincipalName,
     getUserMail: (state) => state.mail,
-    getUserRole: (state) => state.role, 
+    getUserRole: (state) => state.role,
   },
   actions: {
     async setProfile(profile) {
@@ -33,7 +32,6 @@ export const useProfileStore = defineStore("profile", {
             userPrincipalName: this.userPrincipalName,
           },
         });
-        this.licenseNumber = response.message.LicenseNumber;
         this.role = response.message.Role;
       }
     },
