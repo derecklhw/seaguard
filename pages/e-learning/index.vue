@@ -59,7 +59,7 @@
       >
         <div class="flex flex-col md:flex-row">
           <div class="circle">
-            <IconVideoCam />
+            <IconVideoCam class="text-white" />
           </div>
           <div class="circle-text" style="text-align: center; font-size: 1rem">
             <span class="number" style="font-size: 1.5rem; font-weight: bold">{{
