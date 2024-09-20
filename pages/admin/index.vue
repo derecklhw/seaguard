@@ -47,7 +47,7 @@
               class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
             >
               <Package class="h-4 w-4" />
-              Thumbnail Upload
+              Update Video Data
             </a>
             <a
               href="#"
@@ -82,7 +82,7 @@
             <!-- Display dynamic title based on active section -->
             {{ activeSection === "incidents" ? "Incidents" : "" }}
             {{ activeSection === "videoUpload" ? "Video Upload" : "" }}
-            {{ activeSection === "thumbnailUpload" ? "Thumbnail Upload" : "" }}
+            {{ activeSection === "thumbnailUpload" ? "Update Video Data" : "" }}
             {{ activeSection === "documents" ? "Documents" : "" }}
           </h1>
         </div>

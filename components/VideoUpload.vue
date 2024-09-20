@@ -33,23 +33,6 @@
           />
         </div>
 
-        <!-- Dropdown Select Example with shadcn components -->
-        <div class="w-full">
-          <Label for="category">Select Video Category</Label>
-          <Select>
-            <SelectTrigger id="category">
-              <SelectValue placeholder="Choose category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="education">Education</SelectItem>
-                <SelectItem value="entertainment">Entertainment</SelectItem>
-                <SelectItem value="sports">Sports</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-
         <Button
           type="submit"
           :disabled="!file || !title"
@@ -62,13 +45,13 @@
 
       <!-- Upload progress messages -->
       <div v-if="isUploading" class="mt-4">
-        <Spinner class="mr-2 h-4 w-4 animate-spin" />
+        <IconSpinner class="size-24 text-primary" />
         Uploading...
       </div>
 
       <div v-if="uploadSuccess" class="text-green-500 mt-4">
         Upload successful! <br />
-        <button @click="analyzeVideo">Start Analysis</button>
+        <button variant="default" @click="analyzeVideo">Start Analysis</button>
       </div>
 
       <div v-if="uploadError" class="text-red-500 mt-4">
@@ -76,17 +59,15 @@
       </div>
 
       <!-- Show progress bar during analysis -->
-      <div v-if="isAnalyzing" class="mt-4 w-full">
-        <h3 class="text-2xl font-bold tracking-tight">Analysis Progress</h3>
+      <div v-if="isAnalyzing" class="mt-4 ">
+        <Label for="video">Analysis in Progress</Label>
         <!-- Show progress bar during analysis -->
-        <!-- ShadCN Progress Bar -->
-        <Progress :value="parseInt(analysisProgress)" class="w-full mt-2" />
+        <IconSpinner class="size-24 text-primary"/>
       </div>
 
-      <!-- Show analysis results -->
-      <div v-if="analysisResults" class="mt-4">
-        <h3 class="text-2xl font-bold tracking-tight">Analysis Results</h3>
-        <pre>{{ analysisResults }}</pre>
+      <!-- Show analysis success message -->
+      <div v-if="analysisResults " class="text-green-500 ">
+        Video successfully analyzed with ID: {{ analysisResults.id }}
       </div>
     </div>
   </div>
