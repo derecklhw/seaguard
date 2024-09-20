@@ -522,7 +522,7 @@ const handleClick = () => {
       confirmButtonText: "Register",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigateTo(localePath("/register"));
+        navigateTo(localePath("/license-registration"));
       }
     });
   } else {

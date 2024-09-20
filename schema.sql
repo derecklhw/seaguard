@@ -247,16 +247,15 @@ CREATE TABLE Licensee (
 );
 -- Incidents Table
 CREATE TABLE Incidents (
-  Id NVARCHAR(50) PRIMARY KEY,
+  Id INT IDENTITY(1, 1) PRIMARY KEY,
   Title NVARCHAR(255) NOT NULL,
   Description NVARCHAR(MAX) NOT NULL,
   Timestamp INT NOT NULL,
   Status NVARCHAR(50) NOT NULL,
 );
 -- Create mocks for incidents table
-INSERT INTO Incidents (Id, Title, Description, Timestamp, Status)
+INSERT INTO Incidents (Title, Description, Timestamp, Status)
 VALUES (
-    '1',
     'Incident 1',
     'Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Consectetur ea, dolorum distinctio ipsum ex maiores. Error
@@ -265,9 +264,8 @@ VALUES (
     1726821721,
     'Resolved'
   );
-INSERT INTO Incidents (Id, Title, Description, Timestamp, Status)
+INSERT INTO Incidents (Title, Description, Timestamp, Status)
 VALUES (
-    '2',
     'Incident 2',
     'Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Consectetur ea, dolorum distinctio ipsum ex maiores. Error
@@ -276,9 +274,8 @@ VALUES (
     1724121720,
     'Pending'
   );
-INSERT INTO Incidents (Id, Title, Description, Timestamp, Status)
+INSERT INTO Incidents (Title, Description, Timestamp, Status)
 VALUES (
-    '3',
     'Incident 3',
     'Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Consectetur ea, dolorum distinctio ipsum ex maiores. Error

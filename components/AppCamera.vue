@@ -8,7 +8,9 @@
         @fullscreen="handleFullscreenEvent"
       />
     </ClientOnly>
-    <Button :disabled="disableButton" @click="toggleCamera">Take Photo</Button>
+    <Button class="w-full" :disabled="disableButton" @click="toggleCamera"
+      >Take Photo</Button
+    >
   </div>
 </template>
 

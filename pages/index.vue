@@ -73,7 +73,7 @@
         <Card>
           <CardContent
             class="bg-5C98CC hover:bg-5C98CC/90 flex flex-col aspect-video items-center justify-center text-center p-6 cursor-pointer"
-            @click="$router.push(localePath('incidents'))"
+            @click="$router.push(localePath('incident-reporting'))"
           >
             <IconDangerOutline class="size-12 m-3" />
             <span class="text-2xl font-semibold">Incident Reporting</span>
@@ -180,7 +180,7 @@
       <Button
         size="lg"
         class="mt-12 text-md md:text-lg"
-        @click="$router.push(localePath('incidents'))"
+        @click="$router.push(localePath('incident-reporting'))"
         >Report an incident</Button
       >
     </div>
