@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="bg-primary select-none p-8 min-h-screen overflow-hidden flex flex-col items-center justify-start bg-cover bg-fixed bg-no-repeat bg-center"
+      class="select-none p-8 min-h-screen overflow-hidden flex flex-col items-center justify-start bg-cover bg-fixed bg-no-repeat bg-center"
       style="
         background-image: radial-gradient(
             circle,
@@ -50,7 +50,7 @@
             :class="{
               'pointer-events-none': pauseControls,
             }"
-            class="w-full flex flex-col items-center justify-center gap-4"
+            class="w-full flex flex-col items-center justify-center gap-4 min-h-36 md:min-h-56"
           >
             <QuizMultipleChoiceButton
               :item="item"
