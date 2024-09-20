@@ -149,5 +149,6 @@ const activeComponent = computed(() => {
 onMounted(() => {
   adminStore.setIncidents();
   adminStore.setDocuments();
+  adminStore.setBoatTrackers();
 });
 </script>

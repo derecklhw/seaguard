@@ -9,10 +9,12 @@
             <TableHeader>
               <TableRow>
                 <TableHead>Id</TableHead>
-                <TableHead>Title</TableHead>
-                <TableHead class="hidden md:table-cell">Description</TableHead>
-                <TableHead>Timestamp</TableHead>
-                <TableHead class="hidden md:table-cell">Status</TableHead>
+                <TableHead>UserEmail</TableHead>
+                <TableHead class="hidden md:table-cell">Latitude</TableHead>
+                <TableHead>Longitude</TableHead>
+                <TableHead class="hidden md:table-cell">StartTime</TableHead>
+                <TableHead class="hidden md:table-cell">EndTime</TableHead>
+                <TableHead class="hidden md:table-cell">MarkerId</TableHead>
                 <TableHead>
                   <span class="sr-only">Actions</span>
                 </TableHead>
@@ -20,21 +22,27 @@
             </TableHeader>
             <TableBody>
               <TableRow
-                v-for="incident in formattedIncidents"
-                :key="incident.Id"
+                v-for="boatTracker in adminStore.getBoatTrackers"
+                :key="boatTracker.Id"
               >
-                <TableCell class="font-medium">{{ incident.Id }}</TableCell>
-                <TableCell class="max-w-sm max-h-16 truncate">{{
-                  incident.Title
+                <TableCell class="font-medium">{{ boatTracker.Id }}</TableCell>
+                <TableCell class="text-start max-w-sm max-h-16 truncate">{{
+                  boatTracker.userEmail
                 }}</TableCell>
                 <TableCell
                   class="hidden md:table-cell text-start max-w-xl max-h-16 truncate"
                 >
-                  {{ incident.Description }}
+                  {{ boatTracker.latitude }}
                 </TableCell>
-                <TableCell>{{ incident.formattedTimestamp }}</TableCell>
+                <TableCell>{{ boatTracker.longitude }}</TableCell>
                 <TableCell class="hidden md:table-cell">{{
-                  incident.Status
+                  boatTracker.startTime
+                }}</TableCell>
+                <TableCell class="hidden md:table-cell">{{
+                  boatTracker.endTime
+                }}</TableCell>
+                <TableCell class="hidden md:table-cell">{{
+                  boatTracker.markerId
                 }}</TableCell>
                 <TableCell>
                   <DropdownMenu>
@@ -60,20 +68,5 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
 const adminStore = useAdminStore();
-
-// Helper function to convert timestamp
-function formatTimestamp(unixTimestamp: number) {
-  const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
-  return date.toLocaleString(); // Adjust this for specific locale/date format
-}
-
-// Computed property to format the incidents
-const formattedIncidents = computed(() =>
-  adminStore.getIncidents.map((incident) => ({
-    ...incident,
-    formattedTimestamp: formatTimestamp(incident.Timestamp),
-  }))
-);
 </script>
