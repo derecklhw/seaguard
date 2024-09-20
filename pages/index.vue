@@ -205,7 +205,7 @@
         size="lg"
         class="text-md md:text-lg"
         @click="$router.push(localePath('donation'))"
-        >Donate now</Button
+        >{{ $t("home.donation.now") }}</Button
       >
     </div>
   </div>
