@@ -129,7 +129,7 @@ export default {
   methods: {
     async fetchVideos() {
       try {
-        const response = await fetch("/api/get_video_analysis_results");
+        const response = await fetch("/api/get-video-analysis-results");
         const data = await response.json();
         if (data.success) {
           this.videos = data.videos;
@@ -158,7 +158,7 @@ export default {
         }
 
         // Send a request to save the changes
-        const response = await fetch("/api/update_video_analysis", {
+        const response = await fetch("/api/update-video-analysis", {
           method: "POST",
           body: formData,
         });

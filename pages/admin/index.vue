@@ -115,8 +115,8 @@ import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 
 // Import the dynamic components
 import AdminIncidents from "@/components/AdminIncidents.vue";
-import VideoUpload from "@/components/VideoUpload.vue";
-import ThumbnailUpload from "@/components/ThumbnailUpload.vue";
+import VideoUpload from "~/components/AdminUploadVideo.vue";
+import ThumbnailUpload from "~/components/AdminUpdateVideo.vue";
 import AdminDocuments from "@/components/AdminDocuments.vue";
 import BoatTracker from "@/components/AdminBoatTrackers.vue";
 // Define which section is active
